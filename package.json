@@ -1,0 +1,49 @@
+{
+  "name": "workshop-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A Lit site organized with best modern standards",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "clean": "rimraf dist",
+    "build": "npm run clean && rollup -c",
+    "build:watch": "rollup -c -w",
+    "lint": "eslint 'src/**/*.ts'",
+    "format": "prettier \"**/*.{ts,js,json,md}\" --write",
+    "serve": "wds --root-dir=dist --file=index.html --watch",
+    "test": "wtr",
+    "test:watch": "wtr --watch"
+  },
+  "keywords": [
+    "lit",
+    "web-components",
+    "typescript"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "lit": "^3.2.0",
+    "tslib": "^2.8.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^6.0.3",
+    "@rollup/plugin-typescript": "^11.1.5",
+    "@typescript-eslint/eslint-plugin": "^5.25.0",
+    "@typescript-eslint/parser": "^5.25.0",
+    "@web/test-runner": "^0.15.0",
+    "eslint": "^8.15.0",
+    "prettier": "^2.6.2",
+    "rimraf": "^3.0.2",
+    "rollup": "^4.18.0",
+    "rollup-plugin-copy": "^3.5.0",
+    "typescript": "~5.9.0",
+    "@web/dev-server": "^0.1.31",
+    "@web/dev-server-legacy": "^1.0.0",
+    "@webcomponents/webcomponentsjs": "^2.8.0"
+  }
+}

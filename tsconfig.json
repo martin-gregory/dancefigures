@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    // "target": "ES2022",
+    // "module": "ESNext",
+    "moduleResolution": "node",
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false, // <-- Important for legacy decorator compatibility with Lit 3.x
+    "target": "ES2020", // Good for most apps
+    "emitDecoratorMetadata": false, // (default, only true if you need class metadata)
+    "module": "ESNext"
+  },
+  "include": ["src"]
+}
