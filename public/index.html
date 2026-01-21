@@ -2,28 +2,29 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Artisan Studio - Painting Workshop</title>
-  <!-- <script type="module" src="https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js"></script> -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dance Figures - Conceptual Paintings</title>
 
-  <!-- <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-  <script src="../node_modules/lit/polyfill-support.js"></script> -->
-  <!-- <script type="module" src="../workshop-site.js"></script>
-  <script type="module" src="../hero-parallax.js"></script>
-  <script type="module" src="../instagram-gallery.js"></script> -->
-  <!-- <script type="module" src="index.js"></script> -->
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+      --background-colour: #e5e9ea;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--background-colour);
     }
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
       line-height: 1.6;
+      background-color: var(--background-colour);
     }
+
 
     .container {
       max-width: 1200px;
@@ -34,16 +35,7 @@
 </head>
 
 <body>
-
-  <workshop-site>
-    <hero-parallax slot="hero">
-      <h1 style="position:absolute;z-index:10;top:40%;left:10%;color:white;">
-        Held by the Wind
-      </h1>
-    </hero-parallax>
-    <instagram-gallery slot="gallery"></instagram-gallery>
-
-  </workshop-site>
+  <workshop-container></workshop-container>
   <script type="module" src="./index.js"></script>
 </body>
 

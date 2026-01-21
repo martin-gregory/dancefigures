@@ -58,6 +58,14 @@ export class InstagramGallery extends LitElement {
       display: block;
     }
 
+    .section-title {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      font-weight: bold;
+      color: #1f2937;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
     /* Gallery */
     .instagram-header {
       text-align: center;
