@@ -21,8 +21,8 @@ export class PatternParallaxContainer extends LitElement {
       top: -200%;
       height: 400%;
       width: 100%;
-      /* background-image: url(/assets/test-1.jpg); */
-      background-image: url(/assets/test-3.png);
+      /* background-image: url(/img/test-1.jpg); */
+      /* background-image: url(/img/test-3.png); */
       background-repeat: repeat;
       animation: small-pattern-parallax both;
       animation-timeline: --pattern-section;
@@ -47,7 +47,7 @@ export class PatternParallaxContainer extends LitElement {
       top: -100%;
       height: 400%;
       width: 100%;
-      background-image: url(/assets/test-4.png);
+      /* background-image: url(/img/test-4.png); */
       background-repeat: repeat;
       animation: big-pattern-parallax both;
       animation-timeline: --pattern-section;
@@ -58,11 +58,11 @@ export class PatternParallaxContainer extends LitElement {
     @keyframes big-pattern-parallax {
       0% {
         opacity: 0;
-        transform: translateY(40%);
+        transform: translateY(10%);
       }
       100% {
         opacity: 1;
-        transform: translateY(-40%);
+        transform: translateY(-10%);
       }
     }
 
@@ -72,7 +72,10 @@ export class PatternParallaxContainer extends LitElement {
       gap: 10px;
       font-size: 2rem;
       color: white;
+      font-weight: normal;
       /* text-shadow: 0 0 10px #fff; */
+      position: absolute;
+      right: 170px;
 
       span {
         animation: pattern-text-parallax both;
@@ -86,7 +89,7 @@ export class PatternParallaxContainer extends LitElement {
         opacity: 0;
         transform: translateX(calc(var(--i) * 10%));
       }
-      50% {
+      5% {
         opacity: 1;
         transform: translateX(0);
       }
@@ -95,16 +98,19 @@ export class PatternParallaxContainer extends LitElement {
       }
     }
   `;
+
+  // style="background-image: url('${this.layers[0]}');"
+  @property({ type: Array })
+  layers: string[] = ['/img/test-2.jpg'];
+  @property({ type: Array })
+  words: string[] = ['Sensations', 'of', 'the', 'Sea'];
   override render() {
+    console.log('layers', this.layers);
     return html`
-      <section class="pattern-parallax-container">
-        <div class="pattern-bg-small"></div>
-        <div class="pattern-bg-large"></div>
-        <h2>
-          <span style="--i: -10">Sensations</span>
-          <span style="--i: 0">of the</span>
-          <span style="--i: 10">Sea</span>
-        </h2>
+      <section class="pattern-parallax-container" >
+        <div class="pattern-bg-small" style="background-image: url('${this.layers[0]}');"></div>
+        <!-- <div class="pattern-bg-large"></div> -->
+        <h2>${this.words.map((word, index) => html`<span style="--i: ${index * 8 - 10}">${word}</span>`)}</h2>
       </section>
     `;
   }

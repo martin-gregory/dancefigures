@@ -14,5 +14,5 @@
     "emitDecoratorMetadata": false, // (default, only true if you need class metadata)
     "module": "ESNext"
   },
-  "include": ["src"]
+  "include": ["src", "src/index.ts"]
 }

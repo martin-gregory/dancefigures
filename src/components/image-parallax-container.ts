@@ -29,7 +29,6 @@ export class ImageParallaxContainer extends LitElement {
     .image-bg {
       position: absolute;
       inset: 0;
-      background-image: url('/assets/test-1.jpg');
       background-size: cover;
       background-repeat: no-repeat;
       background-position: center 0;
@@ -81,15 +80,24 @@ export class ImageParallaxContainer extends LitElement {
       }
     }
   `;
+
+  @property({ type: String })
+  imageUrl: string = '/img/test-1.jpg';
+
+  @property({ type: Array })
+  words: string[] = ['Held', 'by', 'the', 'Wind'];
   override render() {
     return html`
       <section class="image-parallax-container">
-        <div class="image-bg"></div>
+        <div
+          class="image-bg"
+          style="background-image: url('${this.imageUrl}');"
+        ></div>
         <h2>
-          <span style="--i: -10">Held</span>
-          <span style="--i: -5">by</span>
-          <span style="--i: 0">the</span>
-          <span style="--i: 5">Wind</span>
+          
+          ${this.words.map(
+      (word, index) => html`<span style="--i: ${index * 5 - 10}">${word}</span>`
+    )}
         </h2>
       </section>
     `;

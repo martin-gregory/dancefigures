@@ -7,4 +7,5 @@ import './components/workshops-section';
 import './components/hero-scroll';
 import './components/image-parallax-container';
 import './components/pattern-parallax-container';
+import './components/progress-parallax-container';
 // Can add app bootstrapping logic here if needed

@@ -251,13 +251,13 @@ export class WorkshopSite extends LitElement {
     super.connectedCallback();
   }
 
-  private toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
-  }
+  // private toggleMenu() {
+  //   this.isMenuOpen = !this.isMenuOpen;
+  // }
 
-  private handleSubmit() {
-    alert("Message sent! We'll get back to you soon.");
-  }
+  // private handleSubmit() {
+  //   alert("Message sent! We'll get back to you soon.");
+  // }
 
   override render() {
     return html`
@@ -274,91 +274,37 @@ export class WorkshopSite extends LitElement {
         </div>
       </section> -->
 
-      <slot name="hero-scroll"></slot>
-      <slot name="image-parallax"></slot>
+      <slot name="hero-scroll-1"></slot>
+      <slot name="image-parallax-1" ></slot>
       <section class="spacer">
         <div class="content">
-          <h2>Keep Scrolling</h2>
-          <p>Each section has a completely different parallax effect!</p>
+          <h2>4 layers of acrylic</h2>
+          <p>Each layer compliments the others to create a dynamic visual experience.</p>
         </div>
       </section>
 
-      <slot name="pattern-parallax"></slot>
+      <slot name="pattern-parallax-1"></slot>
+      <!-- <slot name="progress-parallax-1"></slot> -->
 
-      <slot name="hero"></slot>
+      <slot name="hero-1"></slot>
 
-      <!-- About -->
-      <section id="about">
-        <div class="about-grid">
-          <div class="about-text">
-            <h2 class="section-title">About Our Studio</h2>
-            <p>
-              Welcome to Artisan Studio, where creativity meets community. For over a decade, we've been inspiring artists of all levels to explore
-              their passion for painting in a supportive and vibrant environment.
-            </p>
-            <p>
-              Our experienced instructors bring years of expertise and a genuine love for teaching. Whether you're picking up a brush for the first
-              time or looking to refine your technique, we have the perfect workshop for you.
-            </p>
-            <p>Join our community of creative souls and embark on an artistic journey that will transform the way you see the world.</p>
-          </div>
-          <div>
-            <img class="about-image" src="https://images.unsplash.com/photo-1561489396-888724a1543d?w=800&h=600&fit=crop" alt="Art Studio" />
-          </div>
+
+      <slot name="hero-scroll-2"></slot>
+      <slot name="image-parallax-2"></slot>
+
+      <section class="spacer">
+        <div class="content">
+          <h2>4 layers of acrylic</h2>
+          <p>Each layer compliments the others to create a dynamic visual experience.</p>
         </div>
       </section>
 
-      <!-- Workshops -->
+      <slot name="pattern-parallax-2"></slot>
+      <!-- <slot name="progress-parallax-2"></slot> -->
 
-      <slot name="workshops"></slot>
+      <slot name="hero-2"></slot>
 
-      <slot name="gallery"></slot>
 
-      <!-- Contact -->
-      <section id="contact" class="bg-gray">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="contact-item">
-              <div>📍</div>
-              <div>
-                <h3>Location</h3>
-                <p>123 Creative Avenue<br />Art District, CA 90210</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div>📞</div>
-              <div>
-                <h3>Phone</h3>
-                <p>(555) 123-4567</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div>✉️</div>
-              <div>
-                <h3>Email</h3>
-                <p>hello@artisanstudio.com</p>
-              </div>
-            </div>
-          </div>
-          <div class="contact-form">
-            <input type="text" placeholder="Your Name" />
-            <input type="email" placeholder="Your Email" />
-            <textarea placeholder="Your Message" rows="4"></textarea>
-            <button @click=${this.handleSubmit}>Send Message</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Footer -->
-      <footer>
-        <p>© 2026 Artisan Studio. All rights reserved.</p>
-        <div class="footer-links">
-          <a href="#">Instagram</a>
-          <a href="#">Facebook</a>
-          <a href="#">Pinterest</a>
-        </div>
-      </footer>
     `;
   }
 }

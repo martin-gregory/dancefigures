@@ -38,10 +38,11 @@ export class HeroScroll extends LitElement {
       font-weight: normal;
     }
 
-    .hero-scroll-content p {
+    .scroll-instruction {
       position: absolute;
       bottom: 0ex;
       font-size: 1.2rem;
+      color: white;
     }
   `;
   override render() {
@@ -50,8 +51,8 @@ export class HeroScroll extends LitElement {
         <div class="hero-scroll-content">
           <h1>Dance Figures </br> Conceptual Figurative Painting</h1>
           <h2>by Tiana Diakova</h2>
-          <p>Scroll down to see collection</p>
         </div>
+          <p class="scroll-instruction">Scroll down to see collection</p>
       </section>
     `;
   }
