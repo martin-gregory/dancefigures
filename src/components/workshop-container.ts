@@ -56,14 +56,14 @@ export class WorkshopContainer extends LitElement {
         <hr />
         <image-parallax-container
           slot="image-parallax-2"
-          imageUrl="/img/tide-animation-bg-sm.jpg"
+          imageUrl="/img/tide-animation-bg.jpg"
           .words=${['Moved', 'by', 'the', 'Tide']}
         ></image-parallax-container>
 
         <pattern-parallax-container
           slot="pattern-parallax-2"
           .words=${['Sensations', 'of', 'the', 'Wind']}
-          .layers=${['/img/tide-animation-1-sm.png']}
+          .layers=${['/img/tide-animation-1.png']}
         ></pattern-parallax-container>
 
         <hero-parallax
@@ -71,7 +71,7 @@ export class WorkshopContainer extends LitElement {
           .layers=${[
         {
           objectFit: 'fill',
-          src: '/img/tide-animation-bg-sm.jpg',
+          src: '/img/tide-animation-bg.jpg',
           startPos: '0',
           speed: 0,
         },
@@ -81,17 +81,17 @@ export class WorkshopContainer extends LitElement {
           position: { x: '100%' },
           speed: 0.04,
           src: '/img/tide-animation-3-sm.png',
-          startPos: '-400',
+          startPos: '-780',
           // stopPos: '200',
         },
         {
-          container: { maxWidth: '900px' },
+          // container: { maxWidth: '900px' },
           layerPosition: 'middle',
           objectFit: 'contain',
           position: { x: '0%' },
           speed: 0.1,
           src: '/img/tide-animation-2-sm.png',
-          startPos: '500',
+          startPos: '-1400',
           // stopPos: '10',
         },
         {
@@ -101,7 +101,7 @@ export class WorkshopContainer extends LitElement {
           position: { x: '0%' },
           speed: 0.01,
           src: '/img/tide-animation-1-sm.png',
-          startPos: '1250',
+          startPos: '250',
         },
       ]}
         >
