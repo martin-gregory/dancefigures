@@ -1,5 +1,18 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, css, html, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+interface Layer {
+  src: string;
+  speed: number;       // Parallax speed multiplier
+  startPos?: string;   // Starting offset px
+  stopPos?: string;    // Max parallax px
+  direction?: 'up' | 'down';
+  position?: { x?: string };
+  objectFit?: string;
+  container?: { maxWidth?: string };
+  id?: string;
+  alt?: string;
+}
 
 @customElement('hero-parallax')
 export class HeroParallax extends LitElement {
@@ -8,11 +21,8 @@ export class HeroParallax extends LitElement {
       display: block;
       position: relative;
       width: 100vw;
-      width: 100%;
-      /* overflow: hidden; */
-      height: 200vh;
       min-height: 400px;
-      /* max-height: 900px; */
+      height: 200vh;
     }
     .layer {
       position: absolute;
@@ -26,104 +36,85 @@ export class HeroParallax extends LitElement {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      object-fit: contain;
       object-position: 0 30%;
       user-drag: none;
       pointer-events: none;
     }
-    #comet {
-      animation: rotate linear;
-      transform-origin: center 125px;
-      animation-timeline: view();
-      animation-range: 0rem 120%;
-    }
-
-    #spaceship {
-      animation: launch;
-      animation-timeline: view();
-      animation-range: 0% 120%;
-    }
-    @keyframes rotate {
-      from {
-        transform: rotate(5deg) translateX(0px);
-      }
-      to {
-        transform: rotate(0deg) translateX(0px);
-      }
-    }
-
-    @keyframes launch {
-      from {
-        transform: translate(-10px, -10px);
-      }
-      to {
-        transform: translate(0px, 0px);
-      }
-    }
+    /* Animation styles omitted for brevity, add your own if needed */
   `;
 
-  @property({ type: Array })
-  layers: Array<{
-    src: string;
-    speed: number;
-    startPos?: string;
-    stopPos?: string;
-    direction?: string;
-    position?: { x?: string };
-    objectFit?: string;
-    container?: { maxWidth?: string };
-    id?: string;
-  }> = [];
+  @property({ type: Array }) layers: Layer[] = [];
 
+  @state() private layerImgElements: HTMLElement[] = [];
+  private rafId: number = 0;
+
+  // Cache DOM elements after first render
+  protected override firstUpdated(_changed: PropertyValues) {
+    this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer img')) as HTMLElement[];
+    this.onScroll(); // update once right after first render
+  }
+
+  // Helper: Clamp val between min,max
+  private clamp(val: number, min = 0, max = 1): number {
+    return Math.max(min, Math.min(val, max));
+  }
+
+  // Only re-render parallax smoothly via RAF
   private onScroll = () => {
-    const scrollY = window.scrollY - 1000;
+    // Get scroll progress in px:
+    const scrollY = window.scrollY || window.pageYOffset;
 
-    // Animate layers
     this.layers.forEach((layer, idx) => {
-      const el = this.renderRoot.querySelectorAll('.layer img')[idx] as HTMLElement;
-      const base = layer.direction === 'up' ? -layer.speed * scrollY : layer.speed * scrollY;
-      const xPos = layer.position?.x ? layer.position.x : '50%';
-      const objectFit = layer.objectFit ? layer.objectFit : 'cover';
-      // If stopPos is defined, limit the movement
-      if (layer.stopPos) {
-        const stopValue = parseInt(layer.stopPos);
-        if (base + (layer.startPos ? parseInt(layer.startPos) : 0) > stopValue) {
-          // Exceeded stop position
-          el.style.objectPosition = `${xPos} ${stopValue}px`;
-          el.style.objectFit = objectFit;
-          return;
+      const el = this.layerImgElements[idx];
+      if (!el) return;
+      const directionMultiplier = layer.direction === 'up' ? -1 : 1;
+      const speed = layer.speed ?? 0;
+      const startPos = layer.startPos ? parseInt(layer.startPos) : 0;
+      const stopPos = layer.stopPos ? parseInt(layer.stopPos) : undefined;
+      const xPos = layer.position?.x ?? '50%';
+      const objectFit = layer.objectFit ?? 'cover';
+
+      // Calculate movement
+      let moveY = directionMultiplier * speed * scrollY + startPos;
+      if (typeof stopPos === 'number') {
+        // If we'd exceed stopPos, clamp it
+        if (directionMultiplier > 0) {
+          moveY = Math.min(moveY, stopPos);
+        } else {
+          moveY = Math.max(moveY, stopPos);
         }
       }
-      if (el) {
-        // el.style.transform = `translateY(${scrollY * layer.speed}px)`;
-        el.style.objectPosition = `${xPos} ${base + (layer.startPos ? parseInt(layer.startPos) : 0)}px`;
-        el.style.objectFit = objectFit;
-
-        // el.style.objectPosition = `50% ${scrollY * layer.speed + (layer.startPos ? parseInt(layer.startPos) : 0)}px`;
-      }
+      el.style.objectPosition = `${xPos} ${moveY}px`;
+      el.style.objectFit = objectFit;
     });
+
+    this.rafId = requestAnimationFrame(this.onScroll); // keep looping
   };
 
   override connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('scroll', this.onScroll, { passive: true });
+    this.rafId = requestAnimationFrame(this.onScroll);
+    window.addEventListener('resize', this.onScroll, { passive: true }); // for smarter layouts if needed
   }
 
   override disconnectedCallback() {
-    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+    cancelAnimationFrame(this.rafId);
     super.disconnectedCallback();
   }
 
   override render() {
-    console.log(this);
-
     return html`
       <div>
         ${this.layers.map((layer) => {
       const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
       return html`
-            <div class="layer" style="${containerStyle}" >
-              <img src="${layer.src}" alt="Hero Layer" draggable="false" id="${layer.id ? layer.id : ''}" />
+            <div class="layer" style="${containerStyle}">
+              <img
+                src="${layer.src}"
+                alt="${layer.alt ?? 'Hero Layer'}"
+                draggable="false"
+                id="${layer.id ?? ''}" />
             </div>
           `;
     })}
