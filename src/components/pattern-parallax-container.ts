@@ -28,6 +28,7 @@ export class PatternParallaxContainer extends LitElement {
       animation-timeline: --pattern-section;
       animation-range: cover;
       background-position: center center;
+          background-size: cover;
     }
 
     @keyframes small-pattern-parallax {
@@ -101,7 +102,7 @@ export class PatternParallaxContainer extends LitElement {
 
   // style="background-image: url('${this.layers[0]}');"
   @property({ type: Array })
-  layers: string[] = ['/img/test-2.jpg'];
+  layers: string[] = ['/img/held-background-coloured.avif'];
   @property({ type: Array })
   words: string[] = ['Sensations', 'of', 'the', 'Sea'];
   override render() {

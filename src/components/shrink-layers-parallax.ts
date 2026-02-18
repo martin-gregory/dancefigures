@@ -10,8 +10,9 @@ export class ShrinkLayersParallax extends LitElement {
       width: 100%;
       height: 300vh; /* Extended height for scroll phases */
       min-height: 400px;
+      background-color: #d7cac1;
     }
-    
+
     .sticky-container {
       position: sticky;
       top: 0;
@@ -22,18 +23,18 @@ export class ShrinkLayersParallax extends LitElement {
       align-items: center;
       justify-content: center;
     }
-    
+
     .layer {
       position: absolute;
-      left: 0;
       top: 0;
       width: 100%;
       height: 100%;
       will-change: transform;
       transition: transform 0.1s ease-out;
-      min-height:2560px;
+      z-index: 1;
+      transform-origin: center center;
     }
-    
+
     .layer img {
       width: 100%;
       height: 100%;
@@ -42,24 +43,12 @@ export class ShrinkLayersParallax extends LitElement {
       object-position: 0 30%;
       user-drag: none;
       pointer-events: none;
+      margin: auto;
+      display: flex;
     }
-
-    @keyframes rotate {
-      from {
-        transform: rotate(5deg) translateX(0px);
-      }
-      to {
-        transform: rotate(0deg) translateX(0px);
-      }
-    }
-
-    @keyframes launch {
-      from {
-        transform: translate(-10px, -10px);
-      }
-      to {
-        transform: translate(0px, 0px);
-      }
+    .stage-image {
+      position: absolute;
+      transform: translateY(120%); // start off screen
     }
   `;
 
@@ -76,19 +65,22 @@ export class ShrinkLayersParallax extends LitElement {
   }> = [];
 
   @property({ type: Number })
-  scrollInEnd = 800; // When scroll-in phase ends (image in view)
+  scrollInEnd = 100; // When scroll-in phase ends (image in view)
 
   @property({ type: Number })
-  convergenceStart = 800; // When convergence/scale starts
+  convergenceStart = 100; // When convergence/scale starts
 
   @property({ type: Number })
-  convergenceEnd = 2000; // When convergence/scale completes
+  convergenceEnd = 1500; // When convergence/scale completes
 
   @property({ type: Number })
-  scrollOutStart = 2000; // When scroll-out phase begins
+  scrollOutStart = 4000; // When scroll-out phase begins
 
   @property({ type: Number })
   finalScale = 0.3; // Final size (30%)
+
+  @property({ type: String })
+  stageImage = '/img/livingroom-mockup.avif';
 
   private onScroll = () => {
     const hostRect = this.getBoundingClientRect();
@@ -99,10 +91,23 @@ export class ShrinkLayersParallax extends LitElement {
     const scrollInProgress = Math.min(Math.max(scrollProgress / this.scrollInEnd, 0), 1);
 
     // Phase 2: Convergence/scale (convergenceStart to convergenceEnd)
-    const convergenceProgress = Math.min(
-      Math.max((scrollProgress - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart), 0),
-      1
-    );
+    const convergenceProgress = Math.min(Math.max((scrollProgress - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart), 0), 1);
+
+    const finalStageProgress = Math.min(Math.max((scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd), 0), 1);
+
+    const isInConvergencePhase = convergenceProgress > 0 && scrollProgress < this.scrollOutStart;
+
+    console.log({
+      scrollProgress,
+      scrollInProgress,
+      convergenceProgress,
+      finalStageProgress
+    });
+
+
+    // calc(100% - 40%)
+
+    const startPhase1 = scrollProgress < this.scrollInEnd;
 
     // Animate layers
     this.layers.forEach((layer, idx) => {
@@ -115,10 +120,8 @@ export class ShrinkLayersParallax extends LitElement {
       const objectFit = layer.objectFit ? layer.objectFit : 'cover';
 
       // Phase 1: Parallax during scroll-in
-      if (scrollProgress < this.scrollInEnd) {
-        const parallaxAmount = layer.direction === 'up'
-          ? layer.speed * scrollInProgress * 100
-          : -layer.speed * scrollInProgress * 100;
+      if (startPhase1) {
+        const parallaxAmount = layer.direction === 'up' ? layer.speed * scrollInProgress * 100 : -layer.speed * scrollInProgress * 100;
 
         const startPosition = layer.startPos ? parseInt(layer.startPos) : 0;
         imgEl.style.objectPosition = `${xPos} ${startPosition + parallaxAmount}px`;
@@ -127,18 +130,39 @@ export class ShrinkLayersParallax extends LitElement {
       imgEl.style.objectFit = objectFit;
 
       // Phase 2: Convergence and scale
-      if (convergenceProgress > 0 && scrollProgress < this.scrollOutStart) {
+      if (isInConvergencePhase) {
         // Calculate scale (1 to finalScale)
         const scale = 1 - (1 - this.finalScale) * convergenceProgress;
 
         // Apply scale transformation (layers stay centered and converge)
         el.style.transform = `scale(${scale})`;
         el.style.transformOrigin = 'center center';
+
+        // scale width from 100% to the equivalent of finalScale while keeping height 100
+        const scaledWidth = Math.max(100 * scale, 60);
+        el.style.width = `${scaledWidth}%`;
+
       } else if (scrollProgress < this.convergenceStart) {
         // Before convergence, no scale
         el.style.transform = '';
       }
     });
+
+    // final stage image scroll-out
+    const stageImgEl = this.renderRoot.querySelector('.sticky-container > .stage-image') as HTMLElement;
+
+    // scroll stage image up and into place during scroll-out phase
+    if (convergenceProgress >= 0.5) {
+      const calc = Math.min((scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd), 1);
+      const scrollOutProgress = Math.min(calc);
+      console.log((1 - scrollOutProgress) * 120);
+
+
+      // stageImgEl.style.transform = `translateY(${(scrollOutProgress / 100) * 100}%)`;
+      stageImgEl.style.transform = `translateY(${(1 - scrollOutProgress) * 120}%)`;
+    } else {
+      stageImgEl.style.transform = `translateY(120%)`;
+    }
   };
 
   override connectedCallback() {
@@ -159,20 +183,14 @@ export class ShrinkLayersParallax extends LitElement {
     return html`
       <div class="sticky-container">
         ${this.layers.map((layer) => {
-      const containerStyle = layer.container?.maxWidth
-        ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;`
-        : '';
+      const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
       return html`
             <div class="layer" style="${containerStyle}">
-              <img 
-                src="${layer.src}" 
-                alt="Hero Layer" 
-                draggable="false" 
-                id="${layer.id ? layer.id : ''}" 
-              />
+              <img src="${layer.src}" alt="Hero Layer" draggable="false" id="${layer.id ? layer.id : ''}" />
             </div>
           `;
     })}
+        <img class="stage-image" src="${this.stageImage}" alt="Stage Image" draggable="false" />
       </div>
     `;
   }

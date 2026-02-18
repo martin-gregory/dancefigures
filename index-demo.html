@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parallax Gallery - Lit Components</title>
+  <script type="module">
+    import { LitElement, html, css } from 'https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js';
+
+    // Main parallax gallery component
+    class ParallaxGallery extends LitElement {
+      static properties = {
+        scrollY: { type: Number },
+        isCoalesced: { type: Boolean }
+      };
+
+      static styles = css`
+                :host {
+                    display: block;
+                    height: 3000px;
+                    position: relative;
+                }
+
+                .scroll-indicator {
+                    position: fixed;
+                    bottom: 40px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    color: white;
+                    font-size: 11px;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    opacity: 0.7;
+                    animation: float 2s ease-in-out infinite;
+                    z-index: 100;
+                    transition: opacity 0.3s ease;
+                    pointer-events: none;
+                }
+
+                .scroll-indicator.hidden {
+                    opacity: 0;
+                }
+
+                @keyframes float {
+                    0%, 100% { transform: translateX(-50%) translateY(0); }
+                    50% { transform: translateX(-50%) translateY(-10px); }
+                }
+            `;
+
+      constructor() {
+        super();
+        this.scrollY = 0;
+        this.isCoalesced = false;
+        this.TRANSITION_START = 1000;
+        this.TRANSITION_END = 5000;
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        this.handleScroll = this.handleScroll.bind(this);
+        window.addEventListener('scroll', this.handleScroll);
+      }
+
+      disconnectedCallback() {
+        super.disconnectedCallback();
+        window.removeEventListener('scroll', this.handleScroll);
+      }
+
+      handleScroll() {
+        this.scrollY = window.scrollY;
+        this.isCoalesced = this.scrollY >= this.TRANSITION_START;
+      }
+
+      render() {
+        return html`
+                    <parallax-viewport 
+                        .scrollY=${this.scrollY}
+                        .isCoalesced=${this.isCoalesced}
+                        .transitionStart=${this.TRANSITION_START}
+                        .transitionEnd=${this.TRANSITION_END}>
+                    </parallax-viewport>
+                    
+                    <living-room-background 
+                        .isCoalesced=${this.isCoalesced}>
+                    </living-room-background>
+
+                    <div class="scroll-indicator ${this.scrollY > 100 ? 'hidden' : ''}">
+                        Scroll Down
+                    </div>
+                `;
+      }
+    }
+
+    // Parallax viewport with layers
+    class ParallaxViewport extends LitElement {
+      static properties = {
+        scrollY: { type: Number },
+        isCoalesced: { type: Boolean },
+        transitionStart: { type: Number },
+        transitionEnd: { type: Number }
+      };
+
+      static styles = css`
+                :host {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100vh;
+                    overflow: hidden;
+                    pointer-events: none;
+                }
+
+                :host(.coalesced) {
+                    z-index: 10;
+                }
+            `;
+
+      updated(changedProperties) {
+        if (changedProperties.has('isCoalesced')) {
+          if (this.isCoalesced) {
+            this.classList.add('coalesced');
+          } else {
+            this.classList.remove('coalesced');
+          }
+        }
+      }
+
+      render() {
+        return html`
+                    <parallax-background .scrollY=${this.scrollY} .isCoalesced=${this.isCoalesced}></parallax-background>
+                    <parallax-layer 
+                        layer="back" 
+                        speed="0.5"
+                        .scrollY=${this.scrollY}
+                        .isCoalesced=${this.isCoalesced}
+                        .transitionStart=${this.transitionStart}
+                        .transitionEnd=${this.transitionEnd}>
+                    </parallax-layer>
+                    <parallax-layer 
+                        layer="middle" 
+                        speed="0.7"
+                        .scrollY=${this.scrollY}
+                        .isCoalesced=${this.isCoalesced}
+                        .transitionStart=${this.transitionStart}
+                        .transitionEnd=${this.transitionEnd}>
+                    </parallax-layer>
+                    <parallax-layer 
+                        layer="front" 
+                        speed="0.9"
+                        .scrollY=${this.scrollY}
+                        .isCoalesced=${this.isCoalesced}
+                        .transitionStart=${this.transitionStart}
+                        .transitionEnd=${this.transitionEnd}>
+                    </parallax-layer>
+                `;
+      }
+    }
+
+    // Background gradient layer
+    class ParallaxBackground extends LitElement {
+      static properties = {
+        scrollY: { type: Number },
+        isCoalesced: { type: Boolean }
+      };
+
+      static styles = css`
+                :host {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, 
+                        #667eea 0%, 
+                        #764ba2 25%, 
+                        #f093fb 50%, 
+                        #4facfe 75%, 
+                        #00f2fe 100%);
+                    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                                opacity 0.6s ease;
+                }
+            `;
+
+      updated() {
+        const bgMove = this.scrollY * 0.3;
+        const opacity = this.isCoalesced ? 0 : 1;
+        this.style.transform = `translateY(${bgMove}px)`;
+        this.style.opacity = opacity;
+      }
+
+      render() {
+        return html``;
+      }
+    }
+
+    // Individual parallax layer with figure
+    class ParallaxLayer extends LitElement {
+      static properties = {
+        layer: { type: String },
+        speed: { type: Number },
+        scrollY: { type: Number },
+        isCoalesced: { type: Boolean },
+        transitionStart: { type: Number },
+        transitionEnd: { type: Number }
+      };
+
+      static styles = css`
+                :host {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 80vw;
+                    max-width: 1200px;
+                    height: 80vh;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                                width 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+                                height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+
+                svg {
+                    width: 100%;
+                    height: 100%;
+                }
+            `;
+
+      easeInOutCubic(t) {
+        return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      }
+
+      updated() {
+        if (!this.isCoalesced) {
+          // Stage 1: Parallax
+          const move = this.scrollY * this.speed;
+          this.style.transform = `translate(-50%, -50%) translateY(${move}px)`;
+        } else {
+          // Stage 2: Coalesce
+          const progress = Math.min(
+            (this.scrollY - this.transitionStart) / (this.transitionEnd - this.transitionStart),
+            1
+          );
+          const easeProgress = this.easeInOutCubic(progress);
+          const initialScale = 1;
+          const finalScale = 0.33;
+          const currentScale = initialScale - (initialScale - finalScale) * easeProgress;
+
+          this.style.transform = `translate(-50%, -50%) scale(${currentScale})`;
+          this.style.width = '400px';
+          this.style.height = '300px';
+        }
+      }
+
+      getFigureSVG() {
+        switch (this.layer) {
+          case 'back':
+            return html`
+                            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="200" cy="120" r="40" fill="#1a1a1a" opacity="0.8"/>
+                                <ellipse cx="200" cy="200" rx="60" ry="80" fill="#1a1a1a" opacity="0.8"/>
+                                <path d="M 140 180 Q 120 220 140 260" stroke="#1a1a1a" stroke-width="15" fill="none" opacity="0.8" stroke-linecap="round"/>
+                                <path d="M 260 180 Q 280 220 260 260" stroke="#1a1a1a" stroke-width="15" fill="none" opacity="0.8" stroke-linecap="round"/>
+                                <ellipse cx="170" cy="320" rx="30" ry="15" fill="#1a1a1a" opacity="0.8"/>
+                                <ellipse cx="230" cy="320" rx="30" ry="15" fill="#1a1a1a" opacity="0.8"/>
+                            </svg>
+                        `;
+          case 'middle':
+            return html`
+                            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="200" cy="100" r="35" fill="#2c2c2c" opacity="0.9"/>
+                                <rect x="175" y="140" width="50" height="100" rx="10" fill="#2c2c2c" opacity="0.9"/>
+                                <path d="M 175 160 L 130 200 L 140 210" stroke="#2c2c2c" stroke-width="12" fill="none" opacity="0.9" stroke-linecap="round"/>
+                                <path d="M 225 160 L 270 200 L 260 210" stroke="#2c2c2c" stroke-width="12" fill="none" opacity="0.9" stroke-linecap="round"/>
+                                <rect x="180" y="245" width="15" height="80" fill="#2c2c2c" opacity="0.9"/>
+                                <rect x="205" y="245" width="15" height="80" fill="#2c2c2c" opacity="0.9"/>
+                                <ellipse cx="187" cy="330" rx="20" ry="12" fill="#2c2c2c" opacity="0.9"/>
+                                <ellipse cx="212" cy="330" rx="20" ry="12" fill="#2c2c2c" opacity="0.9"/>
+                            </svg>
+                        `;
+          case 'front':
+            return html`
+                            <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="220" cy="110" r="38" fill="#0a0a0a"/>
+                                <ellipse cx="220" cy="190" rx="55" ry="70" fill="#0a0a0a"/>
+                                <path d="M 165 170 Q 100 180 80 220" stroke="#0a0a0a" stroke-width="14" fill="none" stroke-linecap="round"/>
+                                <path d="M 275 170 Q 320 140 340 120" stroke="#0a0a0a" stroke-width="14" fill="none" stroke-linecap="round"/>
+                                <path d="M 200 260 L 180 340" stroke="#0a0a0a" stroke-width="16" fill="none" stroke-linecap="round"/>
+                                <path d="M 240 260 Q 280 300 260 350" stroke="#0a0a0a" stroke-width="16" fill="none" stroke-linecap="round"/>
+                                <ellipse cx="175" cy="345" rx="18" ry="10" fill="#0a0a0a"/>
+                                <ellipse cx="255" cy="355" rx="18" ry="10" fill="#0a0a0a"/>
+                            </svg>
+                        `;
+        }
+      }
+
+      render() {
+        return this.getFigureSVG();
+      }
+    }
+
+    // Living room background component
+    class LivingRoomBackground extends LitElement {
+      static properties = {
+        isCoalesced: { type: Boolean }
+      };
+
+      static styles = css`
+                :host {
+                    position: fixed;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100vh;
+                    transform: translateY(100%);
+                    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                    z-index: 5;
+                }
+
+                .living-room-inner {
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(180deg, #3a3a3a 0%, #2c2c2c 100%);
+                    position: relative;
+                }
+
+                .wall-texture {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    opacity: 0.03;
+                    background-image: 
+                        repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px);
+                }
+
+                .frame-spot {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 400px;
+                    height: 300px;
+                    border: 3px solid #8b7355;
+                    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+                }
+
+                .floor {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 30%;
+                    background: linear-gradient(180deg, transparent 0%, #1a1a1a 50%);
+                }
+            `;
+
+      updated() {
+        this.style.transform = this.isCoalesced ? 'translateY(0)' : 'translateY(100%)';
+      }
+
+      render() {
+        return html`
+                    <div class="living-room-inner">
+                        <div class="wall-texture"></div>
+                        <div class="frame-spot"></div>
+                        <div class="floor"></div>
+                    </div>
+                `;
+      }
+    }
+
+    // Register all components
+    customElements.define('parallax-gallery', ParallaxGallery);
+    customElements.define('parallax-viewport', ParallaxViewport);
+    customElements.define('parallax-background', ParallaxBackground);
+    customElements.define('parallax-layer', ParallaxLayer);
+    customElements.define('living-room-background', LivingRoomBackground);
+  </script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Courier New', monospace;
+      background: #f5f5f0;
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <parallax-gallery></parallax-gallery>
+</body>
+
+</html>

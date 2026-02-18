@@ -1,8 +1,8 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-@customElement('hero-parallax')
-export class HeroParallax extends LitElement {
+@customElement('shrink-layers-parallax')
+export class ShrinkLayersParallax extends LitElement {
   static override styles = css`
     :host {
       display: block;
@@ -21,6 +21,7 @@ export class HeroParallax extends LitElement {
       width: 100%;
       height: 100%;
       will-change: transform;
+      transition: transform 0.1s ease-out;
     }
     .layer img {
       width: 100%;
@@ -31,18 +32,7 @@ export class HeroParallax extends LitElement {
       user-drag: none;
       pointer-events: none;
     }
-    #comet {
-      animation: rotate linear;
-      transform-origin: center 125px;
-      animation-timeline: view();
-      animation-range: 0rem 120%;
-    }
 
-    #spaceship {
-      animation: launch;
-      animation-timeline: view();
-      animation-range: 0% 120%;
-    }
     @keyframes rotate {
       from {
         transform: rotate(5deg) translateX(0px);
@@ -67,7 +57,6 @@ export class HeroParallax extends LitElement {
     src: string;
     speed: number;
     startPos?: string;
-    stopPos?: string;
     direction?: string;
     position?: { x?: string };
     objectFit?: string;
@@ -75,31 +64,58 @@ export class HeroParallax extends LitElement {
     id?: string;
   }> = [];
 
+  @property({ type: Number })
+  convergenceStart = 6500; // Scroll position where convergence starts
+
+  @property({ type: Number })
+  convergenceEnd = 12000; // Scroll position where convergence completes
+
+  @property({ type: Number })
+  finalScale = 0.3; // Final size (30%)
+
   private onScroll = () => {
     const scrollY = window.scrollY - 1000;
+    const actualScrollY = window.scrollY;
+    console.log({ scrollY });
+
+
+    // Calculate convergence progress (0 to 1)
+    const convergenceProgress = Math.min(
+      Math.max((actualScrollY - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart), 0),
+      1
+    );
+    console.log({ convergenceProgress });
 
     // Animate layers
     this.layers.forEach((layer, idx) => {
-      const el = this.renderRoot.querySelectorAll('.layer img')[idx] as HTMLElement;
+      const el = this.renderRoot.querySelectorAll('.layer')[idx] as HTMLElement;
+      const imgEl = this.renderRoot.querySelectorAll('.layer img')[idx] as HTMLElement;
+
+      if (!el || !imgEl) return;
+
       const base = layer.direction === 'up' ? -layer.speed * scrollY : layer.speed * scrollY;
       const xPos = layer.position?.x ? layer.position.x : '50%';
       const objectFit = layer.objectFit ? layer.objectFit : 'cover';
-      // If stopPos is defined, limit the movement
-      if (layer.stopPos) {
-        const stopValue = parseInt(layer.stopPos);
-        if (base + (layer.startPos ? parseInt(layer.startPos) : 0) > stopValue) {
-          // Exceeded stop position
-          el.style.objectPosition = `${xPos} ${stopValue}px`;
-          el.style.objectFit = objectFit;
-          return;
-        }
-      }
-      if (el) {
-        // el.style.transform = `translateY(${scrollY * layer.speed}px)`;
-        el.style.objectPosition = `${xPos} ${base + (layer.startPos ? parseInt(layer.startPos) : 0)}px`;
-        el.style.objectFit = objectFit;
 
-        // el.style.objectPosition = `50% ${scrollY * layer.speed + (layer.startPos ? parseInt(layer.startPos) : 0)}px`;
+      // Apply parallax to image
+      imgEl.style.objectPosition = `${xPos} ${base + (layer.startPos ? parseInt(layer.startPos) : 0)}px`;
+      imgEl.style.objectFit = objectFit;
+
+      // Apply convergence and scale transformation to layer container
+      if (convergenceProgress > 0) {
+        // Calculate scale (1 to finalScale)
+        const scale = 1 - (1 - this.finalScale) * convergenceProgress;
+
+        // Calculate translation to center all layers
+        // Layers converge to the center of the viewport
+        const translateX = 0;
+        const translateY = 0;
+
+        // Apply combined transformation
+        el.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+        el.style.transformOrigin = 'center center';
+      } else {
+        el.style.transform = '';
       }
     });
   };
