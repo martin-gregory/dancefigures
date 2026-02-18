@@ -1,6 +1,20 @@
-import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { LitElement, css, html, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
 
+interface Layer {
+  src: string;
+  speed: number;
+  startPos?: string;
+  direction?: string;
+  position?: { x?: string };
+  objectFit?: string;
+  container?: { maxWidth?: string };
+  id?: string;
+  alt?: string;
+  cssName?: string;
+}
+
+//NOTE: host height controls the amount of scroll phases, so can be adjusted for longer/shorter animations
 @customElement('shrink-layers-parallax')
 export class ShrinkLayersParallax extends LitElement {
   static override styles = css`
@@ -8,7 +22,7 @@ export class ShrinkLayersParallax extends LitElement {
       display: block;
       position: relative;
       width: 100%;
-      height: 300vh; /* Extended height for scroll phases */
+      height: 500vh; /* Extended height for scroll phases */
       min-height: 400px;
       background-color: #d7cac1;
     }
@@ -33,11 +47,13 @@ export class ShrinkLayersParallax extends LitElement {
       transition: transform 0.1s ease-out;
       z-index: 1;
       transform-origin: center center;
+      overflow:hidden;
+      border-radius: 3px;
     }
 
     .layer img {
       width: 100%;
-      height: 100%;
+      height: 120%;
       object-fit: cover;
       object-fit: contain;
       object-position: 0 30%;
@@ -46,151 +62,177 @@ export class ShrinkLayersParallax extends LitElement {
       margin: auto;
       display: flex;
     }
+
+    .background {
+      z-index: 0;
+      height: 120% !important; /* Start slightly larger for better parallax effect */
+    }
+
     .stage-image {
+      width: 100%;
+      height: 100vh;
       position: absolute;
-      transform: translateY(120%); // start off screen
+       // start off screen
+      transform: translateY(120%);
     }
   `;
 
-  @property({ type: Array })
-  layers: Array<{
-    src: string;
-    speed: number;
-    startPos?: string;
-    direction?: string;
-    position?: { x?: string };
-    objectFit?: string;
-    container?: { maxWidth?: string };
-    id?: string;
-  }> = [];
+  @property({ type: Array }) layers: Layer[] = [];
+  @property({ type: Number }) scrollInEnd = 100;
+  @property({ type: Number }) convergenceStart = 300;
+  @property({ type: Number }) convergenceEnd = 1500;
+  @property({ type: Number }) scrollOutStart = 3000;
+  @property({ type: Number }) finalScale = 0.3;
+  @property({ type: String }) stageImage = '/img/livingroom-mockup.avif';
+  @property({ type: String }) stageImageAlt = 'Stage Image';
 
-  @property({ type: Number })
-  scrollInEnd = 100; // When scroll-in phase ends (image in view)
+  // Use state to hold refs for DOM elements
+  @state() private layerElements: HTMLElement[] = [];
+  @state() private layerImgElements: HTMLElement[] = [];
+  @state() private stageImgEl?: HTMLElement;
 
-  @property({ type: Number })
-  convergenceStart = 100; // When convergence/scale starts
+  private rafId = 0;
 
-  @property({ type: Number })
-  convergenceEnd = 1500; // When convergence/scale completes
+  // Convenience: Setup/caching of DOM refs on first update
+  protected override firstUpdated(_changedProperties: PropertyValues) {
+    this.cacheElements();
+    this.scheduleScroll();
+  }
 
-  @property({ type: Number })
-  scrollOutStart = 4000; // When scroll-out phase begins
+  // Convenient cache method
+  private cacheElements() {
+    this.layerElements = Array.from(this.renderRoot.querySelectorAll('.layer')) as HTMLElement[];
+    this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer img')) as HTMLElement[];
+    this.stageImgEl = this.renderRoot.querySelector('.sticky-container > .stage-image') as HTMLElement | undefined;
+  }
 
-  @property({ type: Number })
-  finalScale = 0.3; // Final size (30%)
-
-  @property({ type: String })
-  stageImage = '/img/livingroom-mockup.avif';
-
-  private onScroll = () => {
-    const hostRect = this.getBoundingClientRect();
-    const hostTop = hostRect.top;
-    const scrollProgress = -hostTop; // How far we've scrolled into the component
-
-    // Phase 1: Scroll in with parallax (0 to scrollInEnd)
-    const scrollInProgress = Math.min(Math.max(scrollProgress / this.scrollInEnd, 0), 1);
-
-    // Phase 2: Convergence/scale (convergenceStart to convergenceEnd)
-    const convergenceProgress = Math.min(Math.max((scrollProgress - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart), 0), 1);
-
-    const finalStageProgress = Math.min(Math.max((scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd), 0), 1);
-
-    const isInConvergencePhase = convergenceProgress > 0 && scrollProgress < this.scrollOutStart;
-
-    console.log({
-      scrollProgress,
-      scrollInProgress,
-      convergenceProgress,
-      finalStageProgress
-    });
-
-
-    // calc(100% - 40%)
-
-    const startPhase1 = scrollProgress < this.scrollInEnd;
-
-    // Animate layers
-    this.layers.forEach((layer, idx) => {
-      const el = this.renderRoot.querySelectorAll('.layer')[idx] as HTMLElement;
-      const imgEl = this.renderRoot.querySelectorAll('.layer img')[idx] as HTMLElement;
-
-      if (!el || !imgEl) return;
-
-      const xPos = layer.position?.x ? layer.position.x : '50%';
-      const objectFit = layer.objectFit ? layer.objectFit : 'cover';
-
-      // Phase 1: Parallax during scroll-in
-      if (startPhase1) {
-        const parallaxAmount = layer.direction === 'up' ? layer.speed * scrollInProgress * 100 : -layer.speed * scrollInProgress * 100;
-
-        const startPosition = layer.startPos ? parseInt(layer.startPos) : 0;
-        imgEl.style.objectPosition = `${xPos} ${startPosition + parallaxAmount}px`;
-      }
-
-      imgEl.style.objectFit = objectFit;
-
-      // Phase 2: Convergence and scale
-      if (isInConvergencePhase) {
-        // Calculate scale (1 to finalScale)
-        const scale = 1 - (1 - this.finalScale) * convergenceProgress;
-
-        // Apply scale transformation (layers stay centered and converge)
-        el.style.transform = `scale(${scale})`;
-        el.style.transformOrigin = 'center center';
-
-        // scale width from 100% to the equivalent of finalScale while keeping height 100
-        const scaledWidth = Math.max(100 * scale, 60);
-        el.style.width = `${scaledWidth}%`;
-
-      } else if (scrollProgress < this.convergenceStart) {
-        // Before convergence, no scale
-        el.style.transform = '';
-      }
-    });
-
-    // final stage image scroll-out
-    const stageImgEl = this.renderRoot.querySelector('.sticky-container > .stage-image') as HTMLElement;
-
-    // scroll stage image up and into place during scroll-out phase
-    if (convergenceProgress >= 0.5) {
-      const calc = Math.min((scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd), 1);
-      const scrollOutProgress = Math.min(calc);
-      console.log((1 - scrollOutProgress) * 120);
-
-
-      // stageImgEl.style.transform = `translateY(${(scrollOutProgress / 100) * 100}%)`;
-      stageImgEl.style.transform = `translateY(${(1 - scrollOutProgress) * 120}%)`;
-    } else {
-      stageImgEl.style.transform = `translateY(120%)`;
-    }
+  // Use RAF for smooth animation
+  private scheduleScroll = () => {
+    this.onScroll();
+    this.rafId = requestAnimationFrame(this.scheduleScroll);
   };
 
   override connectedCallback() {
     super.connectedCallback();
     window.addEventListener('scroll', this.onScroll, { passive: true });
-    // Initial call to set proper state
-    requestAnimationFrame(() => this.onScroll());
+    this.scheduleScroll();
   }
 
   override disconnectedCallback() {
     window.removeEventListener('scroll', this.onScroll);
+    cancelAnimationFrame(this.rafId);
     super.disconnectedCallback();
   }
 
-  override render() {
-    console.log(this);
+  private getScrollProgress(): number {
+    const hostRect = this.getBoundingClientRect();
+    return -hostRect.top;
+  }
 
+  // *** Core Animation Frame Logic ***
+  private onScroll = () => {
+    // Early exit if DOM not ready
+    if (!this.layerElements.length) this.cacheElements();
+    if (!this.layerElements.length) return;
+
+    const scrollProgress = this.getScrollProgress();
+
+    // Calculate phase progress
+    const scrollInProgress = this.clamp(scrollProgress / this.scrollInEnd);
+    const convergenceProgress = this.clamp(
+      (scrollProgress - this.convergenceStart) /
+      (this.convergenceEnd - this.convergenceStart)
+    );
+    const scrollOutProgress = this.clamp(
+      (scrollProgress - this.convergenceEnd) /
+      (this.scrollOutStart - this.convergenceEnd)
+    );
+
+    // Animate layers
+    this.layers.forEach((layer, idx) => {
+      const el = this.layerElements[idx];
+      const imgEl = this.layerImgElements[idx];
+      if (!el || !imgEl) return;
+
+      // Phase 1: Parallax
+      if (scrollProgress < this.scrollInEnd) {
+        const direction = layer.direction === 'up' ? 1 : -1;
+        const parallaxAmount = direction * (layer.speed ?? 0) * scrollInProgress * 100;
+        const startPosition = parseInt(layer.startPos ?? '0', 10);
+        imgEl.style.objectPosition = `${layer.position?.x ?? '50%'} ${startPosition + parallaxAmount}px`;
+      }
+
+      imgEl.style.objectFit = layer.objectFit ?? 'cover';
+
+      // Phase 2: Convergence and scale
+      if (
+        convergenceProgress > 0 &&
+        scrollProgress < this.scrollOutStart
+      ) {
+        const scale = 1 - (1 - this.finalScale) * convergenceProgress;
+        el.style.transform = `scale(${scale})`;
+        el.style.transformOrigin = '51% 20%';
+        el.style.transformOrigin = '460px 200px';
+        el.style.width = `${Math.max(100 * scale, 50)}%`;
+        // el.style.left = '20.5%'; // Centering based on max shrink
+      } else if (scrollProgress < this.convergenceStart) {
+        // Reset transform before convergence
+        el.style.transform = '';
+        el.style.width = `100%`;
+      }
+    });
+
+    // Final stage image slotting in
+    // Stage image appears together with layer scaling:
+    if (this.stageImgEl) {
+      // Animate stage image starting as soon as convergence/scaling starts
+      const stageImgStart = this.convergenceStart;
+      const stageImgEnd = this.scrollOutStart;
+
+      // Progress 0 to 1 over this interval
+      const stageImgProgress = this.clamp(
+        (scrollProgress - stageImgStart) / (stageImgEnd - stageImgStart)
+      );
+      // 120% -> 0% with smoothness
+      this.stageImgEl.style.transform =
+        `translateY(${(1 - stageImgProgress) * 120}%)`;
+      // Optionally, add easing:
+      // const eased = 1 - Math.pow(1 - stageImgProgress, 2); // easeOut
+      // this.stageImgEl.style.transform = `translateY(${(1 - eased) * 120}%)`;
+    }
+  };
+
+  // Utility clamp
+  private clamp(val: number, min = 0, max = 1): number {
+    return Math.max(min, Math.min(val, max));
+  }
+
+  // Render logic
+  override render() {
     return html`
       <div class="sticky-container">
-        ${this.layers.map((layer) => {
-      const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
+        ${this.layers.map(layer => {
+      const containerStyle = layer.container?.maxWidth
+        ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;`
+        : '';
       return html`
             <div class="layer" style="${containerStyle}">
-              <img src="${layer.src}" alt="Hero Layer" draggable="false" id="${layer.id ? layer.id : ''}" />
+              <img
+                src="${layer.src}"
+                alt="${layer.alt ?? 'Hero Layer'}"
+                draggable="false"
+                id="${layer.id ?? ''}"
+                class="${layer.cssName ?? ''}"
+              />
             </div>
           `;
     })}
-        <img class="stage-image" src="${this.stageImage}" alt="Stage Image" draggable="false" />
+        <img
+          class="stage-image"
+          src="${this.stageImage}"
+          alt="${this.stageImageAlt}"
+          draggable="false"
+        />
       </div>
     `;
   }
