@@ -24,47 +24,72 @@ export class WorkshopContainer extends LitElement {
         <site-navigation slot="navigation"></site-navigation>
         <hero-scroll slot="site-header"></hero-scroll>
 
+        <!-- negative startPos is up -->
+        <!-- negative pos x is left -->
         <project-1 slot="project-1">
-          <hero-parallax
-            slot="hero-1"
-            .layers=${[
-        { src: '/img/held-background-coloured.avif', speed: 0, startPos: '-320' },
-        { src: '/img/held-wind-layer-2-sm.avif', speed: 0.02, startPos: '-170', direction: 'up' },
-        {
-          src: '/img/held-wind-layer-1.1-big.avif',
-          speed: 0.02,
-          startPos: '-500',
-          stopPos: '200',
-          position: { x: '100%' },
-        },
-      ]}
-          >
-            <h1>Held by the Wind</h1>
-          </hero-parallax>
-
           <image-parallax-container
             slot="image-parallax-1"
             imageUrl="/img/held-background-coloured.avif"
             .words=${['Held', 'by', 'the', 'Wind']}
           ></image-parallax-container>
 
-          <pattern-parallax-container
+          <hero-parallax
+            slot="hero-1"
+            .layers=${[
+        {
+          src: '/img/held-background-coloured.avif',
+          speed: 0, //startPos: '-320',
+          cssName: 'background',
+        },
+        {
+          // last
+          src: '/img/held-wind-layer-3-big.avif',
+          speed: 0.001,
+          startPos: '5',
+          cssName: 'layer-3',
+          position: { x: '-50' },
+        },
+        {
+          // middle
+          src: '/img/held-wind-layer-2-sm.avif',
+          speed: 0.001,
+          startPos: '25',
+          // direction: 'up',
+          cssName: 'layer-2',
+          position: { x: '-50' },
+        },
+        {
+          // front
+          src: '/img/held-wind-layer-1.1-sm.avif',
+          speed: 0.001,
+          startPos: '40',
+          // stopPos: '20',
+          position: { x: '-20' },
+          cssName: 'layer-1',
+        },
+      ]}
+          >
+            <h1>Held by the Wind</h1>
+          </hero-parallax>
+
+          <!-- <pattern-parallax-container
             slot="pattern-parallax-1"
             .words=${['Sensations', 'of', 'the', 'Sea']}
             .layers=${['/img/held-wind-layer-2-sm.avif']}
-          ></pattern-parallax-container>
+          ></pattern-parallax-container> -->
 
           <shrink-layers-parallax
             slot="shrink-layers-parallax"
             .layers=${[
-        { src: '/img/held-background-coloured.avif', speed: 0, startPos: '-320' },
-        { src: '/img/held-wind-layer-2-sm.avif', speed: 0.02, startPos: '-170', direction: 'up' },
+        { src: '/img/held-background-coloured.avif', speed: 0, startPos: '-320', cssName: 'background' },
+        { src: '/img/held-wind-layer-2-sm.avif', speed: 0.02, startPos: '-170', direction: 'up', cssName: 'layer-2' },
         {
           src: '/img/held-wind-layer-1.1-big.avif',
           speed: 0.02,
-          startPos: '-500',
+          startPos: '-100',
           stopPos: '200',
           position: { x: '100%' },
+          cssName: 'layer-1',
         },
         // {
         //   src: '/img/livingroom-mockup.avif',
@@ -95,12 +120,12 @@ export class WorkshopContainer extends LitElement {
             imageUrl="/img/moved-by-tide-bg.avif"
             .words=${['Moved', 'by', 'the', 'Tide']}
           ></image-parallax-container>
-
+          <!-- 
           <pattern-parallax-container
             slot="pattern-parallax-2"
             .words=${['Sensations', 'of', 'the', 'Tide']}
             .layers=${['/img/moved-by-tide-layer-3-sm.avif']}
-          ></pattern-parallax-container>
+          ></pattern-parallax-container> -->
 
           <hero-parallax
             slot="hero-2"
@@ -110,6 +135,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/moved-by-tide-bg.avif',
           startPos: '0',
           speed: 0,
+          cssName: 'background',
         },
         {
           layerPosition: 'back',
@@ -146,7 +172,7 @@ export class WorkshopContainer extends LitElement {
           </hero-parallax>
         </project-2>
 
-        <!-- <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container> -->
+        <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container>
       </workshop-site>
     `;
   }

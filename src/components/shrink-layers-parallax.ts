@@ -24,7 +24,9 @@ export class ShrinkLayersParallax extends LitElement {
       width: 100%;
       height: 500vh; /* Extended height for scroll phases */
       min-height: 400px;
-      background-color: #d7cac1;
+      /* background-color: #d7cac1; */
+      background: #E9E3DE;
+background: linear-gradient(69deg, rgb(233 228 223) 0%, rgba(231, 225, 219, 1) 42%, rgb(183 161 146) 100%)
     }
 
     .sticky-container {

@@ -262,20 +262,19 @@ export class WorkshopSite extends LitElement {
       <slot name="site-header"></slot>
 
       <slot name="project-1"></slot>
-      <slot name="project-2"></slot>
-
+      <!-- <slot name="project-2"></slot>
 
 
         <hr />
         <instagram-gallery id="gallery" slot="gallery"></instagram-gallery>
-        <workshops-section id="workshops" slot="workshops"></workshops-section>
+        <workshops-section id="workshops" slot="workshops"></workshops-section> -->
         <!-- Workshops -->
 
         <slot name="workshops"></slot>
 
         <slot name="gallery"></slot>
         <!-- About -->
-        <section id="about">
+        <!-- <section id="about">
           <div class="about-grid">
             <div class="about-text">
               <h2 class="section-title">About Our Studio</h2>
@@ -293,10 +292,10 @@ export class WorkshopSite extends LitElement {
               <img class="about-image" src="https://images.unsplash.com/photo-1561489396-888724a1543d?w=800&h=600&fit=crop" alt="Art Studio" />
             </div>
           </div>
-        </section>
+        </section> -->
 
       <!-- Contact -->
-        <section id="contact" class="bg-gray">
+        <!-- <section id="contact" class="bg-gray">
           <h2 class="section-title">Get In Touch</h2>
           <div class="contact-grid">
             <div class="contact-info">
@@ -329,16 +328,16 @@ export class WorkshopSite extends LitElement {
               <button @click=${this.handleSubmit}>Send Message</button>
             </div>
           </div>
-        </section>
+        </section> -->
         <!-- Footer -->
-        <footer>
+        <!-- <footer>
           <p>© 2026 Artisan Studio. All rights reserved.</p>
           <div class="footer-links">
             <a href="#">Instagram</a>
             <a href="#">Facebook</a>
             <a href="#">Pinterest</a>
           </div>
-        </footer>
+        </footer> -->
     `;
   }
 }
