@@ -82,7 +82,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/held-wind-layer-1b-swoosh-big.avif',
           speed: 0.04,
           startPos: '4200',
-          scale: 0.8,
+          scale: 0.85,
           // stopPos: '20',
           position: { x: '8' },
           cssName: 'layer-1',
@@ -101,13 +101,16 @@ export class WorkshopContainer extends LitElement {
           <shrink-layers-parallax
             slot="shrink-layers-parallax"
             .layers=${[
-        { src: '/img/held-background-coloured.avif', speed: 0, startPos: '-320', cssName: 'background' },
-        { src: '/img/held-wind-layer-2-sm.avif', speed: 0.02, startPos: '-170', direction: 'up', cssName: 'layer-2' },
+        { src: '/img/held-background-coloured.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
+        { src: '/img/held-wind-layer-3-big.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
+        { src: '/img/held-wind-layer-2-sm.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
         {
           src: '/img/held-wind-layer-1.1-big.avif',
           speed: 0.02,
+          objectFit: 'contain',
           startPos: '-100',
           stopPos: '200',
+          scale: 0.8,
           position: { x: '100%' },
           cssName: 'layer-1',
         },
