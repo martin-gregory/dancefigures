@@ -14,6 +14,13 @@ interface Layer {
   alt?: string;
   cssName?: string;
 }
+type ParallaxLayer = {
+  direction?: 'up' | 'down';
+  speed?: number;
+  startPos?: number; // Will be calculated
+  position?: { x?: number };
+  scale?: number;
+};
 
 @customElement('hero-parallax')
 export class HeroParallax extends LitElement {
@@ -24,7 +31,10 @@ export class HeroParallax extends LitElement {
       width: 100vw;
       min-height: 400px;
       /* height: 200vh; */
-      height: 300vh;
+      height: 600vh;
+      height: 550vh;
+      overflow: hidden;
+      min-width: 2000px;
     }
     .layer {
       position: absolute;
@@ -58,7 +68,7 @@ export class HeroParallax extends LitElement {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      object-position: 0 30%;
+      object-position: 0 0%;
       user-drag: none;
       pointer-events: none;
     }
@@ -82,6 +92,21 @@ export class HeroParallax extends LitElement {
     this.onScroll(); // update once right after first render
   }
 
+  // Call this once when initializing layers
+  // private setLayerStartPositions(layers: ParallaxLayer[], baseSpacing = 200): any[] {
+  //   return layers.map((layer, idx) => {
+  //     // Background layer: stays at 0
+  //     if (idx === 0) return { ...layer, startPos: 0 };
+
+  //     // First parallax layer: stays at 0 (or custom if needed)
+  //     if (idx === 1) return { ...layer, startPos: 0 };
+
+  //     // Subsequent layers: offset by baseSpacing each
+  //     const prevStart = layers[idx - 1].startPos ?? 0;
+  //     return { ...layer, startPos: prevStart + baseSpacing };
+  //   });
+  // }
+
   // Only re-render parallax smoothly via RAF
   private onScroll = () => {
     // Get scroll progress in px:
@@ -92,6 +117,8 @@ export class HeroParallax extends LitElement {
     if (inView) {
       const relativeScroll = parseInt(`${-rect.top}`); // 0 when element top hits viewport
       console.log(relativeScroll);
+      let counter = 0;
+      const spacer = 200;
 
       this.layers.forEach((layer, idx) => {
         const el = this.layerImgElements[idx];
@@ -100,14 +127,30 @@ export class HeroParallax extends LitElement {
         const speed = layer.speed ?? 0;
 
         const startPos = layer.startPos ? parseInt(layer.startPos) : 0;
-        const xPos = layer.position?.x ?? '50';
+        const xPos = layer.position?.x ?? 0;
 
         // Calculate movement
-        let moveY = directionMultiplier * speed * relativeScroll + startPos;
-        el.style.objectPosition = `${xPos}% ${moveY}%`;
+        // let moveY = directionMultiplier * speed * relativeScroll + startPos;
+        // // el.style.objectPosition = `${xPos}% ${moveY}%`;
+        // el.style.transform = `translateY(${moveY}px)`;
+        // el.style.objectPosition = `${xPos}% top`;
+
+        let desiredMove = directionMultiplier * speed * relativeScroll + startPos;
+        const percentOfHeight = 1; // move up to 30% of element's height
+        const maxMove = el.offsetHeight * percentOfHeight;
+        console.log({ maxMove, desiredMove }, el.offsetHeight);
+
+        const moveY = Math.max(Math.min(desiredMove, maxMove), -maxMove);
+        const scale = layer.scale ?? 1;
+        if (xPos) {
+          el.style.transform = `translateY(${moveY}px) translateX(${xPos}%) scale(${scale})`;
+        } else {
+          el.style.transform = `translateY(${moveY}px) scale(${scale})`;
+        }
+        // select the parent layer of el
+
       });
     }
-    // this.rafId = requestAnimationFrame(this.onScrollRaf); // keep looping
   };
 
   override connectedCallback() {
@@ -133,9 +176,13 @@ export class HeroParallax extends LitElement {
   };
 
   override render() {
+    // const myLayers = this.setLayerStartPositions(this.layers, 200);
+    const myLayers = this.layers;
+    console.log(myLayers);
+
     return html`
       <div>
-        ${this.layers.map((layer) => {
+        ${myLayers.map((layer) => {
       const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
 
       return html`

@@ -44,27 +44,47 @@ export class WorkshopContainer extends LitElement {
         {
           // last
           src: '/img/held-wind-layer-3-big.avif',
-          speed: 0.001,
-          startPos: '5',
+          speed: 0.08,
+          startPos: '110',
           cssName: 'layer-3',
-          position: { x: '-50' },
+          // position: { x: '0' },
         },
         {
           // middle
-          src: '/img/held-wind-layer-2-sm.avif',
-          speed: 0.001,
-          startPos: '25',
+          src: '/img/held-wind-layer-2a-swoosh-big.avif',
+          speed: 0.15,
+          startPos: '1920',
           // direction: 'up',
           cssName: 'layer-2',
-          position: { x: '-50' },
+          // position: { x: '0' },
+        },
+        {
+          // middle
+          src: '/img/held-wind-layer-2b-swoosh-big.avif',
+          speed: 0.1,
+          startPos: '2220',
+          // direction: 'up',
+          cssName: 'layer-2',
+          // position: { x: '0' },
         },
         {
           // front
-          src: '/img/held-wind-layer-1.1-sm.avif',
-          speed: 0.001,
-          startPos: '40',
+          src: '/img/held-wind-layer-1a-swoosh-big.avif',
+          speed: 0.1,
+          startPos: '4500',
+          scale: 0.8,
           // stopPos: '20',
-          position: { x: '-20' },
+          position: { x: '8' },
+          cssName: 'layer-1',
+        },
+        {
+          // front
+          src: '/img/held-wind-layer-1b-swoosh-big.avif',
+          speed: 0.04,
+          startPos: '4200',
+          scale: 0.8,
+          // stopPos: '20',
+          position: { x: '8' },
           cssName: 'layer-1',
         },
       ]}
