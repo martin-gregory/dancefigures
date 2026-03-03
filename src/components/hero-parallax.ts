@@ -116,7 +116,7 @@ export class HeroParallax extends LitElement {
 
     if (inView) {
       const relativeScroll = parseInt(`${-rect.top}`); // 0 when element top hits viewport
-      console.log(relativeScroll);
+      // console.log(relativeScroll);
       let counter = 0;
       const spacer = 200;
 
@@ -138,7 +138,7 @@ export class HeroParallax extends LitElement {
         let desiredMove = directionMultiplier * speed * relativeScroll + startPos;
         const percentOfHeight = 1; // move up to 30% of element's height
         const maxMove = el.offsetHeight * percentOfHeight;
-        console.log({ maxMove, desiredMove }, el.offsetHeight);
+        // console.log({ maxMove, desiredMove }, el.offsetHeight);
 
         const moveY = Math.max(Math.min(desiredMove, maxMove), -maxMove);
         const scale = layer.scale ?? 1;
@@ -178,7 +178,7 @@ export class HeroParallax extends LitElement {
   override render() {
     // const myLayers = this.setLayerStartPositions(this.layers, 200);
     const myLayers = this.layers;
-    console.log(myLayers);
+    // console.log(myLayers);
 
     return html`
       <div>
