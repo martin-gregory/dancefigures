@@ -124,10 +124,10 @@ export class SiteNavigation extends LitElement {
           <div class="logo">Dance Figures - Conceptual Paintings</div>
           <div class="nav-links">
             <a href="#home">Home</a>
-            <a href="#about">About</a>
+            <!-- <a href="#about">About</a>
             <a href="#workshops">Workshops</a>
             <a href="#gallery">Gallery</a>
-            <a href="#contact">Contact</a>
+            <a href="#contact">Contact</a> -->
           </div>
           <button class="menu-btn" @click=${this.toggleMenu}>
             <span></span>
@@ -137,10 +137,10 @@ export class SiteNavigation extends LitElement {
         </div>
         <div class="mobile-menu ${this.isMenuOpen ? 'open' : ''}">
           <a href="#home">Home</a>
-          <a href="#about">About</a>
+          <!-- <a href="#about">About</a>
           <a href="#workshops">Workshops</a>
           <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a>
+          <a href="#contact">Contact</a> -->
         </div>
       </nav>
     `;
