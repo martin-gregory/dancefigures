@@ -68,7 +68,7 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
       /* display: flex; */
       /* transform-origin: 30% 147px; */
       /* border: 25px solid transparent; */
-      padding: 5px;
+      padding: 60px;
       border: 15px solid transparent;
     }
     .frame {
@@ -77,7 +77,7 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
       height: 700px;
       width: 990px;
       height: 1390px;
-      top: 5%;
+      top: 3%;
       z-index: 0;
       /* left: 0;
       top: 0;
@@ -120,6 +120,7 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
       width: 100%;
       height: 100vh;
       position: absolute;
+      object-fit: cover;
       // start off screen
       transform: translateY(100%);
     }
@@ -130,7 +131,7 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
   @property({ type: Number }) convergenceStart = 300;
   @property({ type: Number }) convergenceEnd = 1500;
   @property({ type: Number }) scrollOutStart = 3000;
-  @property({ type: Number }) finalScale = 0.33;
+  @property({ type: Number }) finalScale = 0.43;
   @property({ type: String }) stageImage = '/img/livingroom-mockup-cutout.avif';
   @property({ type: String }) stageImageAlt = 'Stage Image';
 

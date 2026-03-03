@@ -81,7 +81,7 @@ export class WorkshopContainer extends LitElement {
           // front
           src: '/img/held-wind-layer-1b-swoosh-big.avif',
           speed: 0.04,
-          startPos: '4200',
+          startPos: '4450',
           scale: 0.85,
           // stopPos: '20',
           position: { x: '8' },

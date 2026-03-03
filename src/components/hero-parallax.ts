@@ -32,7 +32,7 @@ export class HeroParallax extends LitElement {
       min-height: 400px;
       /* height: 200vh; */
       height: 600vh;
-      height: 550vh;
+      height: 650vh;
       overflow: hidden;
       min-width: 2000px;
     }
