@@ -14,13 +14,6 @@ interface Layer {
   alt?: string;
   cssName?: string;
 }
-type ParallaxLayer = {
-  direction?: 'up' | 'down';
-  speed?: number;
-  startPos?: number; // Will be calculated
-  position?: { x?: number };
-  scale?: number;
-};
 
 @customElement('hero-parallax')
 export class HeroParallax extends LitElement {
@@ -30,11 +23,11 @@ export class HeroParallax extends LitElement {
       position: relative;
       width: 100vw;
       min-height: 400px;
-      /* height: 200vh; */
-      height: 600vh;
       height: 650vh;
       overflow: hidden;
       min-width: 2000px;
+      view-timeline-name: --image-section;
+      view-timeline-axis: block;
     }
     .layer {
       position: absolute;
@@ -72,8 +65,60 @@ export class HeroParallax extends LitElement {
       user-drag: none;
       pointer-events: none;
     }
-    /* Animation styles omitted for brevity, add your own if needed */
+
+    .text-parallax-container {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100vh;
+    }
+
+    h2 {
+      text-align: center;
+      display: flex;
+      gap: 20px;
+      font-size: 4rem;
+      font-weight: normal;
+      color: #edebed;
+      font-family: cursive;
+      z-index: 10;
+
+      span {
+        animation: text-parallax both;
+        animation-timeline: --image-section;
+        animation-range: cover;
+      }
+    }
+
+    @keyframes text-parallax {
+      0% {
+        opacity: 0;
+        transform: translateY(calc(var(--i) * 30%));
+      }
+      30% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
+    .image-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center 0;
+      animation: image-parallax linear both;
+      animation-timeline: --image-section;
+      animation-range: cover;
+    }
   `;
+
+  @property({ type: Array })
+  words: string[] = ['Held', 'by', 'the', 'Wind'];
 
   @property({ type: Array }) layers: Layer[] = [];
 
@@ -92,31 +137,13 @@ export class HeroParallax extends LitElement {
     this.onScroll(); // update once right after first render
   }
 
-  // Call this once when initializing layers
-  // private setLayerStartPositions(layers: ParallaxLayer[], baseSpacing = 200): any[] {
-  //   return layers.map((layer, idx) => {
-  //     // Background layer: stays at 0
-  //     if (idx === 0) return { ...layer, startPos: 0 };
-
-  //     // First parallax layer: stays at 0 (or custom if needed)
-  //     if (idx === 1) return { ...layer, startPos: 0 };
-
-  //     // Subsequent layers: offset by baseSpacing each
-  //     const prevStart = layers[idx - 1].startPos ?? 0;
-  //     return { ...layer, startPos: prevStart + baseSpacing };
-  //   });
-  // }
-
   // Only re-render parallax smoothly via RAF
   private onScroll = () => {
-    // Get scroll progress in px:
-    // const scrollY = window.scrollY || window.pageYOffset;
     const rect = this.getBoundingClientRect();
     const inView = rect.top < window.innerHeight && rect.bottom > 0;
 
     if (inView) {
       const relativeScroll = parseInt(`${-rect.top}`); // 0 when element top hits viewport
-      // console.log(relativeScroll);
       let counter = 0;
       const spacer = 200;
 
@@ -129,16 +156,9 @@ export class HeroParallax extends LitElement {
         const startPos = layer.startPos ? parseInt(layer.startPos) : 0;
         const xPos = layer.position?.x ?? 0;
 
-        // Calculate movement
-        // let moveY = directionMultiplier * speed * relativeScroll + startPos;
-        // // el.style.objectPosition = `${xPos}% ${moveY}%`;
-        // el.style.transform = `translateY(${moveY}px)`;
-        // el.style.objectPosition = `${xPos}% top`;
-
         let desiredMove = directionMultiplier * speed * relativeScroll + startPos;
         const percentOfHeight = 1; // move up to 30% of element's height
         const maxMove = el.offsetHeight * percentOfHeight;
-        // console.log({ maxMove, desiredMove }, el.offsetHeight);
 
         const moveY = Math.max(Math.min(desiredMove, maxMove), -maxMove);
         const scale = layer.scale ?? 1;
@@ -148,7 +168,6 @@ export class HeroParallax extends LitElement {
           el.style.transform = `translateY(${moveY}px) scale(${scale})`;
         }
         // select the parent layer of el
-
       });
     }
   };
@@ -176,12 +195,13 @@ export class HeroParallax extends LitElement {
   };
 
   override render() {
-    // const myLayers = this.setLayerStartPositions(this.layers, 200);
     const myLayers = this.layers;
-    // console.log(myLayers);
 
     return html`
       <div>
+        <div class="text-parallax-container">
+          <h2>${this.words.map((word, index) => html`<span style="--i: ${index * 5 - 10}">${word}</span>`)}</h2>
+        </div>
         ${myLayers.map((layer) => {
       const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
 

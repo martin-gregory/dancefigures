@@ -47,3 +47,6 @@ coverage/
 
 # Optional: Documentation build output
 docs/
+
+PUBLISH.md
+assets-backup/

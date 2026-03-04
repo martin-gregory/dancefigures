@@ -24,11 +24,7 @@ export class ShrinkLayersParallax extends LitElement {
       width: 100%;
       height: 500vh; /* Extended height for scroll phases */
       min-height: 400px;
-      /* background-color: #d7cac1; */
       background: #e9e3de;
-      /* background: linear-gradient(69deg, rgb(233 228 223) 0%, rgba(231, 225, 219, 1) 42%, rgb(183 161 146) 100%); */
-      /* background: linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(231, 225, 219) 62%, rgb(192 180 164) 100%);
-background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65%, rgb(178 159 134) 100%); */
       background: linear-gradient(305deg, rgb(178 159 134) 0%, rgb(217 207 201) 59% 65%, rgb(233, 228, 223) 100%);
     }
 
@@ -54,67 +50,42 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
       will-change: transform;
       transition: transform 0.1s ease-out;
       z-index: 1;
-      /* overflow: hidden; */
       border-radius: 3px;
-      transform: translateY(-25%) translateX(-6%);
     }
 
     .layer img {
       width: 100%;
       height: 100%;
-      /* object-fit: contain; */
       user-drag: none;
       pointer-events: none;
-      /* display: flex; */
-      /* transform-origin: 30% 147px; */
-      /* border: 25px solid transparent; */
       padding: 60px;
       border: 15px solid transparent;
+      transform-origin: 30% 150px;
     }
     .frame {
       position: absolute;
       width: 500px;
       height: 700px;
       width: 990px;
-      height: 1390px;
-      top: 3%;
+      height: 100%;
+      height: 1400px;
+      top: 0px;
       z-index: 0;
-      /* left: 0;
-      top: 0;
-      bottom: 0;
-      right: 0; */
-      /* padding: 10px; */
-      /* border: 25px solid #2c3d58; */
-      /* transform: translateY(-25%) translateX(-6%); */
-    }
+    } 
     .background {
       z-index: 0;
       /* Start slightly larger for better parallax effect */
-      /* height: 120% !important; */
 
       /* */
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
     .layer {
-      /* transform: translateY(-50%) translateX(-25%); */
-      .layer-1 {
-        /* width: 92%;
-        object-fit: contain !important;
-        object-position: 0 20% !important; */
+      .background {
         // transform center
         transform-origin: 50% 50%;
-        /* border: 25px solid #2c3d58; */
         border: 15px solid #2c3d58;
       }
-      .layer-2 {
-        /* width: 104%;
-        object-fit: contain !important; */
-      }
-      .layer-3 {
-        /* width: 99%;
-        object-fit: contain !important;
-        object-position: 0 20% !important; */
-      }
+
     }
     .stage-image {
       width: 100%;
@@ -131,7 +102,7 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
   @property({ type: Number }) convergenceStart = 300;
   @property({ type: Number }) convergenceEnd = 1500;
   @property({ type: Number }) scrollOutStart = 3000;
-  @property({ type: Number }) finalScale = 0.43;
+  @property({ type: Number }) finalScale = 0.33;
   @property({ type: String }) stageImage = '/img/livingroom-mockup-cutout.avif';
   @property({ type: String }) stageImageAlt = 'Stage Image';
 
@@ -191,14 +162,13 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
     if (!inView) {
       return;
     }
-    // const relativeScroll = parseInt(`${-rect.top}`); // 0 when element top hits viewport
 
     const scrollProgress = this.getScrollProgress();
 
     // Calculate phase progress
-    const scrollInProgress = this.clamp(scrollProgress / this.scrollInEnd);
     const convergenceProgress = this.clamp((scrollProgress - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart));
-    const scrollOutProgress = this.clamp((scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd));
+
+    const isBeforeConvergence = scrollProgress < this.convergenceStart;
 
     // Animate layers
     this.layers.forEach((layer, idx) => {
@@ -207,32 +177,22 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
       if (!el || !imgEl) return;
 
       // Phase 1: Parallax
-      if (scrollProgress < this.scrollInEnd) {
-        const direction = layer.direction === 'up' ? 1 : -1;
-        const parallaxAmount = direction * (layer.speed ?? 0) * scrollInProgress * 100;
-        const startPosition = parseInt(layer.startPos ?? '0', 10);
-        const xPos = layer.position?.x ?? '50%';
-        const moveY = startPosition + parallaxAmount;
-        // imgEl.style.objectPosition = `${layer.position?.x ?? '50%'} ${startPosition + parallaxAmount}px`;
-        el.style.transform = `translateY(${moveY}px) translateX(${xPos}%) `;
-      }
 
       imgEl.style.objectFit = layer.objectFit ?? 'cover';
 
       // Phase 2: Convergence and scale
       if (convergenceProgress > 0 && scrollProgress < this.scrollOutStart) {
         const scale = 1 - (1 - this.finalScale) * convergenceProgress;
-        imgEl.style.transform = `scale(${scale})`;
-        // el.style.transform = `scale(${scale})`;
-        // el.style.transformOrigin = '51% 20%';
-        // el.style.transformOrigin = '460px 200px';
-        el.style.width = `${Math.max(100 * scale, 100)}%`;
-        // el.style.left = '20.5%'; // Centering based on max shrink
-      } else if (scrollProgress < this.convergenceStart) {
-        // Reset transform before convergence
-        el.style.transform = '';
-        el.style.width = `100%`;
+        const scaleAmount = `scale(${scale})`
+        imgEl.style.transform = `${scaleAmount}`;
+
+        if (scale < 0.66) {
+
+        } else {
+          el.style.left = '0';
+        }
       }
+
     });
 
     // Final stage image slotting in
@@ -248,7 +208,6 @@ background:linear-gradient(69deg, rgb(233, 228, 223) 0%, rgb(217 207 201) 59% 65
       this.stageImgEl.style.transform = `translateY(${(1 - stageImgProgress) * 120}%)`;
       // Optionally, add easing:
       // const eased = 1 - Math.pow(1 - stageImgProgress, 2); // easeOut
-      // this.stageImgEl.style.transform = `translateY(${(1 - eased) * 120}%)`;
     }
   };
 

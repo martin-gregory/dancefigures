@@ -9,7 +9,7 @@ export class SiteNavigation extends LitElement {
   static override styles = css`
     :host {
       display: block;
-      --accent-colour: #6e90c0;
+      /* --accent-colour: #6e90c0; */
     }
     /* Navigation */
     nav {
@@ -121,7 +121,7 @@ export class SiteNavigation extends LitElement {
       <!-- Navigation -->
       <nav>
         <div class="nav-container">
-          <div class="logo">Dance Figures - Conceptual Paintings</div>
+          <div class="logo">Dance Figures - Conceptual Figurative Painting</div>
           <div class="nav-links">
             <a href="#home">Home</a>
             <!-- <a href="#about">About</a>

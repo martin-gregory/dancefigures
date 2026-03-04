@@ -12,8 +12,11 @@ export class WorkshopSite extends LitElement {
     css`
       :host {
         display: block;
-        --accent-colour: #6e90c0;
-        --held-by-the-sea-bg: #485c71;
+        /* --accent-colour: #6e90c0; */
+        --accent-colour: #b88393;
+        /* --held-by-the-sea-bg: #485c71; */
+        /* --held-by-the-sea-bg: #b88393; */
+        --held-by-the-sea-bg: #98717a;
         background-color: var(--held-by-the-sea-bg);
       }
 

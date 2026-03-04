@@ -8,6 +8,14 @@ export class HeroScroll extends LitElement {
       display: block;
     }
 
+    h1,
+    h2,
+    h3 {
+      font-family: 'serif';
+    }
+    h3 {
+      letter-spacing: 0.05em;
+    }
     .hero-scroll {
       position: relative;
       height: 100vh;
@@ -29,8 +37,8 @@ export class HeroScroll extends LitElement {
 
     .hero-scroll-content h1 {
       font-size: 4rem;
-      font-weight: bold;
-      margin-bottom:0;
+      font-weight: normal;
+      margin-bottom: 0;
       line-height: 1.1;
     }
     .hero-scroll-content h2 {
@@ -49,10 +57,11 @@ export class HeroScroll extends LitElement {
     return html`
       <section class="hero-scroll">
         <div class="hero-scroll-content">
-          <h1>Dance Figures </br> Conceptual Figurative Painting</h1>
-          <h2>by Tiana Diakova</h2>
+          <h1>Dance Figures</h1>
+          <h2>Conceptual Figurative Painting</h2>
+          <h3>by Tiana Diakova</h3>
         </div>
-          <p class="scroll-instruction">Scroll down to see collection</p>
+        <p class="scroll-instruction">Scroll down to see collection</p>
       </section>
     `;
   }

@@ -17,7 +17,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
-      input: resolve(__dirname, 'src/index.ts'),
+      input: resolve(__dirname, 'index.html'),
       output: {
         format: 'es',
       },

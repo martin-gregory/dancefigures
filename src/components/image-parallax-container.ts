@@ -14,17 +14,6 @@ export class ImageParallaxContainer extends LitElement {
       view-timeline-name: --image-section;
       view-timeline-axis: block;
     }
-    /* 
-    .image-parallax-container {
-      position: relative;
-      height: 50vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      view-timeline-name: --image-section;
-      view-timeline-axis: block;
-    } */
 
     .image-bg {
       position: absolute;
@@ -54,7 +43,6 @@ export class ImageParallaxContainer extends LitElement {
       font-weight: normal;
       color: #edebed;
       font-family: cursive;
-      /* text-shadow: 0 0 10px #fff; */
 
       span {
         animation: text-parallax both;

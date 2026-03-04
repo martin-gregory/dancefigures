@@ -1,8 +1,6 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
-// import LocomotiveScroll from 'locomotive-scroll';
-// const locomotiveScroll = new LocomotiveScroll();
 
 @customElement('workshop-container')
 export class WorkshopContainer extends LitElement {
@@ -13,6 +11,7 @@ export class WorkshopContainer extends LitElement {
         display: block;
         --accent-colour: #6e90c0;
         --held-by-the-sea-bg: #485c71;
+        --held-by-the-sea-bg: #b88393;
         background-color: var(--held-by-the-sea-bg);
       }
     `,
@@ -27,17 +26,11 @@ export class WorkshopContainer extends LitElement {
         <!-- negative startPos is up -->
         <!-- negative pos x is left -->
         <project-1 slot="project-1">
-          <image-parallax-container
-            slot="image-parallax-1"
-            imageUrl="/img/held-background-coloured.avif"
-            .words=${['Held', 'by', 'the', 'Wind']}
-          ></image-parallax-container>
-
           <hero-parallax
             slot="hero-1"
             .layers=${[
         {
-          src: '/img/held-background-coloured.avif',
+          src: '/img/held-background-coloured-big.avif',
           speed: 0, //startPos: '-320',
           cssName: 'background',
         },
@@ -152,6 +145,8 @@ export class WorkshopContainer extends LitElement {
 
           <hero-parallax
             slot="hero-2"
+            .words=${['Moved', 'by', 'the', 'Tide']}
+
             .layers=${[
         {
           objectFit: 'fill',
