@@ -25,7 +25,7 @@ export class HeroParallax extends LitElement {
       min-height: 400px;
       height: 650vh;
       overflow: hidden;
-      min-width: 2000px;
+      min-width: 800px;
       view-timeline-name: --image-section;
       view-timeline-axis: block;
     }
@@ -72,6 +72,7 @@ export class HeroParallax extends LitElement {
       justify-content: center;
       align-items: center;
       margin-top: 100vh;
+
     }
 
     h2 {
@@ -83,7 +84,11 @@ export class HeroParallax extends LitElement {
       color: #edebed;
       font-family: cursive;
       z-index: 10;
-
+      position: fixed;
+      bottom: 20px;
+      right: 80px;
+      bottom: 10%;
+      right: 10%;
       span {
         animation: text-parallax both;
         animation-timeline: --image-section;
@@ -96,9 +101,17 @@ export class HeroParallax extends LitElement {
         opacity: 0;
         transform: translateY(calc(var(--i) * 30%));
       }
+      
+      5% {
+        opacity: 0;
+      }
+
       30% {
         opacity: 1;
         transform: translateY(0);
+      }
+      80% {
+        opacity: 0;
       }
       100% {
         opacity: 0;
@@ -134,6 +147,8 @@ export class HeroParallax extends LitElement {
   // Cache DOM elements after first render
   protected override firstUpdated(_changed: PropertyValues) {
     this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer img')) as HTMLElement[];
+    console.log(this.layerImgElements);
+
     this.onScroll(); // update once right after first render
   }
 
@@ -144,6 +159,8 @@ export class HeroParallax extends LitElement {
 
     if (inView) {
       const relativeScroll = parseInt(`${-rect.top}`); // 0 when element top hits viewport
+      console.log({ relativeScroll });
+
       let counter = 0;
       const spacer = 200;
 

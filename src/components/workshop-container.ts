@@ -85,14 +85,10 @@ export class WorkshopContainer extends LitElement {
             <h1>Held by the Wind</h1>
           </hero-parallax>
 
-          <!-- <pattern-parallax-container
-            slot="pattern-parallax-1"
-            .words=${['Sensations', 'of', 'the', 'Sea']}
-            .layers=${['/img/held-wind-layer-2-sm.avif']}
-          ></pattern-parallax-container> -->
-
           <shrink-layers-parallax
             slot="shrink-layers-parallax"
+            stageImage="/img/interior-held-wind.avif"
+
             .layers=${[
         { src: '/img/held-background-coloured.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
         { src: '/img/held-wind-layer-3-big.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
@@ -107,41 +103,14 @@ export class WorkshopContainer extends LitElement {
           position: { x: '100%' },
           cssName: 'layer-1',
         },
-        // {
-        //   src: '/img/livingroom-mockup.avif',
-        //   speed: 0.02,
-        //   startPos: '-500',
-        //   stopPos: '200',
-        //   position: { x: '100%' },
-        // }
       ]}
           >
           </shrink-layers-parallax>
         </project-1>
 
-        <main style="height: 150vh; background-color: lightblue;" data-scroll-container>
-          <div>
-            <h1>Hello 👋</h1>
-          </div>
-          <div>
-            <h2 data-scroll data-scroll-speed="0.5">What's up?</h2>
-            <p data-scroll data-scroll-speed="0.8">😬</p>
-          </div>
-        </main>
 
         <hr />
         <project-2 slot="project-2">
-          <image-parallax-container
-            slot="image-parallax-2"
-            imageUrl="/img/moved-by-tide-bg.avif"
-            .words=${['Moved', 'by', 'the', 'Tide']}
-          ></image-parallax-container>
-          <!-- 
-          <pattern-parallax-container
-            slot="pattern-parallax-2"
-            .words=${['Sensations', 'of', 'the', 'Tide']}
-            .layers=${['/img/moved-by-tide-layer-3-sm.avif']}
-          ></pattern-parallax-container> -->
 
           <hero-parallax
             slot="hero-2"
@@ -149,45 +118,115 @@ export class WorkshopContainer extends LitElement {
 
             .layers=${[
         {
-          objectFit: 'fill',
           src: '/img/moved-by-tide-bg.avif',
           startPos: '0',
           speed: 0,
           cssName: 'background',
         },
         {
-          layerPosition: 'back',
-          objectFit: 'contain',
-          position: { x: '100%' },
-          speed: 0.04,
+          speed: 0.14,
           src: '/img/moved-by-tide-layer-3-sm.avif',
-          startPos: '-580',
-          id: 'spaceship',
-          // stopPos: '200',
+          startPos: '1310',
+          scale: 0.8,
+          cssName: 'layer-3',
+          position: { x: '10' },
         },
         {
-          // container: { maxWidth: '900px' },
-          layerPosition: 'middle',
-          objectFit: 'contain',
-          position: { x: '0%' },
-          speed: 0.07,
           src: '/img/moved-by-tide-layer-2-sm.avif',
-          startPos: '-1000',
-          id: 'comet',
-          // stopPos: '10',
+          speed: 0.17,
+          startPos: '2900',
+          cssName: 'layer-2',
         },
         {
-          direction: 'up',
-          layerPosition: 'front',
-          objectFit: 'contain',
-          position: { x: '0%' },
           speed: 0.01,
           src: '/img/moved-by-tide-layer-1-sm.avif',
-          startPos: '250',
+          startPos: '4720',
+          cssName: 'layer-1',
+        },
+      ]}
+          >
+          
+          </hero-parallax>
+            <shrink-layers-parallax
+            slot="shrink-layers-parallax"
+            stageImage="/img/interior-moved-by-tide.avif"
+            .layers=${[
+        { src: '/img/moved-by-tide-bg.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
+        { src: '/img/moved-by-tide-layer-3-sm.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
+        { src: '/img/moved-by-tide-layer-2-sm.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
+        {
+          src: '/img/moved-by-tide-layer-1-sm.avif',
+          speed: 0.02,
+          objectFit: 'contain',
+          startPos: '-100',
+          stopPos: '200',
+          scale: 0.8,
+          position: { x: '100%' },
+          cssName: 'layer-1',
+        },
+      ]}
+          >
+          </shrink-layers-parallax>
+        </project-2>
+        <project-2 slot="project-3">
+
+          <hero-parallax
+            slot="hero-2"
+            .words=${['Dunes', 'Part', 'One']}
+
+            .layers=${[
+        {
+          src: '/img/dunes-1-background.avif',
+          startPos: '0',
+          speed: 0,
+          cssName: 'background',
+        },
+        {
+          speed: 0.14,
+          src: '/img/dunes-1-layer-3a.avif',
+          startPos: '510',
+          scale: 0.8,
+          cssName: 'layer-3',
+          position: { x: '10' },
+        },
+        {
+          src: '/img/dunes-1-layer-2a.avif',
+          speed: 0.17,
+          startPos: '2500',
+          scale: 0.8,
+          cssName: 'layer-2',
+        },
+        {
+          speed: 0.01,
+          src: '/img/dunes-1-layer-1a.avif',
+          startPos: '4520',
+          scale: 0.7,
+          cssName: 'layer-1',
         },
       ]}
           >
           </hero-parallax>
+                    <shrink-layers-parallax
+            slot="shrink-layers-parallax"
+            stageImage="/img/interior-dunes-2.avif"
+            stageImageEndTranslateYPos=15
+            .layers=${[
+        { src: '/img/dunes-1-background.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
+        { src: '/img/dunes-1-layer-3a.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
+        { src: '/img/dunes-1-layer-2a.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
+        {
+          src: '/img/dunes-1-layer-1a.avif',
+          speed: 0.02,
+          objectFit: 'contain',
+          startPos: '-100',
+          stopPos: '200',
+          scale: 0.4,
+          position: { x: '100%' },
+          cssName: 'layer-1',
+        },
+      ]}
+          >
+          </shrink-layers-parallax>
         </project-2>
 
         <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container>

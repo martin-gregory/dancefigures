@@ -93,7 +93,7 @@ export class ShrinkLayersParallax extends LitElement {
       position: absolute;
       object-fit: cover;
       // start off screen
-      transform: translateY(100%);
+      /* transform: translateY(100%); */
     }
   `;
 
@@ -103,8 +103,10 @@ export class ShrinkLayersParallax extends LitElement {
   @property({ type: Number }) convergenceEnd = 1500;
   @property({ type: Number }) scrollOutStart = 3000;
   @property({ type: Number }) finalScale = 0.33;
-  @property({ type: String }) stageImage = '/img/livingroom-mockup-cutout.avif';
+  @property({ type: String }) stageImage = '/img/interior-held-wind.avif';
   @property({ type: String }) stageImageAlt = 'Stage Image';
+  @property({ type: Number }) stageImageEndTranslateYPos = 0;
+
 
   // Use state to hold refs for DOM elements
   @state() private layerElements: HTMLElement[] = [];
@@ -204,8 +206,9 @@ export class ShrinkLayersParallax extends LitElement {
 
       // Progress 0 to 1 over this interval
       const stageImgProgress = this.clamp((scrollProgress - stageImgStart) / (stageImgEnd - stageImgStart));
-      // 120% -> 0% with smoothness
-      this.stageImgEl.style.transform = `translateY(${(1 - stageImgProgress) * 120}%)`;
+      // 100% -> 0% with smoothness
+      const finalTranslate = (1 - stageImgProgress) * 100;
+      this.stageImgEl.style.transform = `translateY(${finalTranslate < this.stageImageEndTranslateYPos ? this.stageImageEndTranslateYPos : finalTranslate}%)`;
       // Optionally, add easing:
       // const eased = 1 - Math.pow(1 - stageImgProgress, 2); // easeOut
     }

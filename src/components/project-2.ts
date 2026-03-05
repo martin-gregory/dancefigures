@@ -66,20 +66,8 @@ export class Project2 extends LitElement {
 
   override render() {
     return html`
-      <slot name="hero-scroll-2"></slot>
-      <slot name="image-parallax-2"></slot>
-
-      <section class="spacer">
-        <div class="content">
-          <h2>4 layers of acrylic</h2>
-          <p>Each layer compliments the others to create a dynamic visual experience.</p>
-        </div>
-      </section>
-
-      <slot name="pattern-parallax-2"></slot>
-      <!-- <slot name="progress-parallax-2"></slot> -->
-
       <slot name="hero-2"></slot>
+      <slot name="shrink-layers-parallax"></slot>
     `;
   }
 }
