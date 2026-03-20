@@ -26,6 +26,8 @@ export class ShrinkLayersParallax extends LitElement {
       min-height: 400px;
       background: #e9e3de;
       background: linear-gradient(305deg, rgb(178 159 134) 0%, rgb(217 207 201) 59% 65%, rgb(233, 228, 223) 100%);
+      max-width: 1880px;
+      margin: 0 auto;
     }
 
     .sticky-container {
@@ -33,6 +35,8 @@ export class ShrinkLayersParallax extends LitElement {
       top: 0;
       width: 100%;
       height: 100vh;
+      min-height: 900px;
+
       overflow: hidden;
       display: flex;
       align-items: center;
@@ -71,7 +75,7 @@ export class ShrinkLayersParallax extends LitElement {
       height: 1400px;
       top: 0px;
       z-index: 0;
-    } 
+    }
     .background {
       z-index: 0;
       /* Start slightly larger for better parallax effect */
@@ -90,6 +94,8 @@ export class ShrinkLayersParallax extends LitElement {
     .stage-image {
       width: 100%;
       height: 100vh;
+      min-height: 900px;
+
       position: absolute;
       object-fit: cover;
       // start off screen
@@ -106,7 +112,6 @@ export class ShrinkLayersParallax extends LitElement {
   @property({ type: String }) stageImage = '/img/interior-held-wind.avif';
   @property({ type: String }) stageImageAlt = 'Stage Image';
   @property({ type: Number }) stageImageEndTranslateYPos = 0;
-
 
   // Use state to hold refs for DOM elements
   @state() private layerElements: HTMLElement[] = [];
@@ -185,16 +190,14 @@ export class ShrinkLayersParallax extends LitElement {
       // Phase 2: Convergence and scale
       if (convergenceProgress > 0 && scrollProgress < this.scrollOutStart) {
         const scale = 1 - (1 - this.finalScale) * convergenceProgress;
-        const scaleAmount = `scale(${scale})`
+        const scaleAmount = `scale(${scale})`;
         imgEl.style.transform = `${scaleAmount}`;
 
         if (scale < 0.66) {
-
         } else {
           el.style.left = '0';
         }
       }
-
     });
 
     // Final stage image slotting in
@@ -208,7 +211,8 @@ export class ShrinkLayersParallax extends LitElement {
       const stageImgProgress = this.clamp((scrollProgress - stageImgStart) / (stageImgEnd - stageImgStart));
       // 100% -> 0% with smoothness
       const finalTranslate = (1 - stageImgProgress) * 100;
-      this.stageImgEl.style.transform = `translateY(${finalTranslate < this.stageImageEndTranslateYPos ? this.stageImageEndTranslateYPos : finalTranslate}%)`;
+      this.stageImgEl.style.transform = `translateY(${finalTranslate < this.stageImageEndTranslateYPos ? this.stageImageEndTranslateYPos : finalTranslate
+        }%)`;
       // Optionally, add easing:
       // const eased = 1 - Math.pow(1 - stageImgProgress, 2); // easeOut
     }

@@ -9,6 +9,11 @@ export class WorkshopContainer extends LitElement {
     css`
       :host {
         display: block;
+        /* display: flex; */
+        /* flex-direction: column;
+        max-width: 1500px;
+        margin: auto !important;
+        overflow: hidden; */
         --accent-colour: #6e90c0;
         --held-by-the-sea-bg: #485c71;
         --held-by-the-sea-bg: #b88393;
@@ -88,7 +93,6 @@ export class WorkshopContainer extends LitElement {
           <shrink-layers-parallax
             slot="shrink-layers-parallax"
             stageImage="/img/interior-held-wind.avif"
-
             .layers=${[
         { src: '/img/held-background-coloured.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
         { src: '/img/held-wind-layer-3-big.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
@@ -108,14 +112,11 @@ export class WorkshopContainer extends LitElement {
           </shrink-layers-parallax>
         </project-1>
 
-
         <hr />
         <project-2 slot="project-2">
-
           <hero-parallax
             slot="hero-2"
             .words=${['Moved', 'by', 'the', 'Tide']}
-
             .layers=${[
         {
           src: '/img/moved-by-tide-bg.avif',
@@ -145,9 +146,8 @@ export class WorkshopContainer extends LitElement {
         },
       ]}
           >
-          
           </hero-parallax>
-            <shrink-layers-parallax
+          <shrink-layers-parallax
             slot="shrink-layers-parallax"
             stageImage="/img/interior-moved-by-tide.avif"
             .layers=${[
@@ -169,11 +169,9 @@ export class WorkshopContainer extends LitElement {
           </shrink-layers-parallax>
         </project-2>
         <project-2 slot="project-3">
-
           <hero-parallax
             slot="hero-2"
             .words=${['Dunes', 'Part', 'One']}
-
             .layers=${[
         {
           src: '/img/dunes-1-background.avif',
@@ -206,10 +204,10 @@ export class WorkshopContainer extends LitElement {
       ]}
           >
           </hero-parallax>
-                    <shrink-layers-parallax
+          <shrink-layers-parallax
             slot="shrink-layers-parallax"
             stageImage="/img/interior-dunes-2.avif"
-            stageImageEndTranslateYPos=15
+            stageImageEndTranslateYPos="15"
             .layers=${[
         { src: '/img/dunes-1-background.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
         { src: '/img/dunes-1-layer-3a.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },

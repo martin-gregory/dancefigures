@@ -28,6 +28,8 @@ export class HeroParallax extends LitElement {
       min-width: 800px;
       view-timeline-name: --image-section;
       view-timeline-axis: block;
+      max-width: 1880px;
+      margin: 0 auto;
     }
     .layer {
       position: absolute;
@@ -36,6 +38,13 @@ export class HeroParallax extends LitElement {
       width: 100%;
       height: 100%;
       will-change: transform;
+    }
+      &.is-background {
+        height: 100% !important;
+        img {
+        height: 100% !important;
+        }
+      }
 
       .background {
         object-fit: cover !important;
@@ -72,7 +81,6 @@ export class HeroParallax extends LitElement {
       justify-content: center;
       align-items: center;
       margin-top: 100vh;
-
     }
 
     h2 {
@@ -101,7 +109,7 @@ export class HeroParallax extends LitElement {
         opacity: 0;
         transform: translateY(calc(var(--i) * 30%));
       }
-      
+
       5% {
         opacity: 0;
       }
@@ -220,10 +228,11 @@ export class HeroParallax extends LitElement {
           <h2>${this.words.map((word, index) => html`<span style="--i: ${index * 5 - 10}">${word}</span>`)}</h2>
         </div>
         ${myLayers.map((layer) => {
+      const isBackground = layer?.cssName === 'background';
       const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
 
       return html`
-            <div class="layer" style="${containerStyle}">
+            <div class="layer ${isBackground ? 'is-background' : ''}" style="${containerStyle}">
               <img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}" />
             </div>
           `;
