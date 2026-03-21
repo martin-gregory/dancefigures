@@ -26,8 +26,8 @@ export class ShrinkLayersParallax extends LitElement {
       min-height: 400px;
       background: #e9e3de;
       background: linear-gradient(305deg, rgb(178 159 134) 0%, rgb(217 207 201) 59% 65%, rgb(233, 228, 223) 100%);
-      max-width: 1880px;
-      margin: 0 auto;
+      /* max-width: 1880px;
+      margin: 0 auto; */
     }
 
     .sticky-container {
@@ -65,6 +65,8 @@ export class ShrinkLayersParallax extends LitElement {
       padding: 60px;
       border: 15px solid transparent;
       transform-origin: 30% 150px;
+          max-width: 1880px;
+      margin: 0 auto;
     }
     .frame {
       position: absolute;

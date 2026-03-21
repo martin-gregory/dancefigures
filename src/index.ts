@@ -2,6 +2,7 @@ import "./components/site-navigation";
 import "./components/workshop-container";
 import './components/workshop-site';
 import './components/hero-parallax';
+import './components/hero-parallax-panel';
 import './components/instagram-gallery';
 import './components/workshops-section';
 import './components/hero-scroll';

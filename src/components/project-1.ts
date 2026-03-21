@@ -10,10 +10,6 @@ export class Project1 extends LitElement {
     css`
       :host {
         display: block;
-        --accent-colour: #6e90c0;
-        --held-by-the-sea-bg: #485c71;
-        --held-by-the-sea-bg: #b88393;
-        background-color: var(--held-by-the-sea-bg);
       }
 
       /* Hero */

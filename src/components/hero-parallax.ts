@@ -28,8 +28,6 @@ export class HeroParallax extends LitElement {
       min-width: 800px;
       view-timeline-name: --image-section;
       view-timeline-axis: block;
-      max-width: 1880px;
-      margin: 0 auto;
     }
     .layer {
       position: absolute;
@@ -73,6 +71,8 @@ export class HeroParallax extends LitElement {
       object-position: 0 0%;
       user-drag: none;
       pointer-events: none;
+      max-width: 1880px;
+      margin: 0 auto;
     }
 
     .text-parallax-container {
@@ -186,9 +186,11 @@ export class HeroParallax extends LitElement {
         const maxMove = el.offsetHeight * percentOfHeight;
 
         const moveY = Math.max(Math.min(desiredMove, maxMove), -maxMove);
-        const scale = layer.scale ?? 1;
+        const scale = layer?.scale ?? 1;
         if (xPos) {
           el.style.transform = `translateY(${moveY}px) translateX(${xPos}%) scale(${scale})`;
+          console.log({ moveY });
+
         } else {
           el.style.transform = `translateY(${moveY}px) scale(${scale})`;
         }
@@ -229,11 +231,13 @@ export class HeroParallax extends LitElement {
         </div>
         ${myLayers.map((layer) => {
       const isBackground = layer?.cssName === 'background';
-      const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
-
+      let containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
+      if (isBackground) {
+        containerStyle += `background-image: url(${layer.src});`;
+      }
       return html`
             <div class="layer ${isBackground ? 'is-background' : ''}" style="${containerStyle}">
-              <img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}" />
+              ${!isBackground && html`<img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}" />`}
             </div>
           `;
     })}

@@ -249,91 +249,42 @@ export class WorkshopSite extends LitElement {
 
   override connectedCallback() {
     super.connectedCallback();
+    window.addEventListener('scroll-to', this.handleScrollTo.bind(this));
   }
+  override disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener('scroll-to', this.handleScrollTo.bind(this));
+  }
+
   private handleSubmit() {
     alert("Message sent! We'll get back to you soon.");
   }
 
+  private handleScrollTo(e: CustomEvent) {
+    if (e.detail.id) {
+      const el = this?.shadowRoot?.getElementById(e.detail.id)
+      el?.scrollIntoView({ behavior: 'instant' });
+    }
+  }
 
   override render() {
     return html`
       <!-- Navigation -->
       <slot name="navigation"></slot>
+
+      <div id="top"></div>
       <slot name="site-header"></slot>
+      <div id="held-wind"></div>
 
       <slot name="project-1"></slot>
+      <div id="held-sea"></div>
       <slot name="project-2"></slot>
+      <div id="dunes-part-1"></div>
       <slot name="project-3"></slot>
-      <!-- 
 
-
-        <hr />
-        <instagram-gallery id="gallery" slot="gallery"></instagram-gallery>
-        <workshops-section id="workshops" slot="workshops"></workshops-section> -->
-        <!-- Workshops -->
-
-        <slot name="workshops"></slot>
-
-        <slot name="gallery"></slot>
-        <!-- About -->
-        <!-- <section id="about">
-          <div class="about-grid">
-            <div class="about-text">
-              <h2 class="section-title">About Our Studio</h2>
-              <p>
-                Welcome to Artisan Studio, where creativity meets community. For over a decade, we've been inspiring artists of all levels to explore
-                their passion for painting in a supportive and vibrant environment.
-              </p>
-              <p>
-                Our experienced instructors bring years of expertise and a genuine love for teaching. Whether you're picking up a brush for the first
-                time or looking to refine your technique, we have the perfect workshop for you.
-              </p>
-              <p>Join our community of creative souls and embark on an artistic journey that will transform the way you see the world.</p>
-            </div>
-            <div>
-              <img class="about-image" src="https://images.unsplash.com/photo-1561489396-888724a1543d?w=800&h=600&fit=crop" alt="Art Studio" />
-            </div>
-          </div>
-        </section> -->
-
-      <!-- Contact -->
-        <!-- <section id="contact" class="bg-gray">
-          <h2 class="section-title">Get In Touch</h2>
-          <div class="contact-grid">
-            <div class="contact-info">
-              <div class="contact-item">
-                <div>📍</div>
-                <div>
-                  <h3>Location</h3>
-                  <p>123 Creative Avenue<br />Art District, CA 90210</p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div>📞</div>
-                <div>
-                  <h3>Phone</h3>
-                  <p>(555) 123-4567</p>
-                </div>
-              </div>
-              <div class="contact-item">
-                <div>✉️</div>
-                <div>
-                  <h3>Email</h3>
-                  <p>hello@artisanstudio.com</p>
-                </div>
-              </div>
-            </div>
-            <div class="contact-form">
-              <input type="text" placeholder="Your Name" />
-              <input type="email" placeholder="Your Email" />
-              <textarea placeholder="Your Message" rows="4"></textarea>
-              <button @click=${this.handleSubmit}>Send Message</button>
-            </div>
-          </div>
-        </section> -->
         <!-- Footer -->
-        <!-- <footer>
-          <p>© 2026 Artisan Studio. All rights reserved.</p>
+        <!--  <footer>
+          <p>© 2026 Diakova Art</p>
           <div class="footer-links">
             <a href="#">Instagram</a>
             <a href="#">Facebook</a>

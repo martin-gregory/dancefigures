@@ -116,14 +116,27 @@ export class SiteNavigation extends LitElement {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
+
+  scrollToTarget(id: string) {
+    this.dispatchEvent(new CustomEvent('scroll-to', {
+      detail: { id },
+      bubbles: true,
+      composed: true  // ← critical: pierces shadow DOM boundaries
+    }));
+  }
+
+
   override render() {
     return html`
       <!-- Navigation -->
       <nav>
-        <div class="nav-container">
+        <div class="nav-container" >
           <div class="logo">Dance Figures - Conceptual Figurative Painting</div>
           <div class="nav-links">
-            <a href="#home">Home</a>
+            <a href="#" @click=${(e: Event) => this.scrollToTarget('top')}>Top</a>
+            <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
+            <a href="#held-sea" @click=${() => this.scrollToTarget('held-sea')}>Held by the Sea</a>
+            <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes Part 1</a>
             <!-- <a href="#about">About</a>
             <a href="#workshops">Workshops</a>
             <a href="#gallery">Gallery</a>
@@ -136,7 +149,7 @@ export class SiteNavigation extends LitElement {
           </button>
         </div>
         <div class="mobile-menu ${this.isMenuOpen ? 'open' : ''}">
-          <a href="#home">Home</a>
+          <a href="#home" @click=${this.scrollToSection}>Top</a>
           <!-- <a href="#about">About</a>
           <a href="#workshops">Workshops</a>
           <a href="#gallery">Gallery</a>

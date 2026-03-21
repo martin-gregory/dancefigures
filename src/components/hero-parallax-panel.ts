@@ -1,0 +1,193 @@
+import { LitElement, css, html, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+interface Layer {
+  src: string;
+  speed: number; // Parallax intensity (e.g., 0.1 to 0.8)
+  topPct: number; // Starting Y position as % of container height
+  leftPct?: number; // Starting X position as % of container width
+  widthPct?: number; // How wide the image is relative to container (e.g., 50)
+  zIndex?: number;
+  alt?: string;
+  scale?: number; // New: scale multiplier (e.g. 1.2 for foreground)
+  heightVh?: number; // e.g., 50 means 50% of the screen height
+}
+@customElement('hero-parallax-panel')
+export class HeroParallaxPanel extends LitElement {
+  static override styles = css`
+    :host {
+      display: block;
+      position: relative;
+      width: 100%;
+      height: 400vh;
+      min-height: 800px;
+      overflow: hidden;
+      background: var(--panel-background-image) no-repeat center 0;
+      background-size: cover;
+      view-timeline-name: --image-section;
+      view-timeline-axis: block;
+    }
+
+    .layer-container {
+      position: absolute;
+      width: 100%;
+      /* This ensures the 'top' percentage is relative to the hero height */
+      will-change: transform;
+      pointer-events: none; /* Stops images from interfering with clicks/scrolling */
+      /* Adjust this if you want layers to scale from the top instead of the center */
+      transform-origin: center center;
+    }
+
+    .layer-container img {
+      display: block;
+      width: auto; /* Let width follow the height */
+      max-width: none; /* Allow it to be wider than the screen if needed */
+      user-drag: none;
+      object-position: 0 0%;
+      margin: 0 auto; /* Center horizontally by default */
+
+    }
+
+    /* .layer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: 0 0%;
+      user-drag: none;
+      pointer-events: none;
+    } */
+
+    h2 {
+      text-align: center;
+      display: flex;
+      gap: 20px;
+      font-size: 4rem;
+      font-weight: normal;
+      color: #edebed;
+      font-family: cursive;
+      z-index: 10;
+      position: fixed;
+      bottom: 20px;
+      right: 80px;
+      bottom: 10%;
+      right: 10%;
+      span {
+        animation: text-parallax both;
+        animation-timeline: --image-section;
+        animation-range: cover;
+      }
+    }
+
+    @keyframes text-parallax {
+      0% {
+        opacity: 0;
+        transform: translateY(calc(var(--i) * 30%));
+      }
+
+      5% {
+        opacity: 0;
+      }
+
+      30% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      80% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+  `;
+
+  @property({ type: Array })
+  words: string[] = ['Held', 'by', 'the', 'Wind'];
+
+  @property({ type: Array }) layers: Layer[] = [];
+
+  // Helper: Clamp val between min,max
+  private clamp(val: number, min = 0, max = 1): number {
+    return Math.max(min, Math.min(val, max));
+  }
+
+  @state() private layerImgElements: HTMLElement[] = [];
+  private rafId: number = 0;
+  private ticking = false;
+
+  // Cache DOM elements after first render
+  protected override firstUpdated(_changed: PropertyValues) {
+    // Update the selector to match your new render() class name
+    this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer-container')) as HTMLElement[];
+
+    this.onScroll();
+  }
+
+  // Only re-render parallax smoothly via RAF
+  private onScroll = () => {
+    const rect = this.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    if (rect.top < viewportHeight && rect.bottom > 0) {
+      const relativeScroll = -rect.top;
+      // Normalize scroll to a 0.0 - 1.0 range of the component's height
+      const scrollProgress = relativeScroll / rect.height;
+
+      this.layers.forEach((layer, idx) => {
+        const el = this.layerImgElements[idx];
+        if (!el) return;
+
+        // Now 'speed' acts as a percentage of the total container height
+        // e.g., speed: 0.2 means the layer moves 20% of the total 400vh area
+        const movement = scrollProgress * rect.height * layer.speed;
+        const scale = layer.scale ?? 1;
+
+        el.style.transform = `translate3d(0, ${movement}px, 0) scale(${scale})`;
+      });
+    }
+  };
+  override connectedCallback() {
+    super.connectedCallback();
+    this.rafId = requestAnimationFrame(this.onScrollRaf);
+    window.addEventListener('scroll', this.onScroll, { passive: true }); // for smarter layouts if needed
+  }
+
+  override disconnectedCallback() {
+    window.removeEventListener('scroll', this.onScroll);
+    cancelAnimationFrame(this.rafId);
+    super.disconnectedCallback();
+  }
+
+  private onScrollRaf = () => {
+    if (!this.ticking) {
+      this.rafId = requestAnimationFrame(() => {
+        this.onScroll();
+        this.ticking = false;
+      });
+      this.ticking = true;
+    }
+  };
+
+  override render() {
+    return html`
+      <div class="text-parallax-container">
+        <h2>${this.words.map((word, index) => html`<span style="--i: ${index * 5 - 10}">${word}</span>`)}</h2>
+      </div>
+      ${this.layers.map(
+      (layer) => html`
+          <div
+            class="layer-container"
+            style="
+          top: ${layer.topPct}%; 
+          left: ${layer.leftPct ?? 0}%; 
+          z-index: ${layer.zIndex ?? 1};
+        "
+          >
+            <img src="${layer.src}" style="height: ${layer.heightVh ?? 50}vh;" alt="${layer.alt || ''}" />
+          </div>
+        `,
+    )}
+      <div class="content-overlay"></div>
+    `;
+  }
+}

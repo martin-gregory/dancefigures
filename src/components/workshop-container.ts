@@ -31,64 +31,58 @@ export class WorkshopContainer extends LitElement {
         <!-- negative startPos is up -->
         <!-- negative pos x is left -->
         <project-1 slot="project-1">
-          <hero-parallax
+          <hero-parallax-panel
             slot="hero-1"
+            style="--panel-background-image: url('/img/held-background-coloured-big.avif');"
             .layers=${[
-        {
-          src: '/img/held-background-coloured-big.avif',
-          speed: 0, //startPos: '-320',
-          cssName: 'background',
-        },
         {
           // last
           src: '/img/held-wind-layer-3-big.avif',
           speed: 0.08,
-          startPos: '110',
+          topPct: 0,
+          heightVh: 220,
           cssName: 'layer-3',
-          // position: { x: '0' },
         },
         {
           // middle
           src: '/img/held-wind-layer-2a-swoosh-big.avif',
           speed: 0.15,
-          startPos: '1920',
-          // direction: 'up',
+          topPct: 10,
+          heightVh: 220,
           cssName: 'layer-2',
-          // position: { x: '0' },
         },
         {
           // middle
           src: '/img/held-wind-layer-2b-swoosh-big.avif',
           speed: 0.1,
-          startPos: '2220',
-          // direction: 'up',
+          topPct: 10,
+          heightVh: 220,
           cssName: 'layer-2',
-          // position: { x: '0' },
         },
         {
           // front
           src: '/img/held-wind-layer-1a-swoosh-big.avif',
           speed: 0.1,
-          startPos: '4500',
+          topPct: 50,
+          heightVh: 220,
           scale: 0.8,
-          // stopPos: '20',
-          position: { x: '8' },
+          leftPct: 5,
           cssName: 'layer-1',
         },
         {
           // front
           src: '/img/held-wind-layer-1b-swoosh-big.avif',
           speed: 0.04,
-          startPos: '4450',
-          scale: 0.85,
-          // stopPos: '20',
-          position: { x: '8' },
+          topPct: 50,
+          heightVh: 220,
+          scale: 0.8,
+          leftPct: 5,
           cssName: 'layer-1',
         },
       ]}
           >
             <h1>Held by the Wind</h1>
-          </hero-parallax>
+          </hero-parallax-panel>
 
           <shrink-layers-parallax
             slot="shrink-layers-parallax"

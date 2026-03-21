@@ -6,6 +6,7 @@ export class HeroScroll extends LitElement {
   static override styles = css`
     :host {
       display: block;
+      background-color: transparent;
     }
 
     h1,
@@ -18,6 +19,8 @@ export class HeroScroll extends LitElement {
     }
     .hero-scroll {
       position: relative;
+      background-color: transparent;
+
       height: 100vh;
       overflow: hidden;
       view-timeline-name: --hero-section;
