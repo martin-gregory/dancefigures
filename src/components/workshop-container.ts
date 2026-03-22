@@ -201,20 +201,22 @@ export class WorkshopContainer extends LitElement {
             style="--panel-background-image: url('/img/dunes-2-background.avif'); --panel-height: 400vh;"
             .words=${['Dunes', 'II']}
             .layers=${[
+
         {
           speed: 0.14,
           src: '/img/dunes-2-layer-4a.avif',
-          topPct: 15,
+          topPct: 25,
           heightVh: 220,
-          scale: 0.8,
-          cssName: 'layer-3',
+          scale: 0.85,
+          leftPct: 6,
+          cssName: 'layer-4',
         },
         {
           speed: 0.14,
           src: '/img/dunes-2-layer-3a.avif',
-          topPct: 15,
+          topPct: 25,
           heightVh: 220,
-          scale: 0.8,
+          scale: 0.85,
           cssName: 'layer-3',
         },
         {
@@ -223,7 +225,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 0,
           heightVh: 220,
           scale: 0.8,
-          leftPct: 20,
+          leftPct: 15,
           cssName: 'layer-2',
         },
         {
