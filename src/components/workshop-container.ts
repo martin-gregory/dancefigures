@@ -131,26 +131,14 @@ export class WorkshopContainer extends LitElement {
       ]}
           >
           </hero-parallax-panel>
-          <shrink-layers-parallax
+          <shrink-painting-panel
             slot="shrink-layers-parallax"
             stageImage="/img/interior-moved-by-tide.avif"
             .layers=${[
-        { src: '/img/moved-by-tide-bg.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
-        { src: '/img/moved-by-tide-layer-3-sm.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
-        { src: '/img/moved-by-tide-layer-2-sm.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
-        {
-          src: '/img/moved-by-tide-layer-1-sm.avif',
-          speed: 0.02,
-          objectFit: 'contain',
-          startPos: '-100',
-          stopPos: '200',
-          scale: 0.8,
-          position: { x: '100%' },
-          cssName: 'layer-1',
-        },
+        { src: '/img/moved-by-tide-painting.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
       ]}
           >
-          </shrink-layers-parallax>
+          </shrink-painting-panel>
         </project-2>
         <project-2 slot="project-3">
           <hero-parallax-panel

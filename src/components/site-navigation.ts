@@ -37,14 +37,14 @@ export class SiteNavigation extends LitElement {
       display: flex;
       flex-direction: row;
       align-items: baseline;
-      gap: 8px;
+      gap: 12px;
       h1 {
         font-size: 28px;
         color: var(--accent-colour);
         font-family: 'helvetica serif';
       }
       h2 {
-        font-size: 20px;
+        font-size: 18px;
         color: var(--accent-colour);
         font-family: 'helvetica serif';
       }
