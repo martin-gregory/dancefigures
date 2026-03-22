@@ -277,7 +277,7 @@ export class WorkshopSite extends LitElement {
       <div id="held-wind"></div>
 
       <slot name="project-1"></slot>
-      <div id="held-sea"></div>
+      <div id="moved-tides"></div>
       <slot name="project-2"></slot>
       <div id="dunes-part-1"></div>
       <slot name="project-3"></slot>

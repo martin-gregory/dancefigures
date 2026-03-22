@@ -42,6 +42,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 0,
           heightVh: 220,
           cssName: 'layer-3',
+          // leftPct: 50,
         },
         {
           // middle
@@ -50,6 +51,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 10,
           heightVh: 220,
           cssName: 'layer-2',
+          // leftPct: 50,
         },
         {
           // middle
@@ -58,6 +60,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 10,
           heightVh: 220,
           cssName: 'layer-2',
+          // leftPct: 50,
         },
         {
           // front
@@ -66,7 +69,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 50,
           heightVh: 220,
           scale: 0.8,
-          leftPct: 5,
+          leftPct: 9,
           cssName: 'layer-1',
         },
         {
@@ -76,7 +79,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 50,
           heightVh: 220,
           scale: 0.8,
-          leftPct: 5,
+          leftPct: 9,
           cssName: 'layer-1',
         },
       ]}
@@ -165,7 +168,7 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-3">
           <hero-parallax
             slot="hero-2"
-            .words=${['Dunes', 'Part', 'One']}
+            .words=${['Dunes', 'I']}
             .layers=${[
         {
           src: '/img/dunes-1-background.avif',

@@ -35,7 +35,12 @@ export class HeroParallaxPanel extends LitElement {
       will-change: transform;
       pointer-events: none; /* Stops images from interfering with clicks/scrolling */
       /* Adjust this if you want layers to scale from the top instead of the center */
-      transform-origin: center center;
+      transform-origin: 0 center;
+
+      display: flex;
+      justify-content: center;
+
+      /* This centers the image horizontally inside the container */
     }
 
     .layer-container img {
@@ -43,9 +48,9 @@ export class HeroParallaxPanel extends LitElement {
       width: auto; /* Let width follow the height */
       max-width: none; /* Allow it to be wider than the screen if needed */
       user-drag: none;
-      object-position: 0 0%;
-      margin: 0 auto; /* Center horizontally by default */
-
+      /* object-position: 0 0%; */
+      /* margin: 0 auto; */
+      /* Center horizontally by default */
     }
 
     /* .layer img {
