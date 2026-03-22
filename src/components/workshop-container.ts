@@ -21,8 +21,12 @@ export class WorkshopContainer extends LitElement {
       }
     `,
   ];
-
   override render() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const imageSizes = {
+      heightVh: isMobile ? 80 : 220,
+      panelHeight: isMobile ? 150 : 400,
+    }
     return html`
       <workshop-site>
         <site-navigation slot="navigation"></site-navigation>
@@ -33,14 +37,14 @@ export class WorkshopContainer extends LitElement {
         <project-1 slot="project-1">
           <hero-parallax-panel
             slot="hero-1"
-            style="--panel-background-image: url('/img/held-background-coloured-big.avif');"
+            style="--panel-background-image: url('/img/held-background-coloured-big.avif'); --panel-height: ${imageSizes.panelHeight}vh;"
             .layers=${[
         {
           // last
           src: '/img/held-wind-layer-3-big.avif',
           speed: 0.08,
           topPct: 0,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
         },
@@ -49,7 +53,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/held-wind-layer-2a-swoosh-big.avif',
           speed: 0.15,
           topPct: 10,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
         },
@@ -58,7 +62,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/held-wind-layer-2b-swoosh-big.avif',
           speed: 0.1,
           topPct: 10,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
         },
@@ -67,7 +71,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/held-wind-layer-1a-swoosh-big.avif',
           speed: 0.1,
           topPct: 50,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.8,
           leftPct: 9,
           cssName: 'layer-1',
@@ -78,7 +82,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/held-wind-layer-1b-swoosh-big.avif',
           speed: 0.04,
           topPct: 50,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.8,
           leftPct: 9,
           cssName: 'layer-1',
@@ -101,7 +105,7 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-2">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('/img/moved-by-tide-bg.avif'); --panel-height: 300vh;"
+            style="--panel-background-image: url('/img/moved-by-tide-bg.avif'); --panel-height: ${imageSizes.panelHeight}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .layers=${[
         {
@@ -109,7 +113,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/moved-by-tide-layer-3-sm.avif',
           leftPct: 20,
           topPct: 0,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.8,
           cssName: 'layer-3',
         },
@@ -117,7 +121,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/moved-by-tide-layer-2-sm.avif',
           speed: 0.17,
           topPct: 10,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           leftPct: 0,
           cssName: 'layer-2',
         },
@@ -125,7 +129,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.01,
           src: '/img/moved-by-tide-layer-1-sm.avif',
           topPct: 30,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           cssName: 'layer-1',
         },
       ]}
@@ -143,14 +147,14 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-3">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('/img/dunes-1-background.avif'); --panel-height: 400vh;"
+            style="--panel-background-image: url('/img/dunes-1-background.avif'); --panel-height: ${imageSizes.panelHeight}vh;"
             .words=${['Dunes', 'I']}
             .layers=${[
         {
           speed: 0.14,
           src: '/img/dunes-1-layer-3a.avif',
           topPct: 15,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.8,
           cssName: 'layer-3',
         },
@@ -158,7 +162,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/dunes-1-layer-2a.avif',
           speed: 0.17,
           topPct: 0,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.8,
           leftPct: 20,
           cssName: 'layer-2',
@@ -168,7 +172,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/dunes-1-layer-1a.avif',
           topPct: 50,
           leftPct: 24,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.5,
           cssName: 'layer-1',
         },
@@ -186,7 +190,7 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-4">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('/img/dunes-2-background.avif'); --panel-height: 400vh;"
+            style="--panel-background-image: url('/img/dunes-2-background.avif'); --panel-height: ${imageSizes.panelHeight}vh;"
             .words=${['Dunes', 'II']}
             .layers=${[
 
@@ -194,7 +198,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.14,
           src: '/img/dunes-2-layer-4a.avif',
           topPct: 25,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.85,
           leftPct: 6,
           cssName: 'layer-4',
@@ -203,7 +207,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.14,
           src: '/img/dunes-2-layer-3a.avif',
           topPct: 25,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.85,
           cssName: 'layer-3',
         },
@@ -211,7 +215,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/dunes-2-layer-2a.avif',
           speed: 0.17,
           topPct: 0,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           scale: 0.8,
           leftPct: 15,
           cssName: 'layer-2',
@@ -221,7 +225,7 @@ export class WorkshopContainer extends LitElement {
           src: '/img/dunes-2-layer-1a.avif',
           topPct: 50,
           leftPct: 24,
-          heightVh: 220,
+          heightVh: imageSizes.heightVh,
           // scale: 0.8,
           cssName: 'layer-1',
         },

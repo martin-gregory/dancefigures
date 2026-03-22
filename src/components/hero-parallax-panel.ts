@@ -22,7 +22,7 @@ export class HeroParallaxPanel extends LitElement {
       position: relative;
       width: 100%;
       height: var(--panel-height, 400vh); /* Default to 400vh if not set */
-      min-height: 800px;
+      /* min-height: 800px; */
       overflow: hidden;
       background: var(--panel-background-image) no-repeat center 0;
       background-size: cover;
