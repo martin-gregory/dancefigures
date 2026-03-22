@@ -11,6 +11,7 @@ interface Layer {
   alt?: string;
   scale?: number; // New: scale multiplier (e.g. 1.2 for foreground)
   heightVh?: number; // e.g., 50 means 50% of the screen height
+  fetchPriority?: 'high' | 'low' | 'auto'; // Optional fetch priority for the image
 }
 @customElement('hero-parallax-panel')
 export class HeroParallaxPanel extends LitElement {
@@ -188,7 +189,7 @@ export class HeroParallaxPanel extends LitElement {
           z-index: ${layer.zIndex ?? 1};
         "
           >
-            <img src="${layer.src}" style="height: ${layer.heightVh ?? 50}vh;" alt="${layer.alt || ''}" />
+            <img src="${layer.src}" style="height: ${layer.heightVh ?? 50}vh;" alt="${layer.alt || ''}" fetchpriority="${layer.fetchPriority ?? 'auto'}" />
           </div>
         `,
     )}

@@ -34,9 +34,20 @@ export class SiteNavigation extends LitElement {
     }
 
     .logo {
-      font-size: 28px;
-      color: var(--accent-colour);
-      font-family: 'helvetica serif';
+      display: flex;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 8px;
+      h1 {
+        font-size: 28px;
+        color: var(--accent-colour);
+        font-family: 'helvetica serif';
+      }
+      h2 {
+        font-size: 20px;
+        color: var(--accent-colour);
+        font-family: 'helvetica serif';
+      }
     }
 
     .nav-links {
@@ -116,27 +127,31 @@ export class SiteNavigation extends LitElement {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-
   scrollToTarget(id: string) {
-    this.dispatchEvent(new CustomEvent('scroll-to', {
-      detail: { id },
-      bubbles: true,
-      composed: true  // ← critical: pierces shadow DOM boundaries
-    }));
+    this.dispatchEvent(
+      new CustomEvent('scroll-to', {
+        detail: { id },
+        bubbles: true,
+        composed: true, // ← critical: pierces shadow DOM boundaries
+      }),
+    );
   }
-
 
   override render() {
     return html`
       <!-- Navigation -->
       <nav>
-        <div class="nav-container" >
-          <div class="logo">Dance Figures - Conceptual Figurative Painting</div>
+        <div class="nav-container">
+          <div class="logo">
+            <h1>Dance Figures</h1>
+            <h2>Conceptual Figurative Painting</h2>
+          </div>
           <div class="nav-links">
             <a href="#" @click=${(e: Event) => this.scrollToTarget('top')}>Top</a>
             <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
             <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tides</a>
             <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes I</a>
+            <a href="#dunes-part-2" @click=${() => this.scrollToTarget('dunes-part-2')}>Dunes II</a>
           </div>
           <button class="menu-btn" @click=${this.toggleMenu}>
             <span></span>

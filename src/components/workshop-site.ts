@@ -281,6 +281,8 @@ export class WorkshopSite extends LitElement {
       <slot name="project-2"></slot>
       <div id="dunes-part-1"></div>
       <slot name="project-3"></slot>
+      <div id="dunes-part-2"></div>
+      <slot name="project-4"></slot>
 
         <!-- Footer -->
         <!--  <footer>

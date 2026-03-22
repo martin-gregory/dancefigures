@@ -42,6 +42,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 0,
           heightVh: 220,
           cssName: 'layer-3',
+          fetchPriority: 'high',
         },
         {
           // middle
@@ -50,6 +51,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 10,
           heightVh: 220,
           cssName: 'layer-2',
+          fetchPriority: 'high',
         },
         {
           // middle
@@ -58,6 +60,7 @@ export class WorkshopContainer extends LitElement {
           topPct: 10,
           heightVh: 220,
           cssName: 'layer-2',
+          fetchPriority: 'high',
         },
         {
           // front
@@ -68,6 +71,7 @@ export class WorkshopContainer extends LitElement {
           scale: 0.8,
           leftPct: 9,
           cssName: 'layer-1',
+          fetchPriority: 'high',
         },
         {
           // front
@@ -78,6 +82,7 @@ export class WorkshopContainer extends LitElement {
           scale: 0.8,
           leftPct: 9,
           cssName: 'layer-1',
+          fetchpriority: 'high',
         },
       ]}
           >
@@ -162,41 +167,97 @@ export class WorkshopContainer extends LitElement {
           </shrink-layers-parallax>
         </project-2>
         <project-2 slot="project-3">
-          <hero-parallax
+          <hero-parallax-panel
             slot="hero-2"
+            style="--panel-background-image: url('/img/dunes-1-background.avif'); --panel-height: 400vh;"
             .words=${['Dunes', 'I']}
             .layers=${[
         {
-          src: '/img/dunes-1-background.avif',
-          startPos: '0',
-          speed: 0,
-          cssName: 'background',
-        },
-        {
           speed: 0.14,
           src: '/img/dunes-1-layer-3a.avif',
-          startPos: '510',
+          topPct: 15,
+          heightVh: 220,
           scale: 0.8,
           cssName: 'layer-3',
-          position: { x: '10' },
         },
         {
           src: '/img/dunes-1-layer-2a.avif',
           speed: 0.17,
-          startPos: '2500',
+          topPct: 0,
+          heightVh: 220,
           scale: 0.8,
+          leftPct: 20,
           cssName: 'layer-2',
         },
         {
           speed: 0.01,
           src: '/img/dunes-1-layer-1a.avif',
-          startPos: '4520',
-          scale: 0.7,
+          topPct: 50,
+          leftPct: 24,
+          heightVh: 220,
+          scale: 0.5,
           cssName: 'layer-1',
         },
       ]}
           >
-          </hero-parallax>
+          </hero-parallax-panel>
+          <shrink-layers-parallax
+            slot="shrink-layers-parallax"
+            stageImage="/img/interior-dunes-2.avif"
+            stageImageEndTranslateYPos="15"
+            .layers=${[
+        { src: '/img/dunes-1-background.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
+        { src: '/img/dunes-1-layer-3a.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
+        { src: '/img/dunes-1-layer-2a.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
+        {
+          src: '/img/dunes-1-layer-1a.avif',
+          speed: 0.02,
+          objectFit: 'contain',
+          startPos: '-100',
+          stopPos: '200',
+          scale: 0.4,
+          position: { x: '100%' },
+          cssName: 'layer-1',
+        },
+      ]}
+          >
+          </shrink-layers-parallax>
+        </project-2>
+        <project-2 slot="project-4">
+          <hero-parallax-panel
+            slot="hero-2"
+            style="--panel-background-image: url('/img/dunes-1-background.avif'); --panel-height: 400vh;"
+            .words=${['Dunes', 'II']}
+            .layers=${[
+        {
+          speed: 0.14,
+          src: '/img/dunes-1-layer-3a.avif',
+          topPct: 15,
+          heightVh: 220,
+          scale: 0.8,
+          cssName: 'layer-3',
+        },
+        {
+          src: '/img/dunes-1-layer-2a.avif',
+          speed: 0.17,
+          topPct: 0,
+          heightVh: 220,
+          scale: 0.8,
+          leftPct: 20,
+          cssName: 'layer-2',
+        },
+        {
+          speed: 0.01,
+          src: '/img/dunes-1-layer-1a.avif',
+          topPct: 50,
+          leftPct: 24,
+          heightVh: 220,
+          scale: 0.5,
+          cssName: 'layer-1',
+        },
+      ]}
+          >
+          </hero-parallax-panel>
           <shrink-layers-parallax
             slot="shrink-layers-parallax"
             stageImage="/img/interior-dunes-2.avif"
