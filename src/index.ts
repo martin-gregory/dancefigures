@@ -9,6 +9,7 @@ import './components/hero-scroll';
 import './components/image-parallax-container';
 import './components/pattern-parallax-container';
 import './components/progress-parallax-container';
+import './components/shrink-painting-panel'
 import './components/shrink-layers-parallax'
 import './components/project-1';
 import './components/project-2';

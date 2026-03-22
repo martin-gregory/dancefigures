@@ -149,7 +149,7 @@ export class SiteNavigation extends LitElement {
           <div class="nav-links">
             <a href="#" @click=${(e: Event) => this.scrollToTarget('top')}>Top</a>
             <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
-            <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tides</a>
+            <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tide</a>
             <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes I</a>
             <a href="#dunes-part-2" @click=${() => this.scrollToTarget('dunes-part-2')}>Dunes II</a>
           </div>

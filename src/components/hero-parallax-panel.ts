@@ -6,6 +6,7 @@ interface Layer {
   speed: number; // Parallax intensity (e.g., 0.1 to 0.8)
   topPct: number; // Starting Y position as % of container height
   leftPct?: number; // Starting X position as % of container width
+  rightPct?: number; // Starting X position as % of container width
   widthPct?: number; // How wide the image is relative to container (e.g., 50)
   zIndex?: number;
   alt?: string;
@@ -186,6 +187,7 @@ export class HeroParallaxPanel extends LitElement {
             style="
           top: ${layer.topPct}%; 
           left: ${layer.leftPct ?? 0}%; 
+          ${layer.rightPct !== undefined ? `right: ${layer.rightPct}%;` : ''}
           z-index: ${layer.zIndex ?? 1};
         "
           >

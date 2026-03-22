@@ -89,26 +89,12 @@ export class WorkshopContainer extends LitElement {
             <h1>Held by the Wind</h1>
           </hero-parallax-panel>
 
-          <shrink-layers-parallax
+          <shrink-painting-panel
             slot="shrink-layers-parallax"
             stageImage="/img/interior-held-wind.avif"
-            .layers=${[
-        { src: '/img/held-background-coloured.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
-        { src: '/img/held-wind-layer-3-big.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
-        { src: '/img/held-wind-layer-2-sm.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
-        {
-          src: '/img/held-wind-layer-1.1-big.avif',
-          speed: 0.02,
-          objectFit: 'contain',
-          startPos: '-100',
-          stopPos: '200',
-          scale: 0.8,
-          position: { x: '100%' },
-          cssName: 'layer-1',
-        },
-      ]}
+            .layers=${[{ src: '/img/held-wind-painting.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
-          </shrink-layers-parallax>
+          </shrink-painting-panel>
         </project-1>
 
         <hr />
@@ -132,7 +118,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.17,
           topPct: 10,
           heightVh: 220,
-          leftPct: 15,
+          leftPct: 0,
           cssName: 'layer-2',
         },
         {
@@ -201,44 +187,38 @@ export class WorkshopContainer extends LitElement {
       ]}
           >
           </hero-parallax-panel>
-          <shrink-layers-parallax
+          <shrink-painting-panel
             slot="shrink-layers-parallax"
             stageImage="/img/interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
-            .layers=${[
-        { src: '/img/dunes-1-background.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
-        { src: '/img/dunes-1-layer-3a.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
-        { src: '/img/dunes-1-layer-2a.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
-        {
-          src: '/img/dunes-1-layer-1a.avif',
-          speed: 0.02,
-          objectFit: 'contain',
-          startPos: '-100',
-          stopPos: '200',
-          scale: 0.4,
-          position: { x: '100%' },
-          cssName: 'layer-1',
-        },
-      ]}
+            .layers=${[{ src: '/img/dunes-1-painting.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
-          </shrink-layers-parallax>
+          </shrink-painting-panel>
         </project-2>
         <project-2 slot="project-4">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('/img/dunes-1-background.avif'); --panel-height: 400vh;"
+            style="--panel-background-image: url('/img/dunes-2-background.avif'); --panel-height: 400vh;"
             .words=${['Dunes', 'II']}
             .layers=${[
         {
           speed: 0.14,
-          src: '/img/dunes-1-layer-3a.avif',
+          src: '/img/dunes-2-layer-4a.avif',
           topPct: 15,
           heightVh: 220,
           scale: 0.8,
           cssName: 'layer-3',
         },
         {
-          src: '/img/dunes-1-layer-2a.avif',
+          speed: 0.14,
+          src: '/img/dunes-2-layer-3a.avif',
+          topPct: 15,
+          heightVh: 220,
+          scale: 0.8,
+          cssName: 'layer-3',
+        },
+        {
+          src: '/img/dunes-2-layer-2a.avif',
           speed: 0.17,
           topPct: 0,
           heightVh: 220,
@@ -248,37 +228,23 @@ export class WorkshopContainer extends LitElement {
         },
         {
           speed: 0.01,
-          src: '/img/dunes-1-layer-1a.avif',
+          src: '/img/dunes-2-layer-1a.avif',
           topPct: 50,
           leftPct: 24,
           heightVh: 220,
-          scale: 0.5,
+          // scale: 0.8,
           cssName: 'layer-1',
         },
       ]}
           >
           </hero-parallax-panel>
-          <shrink-layers-parallax
+          <shrink-painting-panel
             slot="shrink-layers-parallax"
             stageImage="/img/interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
-            .layers=${[
-        { src: '/img/dunes-1-background.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
-        { src: '/img/dunes-1-layer-3a.avif', speed: 0.02, objectFit: 'contain', startPos: '0', cssName: 'layer-3' },
-        { src: '/img/dunes-1-layer-2a.avif', speed: 0.02, objectFit: 'contain', startPos: '-170', direction: 'up', cssName: 'layer-2' },
-        {
-          src: '/img/dunes-1-layer-1a.avif',
-          speed: 0.02,
-          objectFit: 'contain',
-          startPos: '-100',
-          stopPos: '200',
-          scale: 0.4,
-          position: { x: '100%' },
-          cssName: 'layer-1',
-        },
-      ]}
+            .layers=${[{ src: '/img/dunes-2-painting.avif', speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
-          </shrink-layers-parallax>
+          </shrink-painting-panel>
         </project-2>
 
         <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container>
