@@ -42,7 +42,6 @@ export class WorkshopContainer extends LitElement {
           topPct: 0,
           heightVh: 220,
           cssName: 'layer-3',
-          // leftPct: 50,
         },
         {
           // middle
@@ -51,7 +50,6 @@ export class WorkshopContainer extends LitElement {
           topPct: 10,
           heightVh: 220,
           cssName: 'layer-2',
-          // leftPct: 50,
         },
         {
           // middle
@@ -60,7 +58,6 @@ export class WorkshopContainer extends LitElement {
           topPct: 10,
           heightVh: 220,
           cssName: 'layer-2',
-          // leftPct: 50,
         },
         {
           // front
@@ -111,39 +108,38 @@ export class WorkshopContainer extends LitElement {
 
         <hr />
         <project-2 slot="project-2">
-          <hero-parallax
+          <hero-parallax-panel
             slot="hero-2"
+            style="--panel-background-image: url('/img/moved-by-tide-bg.avif'); --panel-height: 300vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .layers=${[
         {
-          src: '/img/moved-by-tide-bg.avif',
-          startPos: '0',
-          speed: 0,
-          cssName: 'background',
-        },
-        {
-          speed: 0.14,
+          speed: 0.1,
           src: '/img/moved-by-tide-layer-3-sm.avif',
-          startPos: '1310',
+          leftPct: 20,
+          topPct: 0,
+          heightVh: 220,
           scale: 0.8,
           cssName: 'layer-3',
-          position: { x: '10' },
         },
         {
           src: '/img/moved-by-tide-layer-2-sm.avif',
           speed: 0.17,
-          startPos: '2900',
+          topPct: 10,
+          heightVh: 220,
+          leftPct: 15,
           cssName: 'layer-2',
         },
         {
           speed: 0.01,
           src: '/img/moved-by-tide-layer-1-sm.avif',
-          startPos: '4720',
+          topPct: 30,
+          heightVh: 220,
           cssName: 'layer-1',
         },
       ]}
           >
-          </hero-parallax>
+          </hero-parallax-panel>
           <shrink-layers-parallax
             slot="shrink-layers-parallax"
             stageImage="/img/interior-moved-by-tide.avif"
