@@ -10,12 +10,6 @@ export class SiteNavigation extends LitElement {
     :host {
       display: block;
       /* --accent-colour: #6e90c0; */
-      @media (min-width: 400px) {
-        background-color: red;
-      }
-      @media (min-width: 740px) {
-        background-color: green;
-      }
     }
     /* Navigation */
     nav {
@@ -103,6 +97,8 @@ export class SiteNavigation extends LitElement {
       padding: 12px 20px;
       color: #374151;
       text-decoration: none;
+            font-family: 'helvetica serif';
+      color: var(--accent-colour);
     }
 
     .mobile-menu a:hover {
@@ -176,7 +172,7 @@ export class SiteNavigation extends LitElement {
             <h2>Conceptual Figurative Painting</h2>
           </div>
           <div class="nav-links">
-            <a href="#" @click=${(e: Event) => this.scrollToTarget('top')}>Top</a>
+            <a href="#" @click=${(e: Event) => this.scrollToTarget('top')}>Home</a>
             <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
             <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tide</a>
             <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes I</a>
@@ -189,11 +185,11 @@ export class SiteNavigation extends LitElement {
           </button>
         </div>
         <div class="mobile-menu ${this.isMenuOpen ? 'open' : ''}">
-          <a href="#home" @click=${this.scrollToSection}>Top</a>
-          <!-- <a href="#about">About</a>
-          <a href="#workshops">Workshops</a>
-          <a href="#gallery">Gallery</a>
-          <a href="#contact">Contact</a> -->
+          <a href="#home" @click=${() => this.scrollToTarget('top')}>Home</a>
+          <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
+          <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tide</a>
+          <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes I</a>
+          <a href="#dunes-part-2" @click=${() => this.scrollToTarget('dunes-part-2')}>Dunes II</a>
         </div>
       </nav>
     `;
