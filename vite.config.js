@@ -11,6 +11,8 @@ export default defineConfig({
       png: { quality: 80 },
       jpeg: { quality: 80 },
       webp: { quality: 80 },
+      // exclude avif
+      exclude: ['**/*.avif'],
     }),
   ],
   build: {

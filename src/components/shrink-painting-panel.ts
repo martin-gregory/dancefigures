@@ -65,7 +65,7 @@ export class ShrinkPaintingPanel extends LitElement {
       padding: 60px;
       border: 15px solid transparent;
       transform-origin: 30% 150px;
-          max-width: 1880px;
+      max-width: 1880px;
       margin: 0 auto;
     }
     .frame {
@@ -91,7 +91,6 @@ export class ShrinkPaintingPanel extends LitElement {
         transform-origin: 50% 50%;
         border: 15px solid #2c3d58;
       }
-
     }
     .stage-image {
       width: 100%;
@@ -102,6 +101,16 @@ export class ShrinkPaintingPanel extends LitElement {
       object-fit: cover;
       // start off screen
       /* transform: translateY(100%); */
+    }
+    /* mobile */
+    @media (max-width: 768px) {
+      .stage-image {
+        object-fit: contain;
+        object-position: bottom;
+      }
+      .layer img {
+        transform-origin: 40% 150px;
+      }
     }
   `;
 

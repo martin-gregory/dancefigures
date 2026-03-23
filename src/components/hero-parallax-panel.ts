@@ -85,6 +85,13 @@ export class HeroParallaxPanel extends LitElement {
       }
     }
 
+    @media (max-width: 768px) {
+      h2 {
+        font-size: 2rem;
+        gap: 8px;
+      }
+    }
+
     @keyframes text-parallax {
       0% {
         opacity: 0;
@@ -191,7 +198,12 @@ export class HeroParallaxPanel extends LitElement {
           z-index: ${layer.zIndex ?? 1};
         "
           >
-            <img src="${layer.src}" style="height: ${layer.heightVh ?? 50}vh;" alt="${layer.alt || ''}" fetchpriority="${layer.fetchPriority ?? 'auto'}" />
+            <img
+              src="${layer.src}"
+              style="height: ${layer.heightVh ?? 50}vh;"
+              alt="${layer.alt || ''}"
+              fetchpriority="${layer.fetchPriority ?? 'auto'}"
+            />
           </div>
         `,
     )}
