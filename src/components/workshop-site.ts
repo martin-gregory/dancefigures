@@ -196,7 +196,7 @@ export class WorkshopSite extends LitElement {
           <p>© 2026 Diakova Art</p>
           <div class="footer-links">
             <a href="https://www.instagram.com/diakova_art/" target="_blank" rel="noopener noreferrer" title="See more works by Tiana Diakova on Instagram">Instagram</a>
-            <a href="https://www.diakova.art/" target="_blank" rel="noopener noreferrer" title="Visit Tiana Diakova's full collection">Diakova-Art</a>
+            <a href="https://www.diakova-art.com/" target="_blank" rel="noopener noreferrer" title="Visit Tiana Diakova's full collection">diakova-art.com</a>
           </div>
         </footer>
     `;
