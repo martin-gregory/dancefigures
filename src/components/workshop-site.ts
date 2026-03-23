@@ -95,99 +95,6 @@ export class WorkshopSite extends LitElement {
         margin-bottom: 48px;
       }
 
-      /* About */
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 48px;
-        max-width: 1200px;
-        margin: 0 auto;
-        align-items: center;
-      }
-
-      .about-image {
-        width: 100%;
-        height: 400px;
-        object-fit: cover;
-        border-radius: 8px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .about-text p {
-        color: #4b5563;
-        margin-bottom: 16px;
-        line-height: 1.8;
-      }
-
-      /* Contact */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 32px;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-
-      .contact-info {
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
-      }
-
-      .contact-item {
-        display: flex;
-        gap: 12px;
-      }
-
-      .contact-item h3 {
-        font-weight: 600;
-        color: #1f2937;
-        margin-bottom: 4px;
-      }
-
-      .contact-item p {
-        color: #6b7280;
-      }
-
-      .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-      }
-
-      .contact-form input,
-      .contact-form textarea {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid #d1d5db;
-        border-radius: 8px;
-        font-size: 16px;
-        font-family: inherit;
-      }
-
-      .contact-form input:focus,
-      .contact-form textarea:focus {
-        outline: none;
-        border-color: var(--accent-colour);
-        box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
-      }
-
-      .contact-form button {
-        background: var(--accent-colour);
-        color: white;
-        border: none;
-        padding: 12px;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      .contact-form button:hover {
-        background: #b45309;
-      }
-
       /* Footer */
       footer {
         background: #1f2937;
@@ -285,14 +192,13 @@ export class WorkshopSite extends LitElement {
       <slot name="project-4"></slot>
 
         <!-- Footer -->
-        <!--  <footer>
+         <footer class="site-footer">
           <p>© 2026 Diakova Art</p>
           <div class="footer-links">
-            <a href="#">Instagram</a>
-            <a href="#">Facebook</a>
-            <a href="#">Pinterest</a>
+            <a href="https://www.instagram.com/diakova_art/" target="_blank" rel="noopener noreferrer" title="See more works by Tiana Diakova on Instagram">Instagram</a>
+            <a href="https://www.diakova.art/" target="_blank" rel="noopener noreferrer" title="Visit Tiana Diakova's full collection">Diakova-Art</a>
           </div>
-        </footer> -->
+        </footer>
     `;
   }
 }
