@@ -15,7 +15,7 @@ for img in ./img/*.avif; do
         magick "$img" -resize 50% "$output_path"
         
     elif [[ "$img" == *"-painting"* ]]; then
-        magick "$img" -resize 80% "$output_path"
+        magick "$img" -resize 100% "$output_path"
 
     elif [[ "$img" == *"-interior"* ]]; then
         magick "$img" -resize 50% "$output_path"
