@@ -5,11 +5,17 @@ import { customElement, property } from 'lit/decorators.js';
 export class SiteNavigation extends LitElement {
   @property({ type: Boolean })
   private isMenuOpen = false;
-
+  private isMobile = window.matchMedia('(max-width: 768px)').matches;
   static override styles = css`
     :host {
       display: block;
       /* --accent-colour: #6e90c0; */
+      @media (min-width: 400px) {
+        background-color: red;
+      }
+      @media (min-width: 740px) {
+        background-color: green;
+      }
     }
     /* Navigation */
     nav {
@@ -59,6 +65,8 @@ export class SiteNavigation extends LitElement {
       color: #374151;
       text-decoration: none;
       transition: color 0.3s;
+      font-family: 'helvetica serif';
+      color: var(--accent-colour);
     }
 
     .nav-links a:hover {
@@ -101,6 +109,7 @@ export class SiteNavigation extends LitElement {
       background: #fef3c7;
     }
 
+
     /* Responsive */
     @media (min-width: 768px) {
       .menu-btn {
@@ -117,6 +126,26 @@ export class SiteNavigation extends LitElement {
         display: flex;
       }
     }
+
+    @media (max-width: 767px) {
+      // mobile font size
+      .nav-container {
+        max-width: 100%;
+        padding: 0 10px;
+      }
+      .logo h1 {
+        font-size: 20px;
+      }
+      .logo h2 {
+        font-size: 14px;
+      }
+    }
+    @media (min-width: 768px) and (max-width: 1200px) {
+      .logo h2 {
+        display: none;
+      }
+    }
+
   `;
 
   override connectedCallback() {
