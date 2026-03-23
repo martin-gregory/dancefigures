@@ -113,12 +113,13 @@ export class WorkshopSite extends LitElement {
         gap: 24px;
       }
 
+      .site-footer a,
       .footer-links a {
         color: white;
         text-decoration: none;
         transition: color 0.3s;
       }
-
+      .site-footer a:hover,
       .footer-links a:hover {
         color: #fbbf24;
       }
@@ -169,7 +170,7 @@ export class WorkshopSite extends LitElement {
 
   private handleScrollTo(e: CustomEvent) {
     if (e.detail.id) {
-      const el = this?.shadowRoot?.getElementById(e.detail.id)
+      const el = this?.shadowRoot?.getElementById(e.detail.id);
       el?.scrollIntoView({ behavior: 'instant' });
     }
   }
@@ -191,14 +192,26 @@ export class WorkshopSite extends LitElement {
       <div id="dunes-part-2"></div>
       <slot name="project-4"></slot>
 
-        <!-- Footer -->
-         <footer class="site-footer">
-          <p>© 2026 Diakova Art</p>
-          <div class="footer-links">
-            <a href="https://www.instagram.com/diakova_art/" target="_blank" rel="noopener noreferrer" title="See more works by Tiana Diakova on Instagram">Instagram</a>
-            <a href="https://www.diakova-art.com/" target="_blank" rel="noopener noreferrer" title="Visit Tiana Diakova's full collection">diakova-art.com</a>
-          </div>
-        </footer>
+      <!-- Footer -->
+      <footer class="site-footer">
+        <p>© 2026 Diakova Art</p>
+        <p>
+          Share my passion for dance and movement?
+          <a href="mailto:diakovatv@gmail.com" title="Contact Tiana Diakova via email">I'm interested in collaboration</a>
+        </p>
+        <div class="footer-links">
+          <a
+            href="https://www.instagram.com/diakova_art/"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="See more works by Tiana Diakova on Instagram"
+            >Instagram</a
+          >
+          <a href="https://www.diakova-art.com/" target="_blank" rel="noopener noreferrer" title="Visit Tiana Diakova's full collection"
+            >diakova-art.com</a
+          >
+        </div>
+      </footer>
     `;
   }
 }
