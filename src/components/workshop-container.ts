@@ -27,7 +27,7 @@ export class WorkshopContainer extends LitElement {
       heightVh: isMobile ? 80 : 220,
       panelHeight: isMobile ? 150 : 400,
       imgUrl: isMobile ? '/img/mobile/' : '/img/',
-    }
+    };
     return html`
       <workshop-site>
         <site-navigation slot="navigation"></site-navigation>
@@ -45,6 +45,7 @@ export class WorkshopContainer extends LitElement {
           src: `${config.imgUrl}held-wind-layer-3-big.avif`,
           speed: 0.08,
           topPct: 0,
+          leftPct: 20,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
@@ -53,7 +54,8 @@ export class WorkshopContainer extends LitElement {
           // middle
           src: `${config.imgUrl}held-wind-layer-2a-swoosh-big.avif`,
           speed: 0.15,
-          topPct: 10,
+          topPct: 15,
+          leftPct: 2,
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -62,7 +64,8 @@ export class WorkshopContainer extends LitElement {
           // middle
           src: `${config.imgUrl}held-wind-layer-2b-swoosh-big.avif`,
           speed: 0.1,
-          topPct: 10,
+          topPct: 15,
+          leftPct: 2,
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -194,27 +197,58 @@ export class WorkshopContainer extends LitElement {
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
             .layers=${[
-
         {
-          speed: 0.14,
+          speed: 0.2,
           src: `${config.imgUrl}dunes-2-layer-4a.avif`,
           topPct: 25,
           heightVh: config.heightVh,
           scale: 0.85,
-          leftPct: 6,
+          // rightPct: 6,
           cssName: 'layer-4',
+          edgeAnchor: { edge: 'left', offset: 5 }
         },
         {
           speed: 0.14,
-          src: `${config.imgUrl}dunes-2-layer-3a.avif`,
+          src: `${config.imgUrl}dunes-2-layer-4b.avif`,
           topPct: 25,
+          heightVh: config.heightVh,
+          scale: 0.85,
+          rightPct: 6,
+          edgeAnchor: { edge: 'left', offset: 5 },
+          cssName: 'layer-4',
+        },
+
+        {
+          speed: 0.18,
+          src: `${config.imgUrl}dunes-2-layer-3b.avif`,
+          topPct: 25,
+          leftPct: 8,
           heightVh: config.heightVh,
           scale: 0.85,
           cssName: 'layer-3',
         },
         {
-          src: `${config.imgUrl}dunes-2-layer-2a.avif`,
+          speed: 0.2,
+          src: `${config.imgUrl}dunes-2-layer-3a.avif`,
+          topPct: 25,
+          leftPct: 8,
+          heightVh: config.heightVh,
+          scale: 0.85,
+          cssName: 'layer-3',
+        },
+
+        {
+          src: `${config.imgUrl}dunes-2-layer-2b.avif`,
           speed: 0.17,
+          topPct: 1,
+          heightVh: config.heightVh,
+          scale: 0.8,
+          leftPct: 15,
+          cssName: 'layer-2',
+        },
+        {
+          src: `${config.imgUrl}dunes-2-layer-2a.avif`,
+          speed: 0.2,
           topPct: 0,
           heightVh: config.heightVh,
           scale: 0.8,
@@ -222,14 +256,24 @@ export class WorkshopContainer extends LitElement {
           cssName: 'layer-2',
         },
         {
-          speed: 0.01,
+          speed: 0.07,
           src: `${config.imgUrl}dunes-2-layer-1a.avif`,
+          topPct: 45,
+          leftPct: 24,
+          heightVh: config.heightVh,
+          // scale: 0.8,
+          cssName: 'layer-1',
+        },
+        {
+          speed: 0.02,
+          src: `${config.imgUrl}dunes-2-layer-1b.avif`,
           topPct: 50,
           leftPct: 24,
           heightVh: config.heightVh,
           // scale: 0.8,
           cssName: 'layer-1',
         },
+
       ]}
           >
           </hero-parallax-panel>

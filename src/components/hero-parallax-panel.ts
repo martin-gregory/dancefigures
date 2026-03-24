@@ -13,6 +13,10 @@ interface Layer {
   scale?: number; // New: scale multiplier (e.g. 1.2 for foreground)
   heightVh?: number; // e.g., 50 means 50% of the screen height
   fetchPriority?: 'high' | 'low' | 'auto'; // Optional fetch priority for the image
+  edgeAnchor?: {
+    edge: 'left' | 'right';
+    offset?: number; // px offset from the edge, defaults to 0
+  };
 }
 @customElement('hero-parallax-panel')
 export class HeroParallaxPanel extends LitElement {
@@ -43,6 +47,11 @@ export class HeroParallaxPanel extends LitElement {
       justify-content: center;
 
       /* This centers the image horizontally inside the container */
+    }
+
+    .layer-container.edge-anchored {
+      justify-content: flex-start; /* image hangs from the pinned edge */
+      width: auto; /* don't stretch across the full width */
     }
 
     .layer-container img {
@@ -136,7 +145,22 @@ export class HeroParallaxPanel extends LitElement {
 
     this.onScroll();
   }
+  private getLayerPositionStyle(layer: Layer): string {
+    const top = `top: ${layer.topPct}%;`;
+    const zIndex = `z-index: ${layer.zIndex ?? 1};`;
 
+    if (layer.edgeAnchor) {
+      // Pin to viewport edge using fixed px offset — unaffected by container width
+      const offset = layer.edgeAnchor.offset ?? 0;
+      const edgeProp = layer.edgeAnchor.edge === 'left' ? `left: ${offset}px;` : `right: ${offset}px;`;
+      return `${top} ${edgeProp} ${zIndex}`;
+    }
+
+    // Fallback to existing % system
+    const left = layer.leftPct !== undefined ? `left: ${layer.leftPct}%;` : '';
+    const right = layer.rightPct !== undefined ? `right: ${layer.rightPct}%;` : '';
+    return `${top} ${left} ${right} ${zIndex}`;
+  }
   // Only re-render parallax smoothly via RAF
   private onScroll = () => {
     const rect = this.getBoundingClientRect();
@@ -189,15 +213,7 @@ export class HeroParallaxPanel extends LitElement {
       </div>
       ${this.layers.map(
       (layer) => html`
-          <div
-            class="layer-container"
-            style="
-          top: ${layer.topPct}%; 
-          left: ${layer.leftPct ?? 0}%; 
-          ${layer.rightPct !== undefined ? `right: ${layer.rightPct}%;` : ''}
-          z-index: ${layer.zIndex ?? 1};
-        "
-          >
+          <div class="layer-container ${layer.edgeAnchor ? 'edge-anchored' : ''}" style="${this.getLayerPositionStyle(layer)}">
             <img
               src="${layer.src}"
               style="height: ${layer.heightVh ?? 50}vh;"
