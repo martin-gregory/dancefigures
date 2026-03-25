@@ -79,7 +79,7 @@ export class SiteNavigation extends LitElement {
     .menu-btn span {
       width: 24px;
       height: 2px;
-      background: #374151;
+      background: var(--accent-colour);
     }
 
     .mobile-menu {

@@ -118,6 +118,10 @@ export class WorkshopSite extends LitElement {
         color: white;
         text-decoration: none;
         transition: color 0.3s;
+
+        &.collaboration-link {
+          color: #ce9d3d;
+        }
       }
       .site-footer a:hover,
       .footer-links a:hover {
@@ -196,8 +200,8 @@ export class WorkshopSite extends LitElement {
       <footer class="site-footer">
         <p>© 2026 Diakova Art</p>
         <p>
-          Share my passion for dance and movement?
-          <a href="mailto:diakovatv@gmail.com" title="Contact Tiana Diakova via email">I'm interested in collaboration</a>
+          Share my passion for dance and movement?<br />
+          <a class="collaboration-link" href="mailto:diakovatv@gmail.com" title="Contact Tiana Diakova via email">I'm interested in collaboration</a>
         </p>
         <div class="footer-links">
           <a
