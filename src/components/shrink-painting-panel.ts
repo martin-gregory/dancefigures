@@ -1,4 +1,4 @@
-import { LitElement, css, html, PropertyValues } from 'lit';
+import { css, html, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
 interface Layer {
@@ -19,13 +19,14 @@ interface Layer {
 export class ShrinkPaintingPanel extends LitElement {
   static override styles = css`
     :host {
+      --panel-bg-gradient: linear-gradient(305deg, rgb(178 159 134) 0%, rgb(217 207 201) 59% 65%, rgb(233, 228, 223) 100%);
       display: block;
       position: relative;
       width: 100%;
       height: 500vh; /* Extended height for scroll phases */
       min-height: 400px;
       background: #e9e3de;
-      background: linear-gradient(305deg, rgb(178 159 134) 0%, rgb(217 207 201) 59% 65%, rgb(233, 228, 223) 100%);
+      background: var(--panel-bg-gradient);
       /* max-width: 1880px;
       margin: 0 auto; */
     }
@@ -70,19 +71,17 @@ export class ShrinkPaintingPanel extends LitElement {
     }
     .frame {
       position: absolute;
-      width: 500px;
-      height: 700px;
-      width: 990px;
-      height: 100%;
-      height: 1400px;
+      width: 88vh;
       top: 0px;
       z-index: 0;
+      aspect-ratio: 1 / 1.4;
+
+      @media (max-width: 768px) {
+        width: 80vh;
+      }
     }
     .background {
       z-index: 0;
-      /* Start slightly larger for better parallax effect */
-
-      /* */
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
     .layer {
@@ -100,7 +99,6 @@ export class ShrinkPaintingPanel extends LitElement {
       position: absolute;
       object-fit: cover;
       // start off screen
-      /* transform: translateY(100%); */
     }
     /* mobile */
     @media (max-width: 768px) {

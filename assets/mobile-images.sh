@@ -12,16 +12,16 @@ for img in ./img/*.avif; do
     output_path="./img/mobile/$filename"
 
     if [[ "$img" == *"-background"* ]]; then
-        magick "$img" -resize 50% "$output_path"
+        magick "$img" -resize 50% -quality 80 "$output_path"
         
     elif [[ "$img" == *"-painting"* ]]; then
-        magick "$img" -resize 100% "$output_path"
+        magick "$img" -resize 80% -quality 90 "$output_path"
 
     elif [[ "$img" == *"-interior"* ]]; then
-        magick "$img" -resize 50% "$output_path"
+        magick "$img" -resize 50% -quality 80 "$output_path"
    
      else
         # Default process for everything else at 30%
-        magick "$img" -resize 30% "$output_path"
+        magick "$img" -resize 30% -quality 80 "$output_path"
     fi
 done
