@@ -19,6 +19,7 @@ interface Layer {
 export class ShrinkPaintingPanel extends LitElement {
   static override styles = css`
     :host {
+      --frame-width: 88vh;
       --panel-bg-gradient: linear-gradient(305deg, rgb(178 159 134) 0%, rgb(217 207 201) 59% 65%, rgb(233, 228, 223) 100%);
       display: block;
       position: relative;
@@ -71,7 +72,7 @@ export class ShrinkPaintingPanel extends LitElement {
     }
     .frame {
       position: absolute;
-      width: 88vh;
+      width: var(--frame-width);
       top: 0px;
       z-index: 0;
       aspect-ratio: 1 / 1.4;

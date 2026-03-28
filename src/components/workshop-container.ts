@@ -38,24 +38,35 @@ export class WorkshopContainer extends LitElement {
         <project-1 slot="project-1">
           <hero-parallax-panel
             slot="hero-1"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${config.panelHeight}vh;"
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 150 : 500}vh;"
             .layers=${[
         {
-          // last
-          src: `${config.imgUrl}held-wind-layer-3-big.avif`,
-          speed: 0.08,
-          topPct: 0,
-          leftPct: 13,
-          scale: 0.8,
+          // front
+          src: `${config.imgUrl}held-wind-layer-3b.avif`,
+          speed: 0.1,
+          topPct: 1,
           heightVh: config.heightVh,
-          cssName: 'layer-3',
+          scale: 0.8,
+          leftPct: 9,
+          cssName: 'layer-1',
           fetchPriority: 'high',
         },
         {
+          // front
+          src: `${config.imgUrl}held-wind-layer-3a.avif`,
+          speed: 0.14,
+          topPct: 0,
+          heightVh: config.heightVh,
+          scale: 0.8,
+          leftPct: 9,
+          cssName: 'layer-1',
+          fetchpriority: 'high',
+        },
+        {
           // middle
-          src: `${config.imgUrl}held-wind-layer-2a-swoosh-big.avif`,
+          src: `${config.imgUrl}held-wind-layer-2a.avif`,
           speed: 0.18,
-          topPct: 15,
+          topPct: 17,
           leftPct: 2,
           heightVh: config.heightVh,
           cssName: 'layer-2',
@@ -63,9 +74,9 @@ export class WorkshopContainer extends LitElement {
         },
         {
           // middle
-          src: `${config.imgUrl}held-wind-layer-2b-swoosh-big.avif`,
+          src: `${config.imgUrl}held-wind-layer-2b.avif`,
           speed: 0.1,
-          topPct: 15,
+          topPct: 17,
           leftPct: 14,
           scale: 0.8,
           heightVh: config.heightVh,
@@ -73,26 +84,26 @@ export class WorkshopContainer extends LitElement {
           fetchPriority: 'high',
         },
         {
-          // front
-          src: `${config.imgUrl}held-wind-layer-1a-swoosh-big.avif`,
-          speed: 0.1,
-          topPct: 50,
-          heightVh: config.heightVh,
+          // last
+          src: `${config.imgUrl}held-wind-layer-1b.avif`,
+          speed: 0.14,
+          topPct: 52,
+          leftPct: 11,
           scale: 0.8,
-          leftPct: 9,
-          cssName: 'layer-1',
+          heightVh: config.heightVh,
+          cssName: 'layer-3',
           fetchPriority: 'high',
         },
         {
-          // front
-          src: `${config.imgUrl}held-wind-layer-1b-swoosh-big.avif`,
-          speed: 0.04,
+          // last
+          src: `${config.imgUrl}held-wind-layer-1a.avif`,
+          speed: 0.16,
           topPct: 50,
-          heightVh: config.heightVh,
+          leftPct: 13,
           scale: 0.8,
-          leftPct: 9,
-          cssName: 'layer-1',
-          fetchpriority: 'high',
+          heightVh: config.heightVh,
+          cssName: 'layer-3',
+          fetchPriority: 'high',
         },
       ]}
           >
@@ -149,14 +160,14 @@ export class WorkshopContainer extends LitElement {
           cssName: 'layer-2',
         },
         {
-          speed: 0.06,
+          speed: 0.1,
           src: `${config.imgUrl}moved-by-tide-layer-1b.avif`,
           topPct: 30.5,
           heightVh: config.heightVh,
           cssName: 'layer-1',
         },
         {
-          speed: 0.08,
+          speed: 0.14,
           src: `${config.imgUrl}moved-by-tide-layer-1a.avif`,
           topPct: 30,
           heightVh: config.heightVh,
@@ -334,6 +345,7 @@ export class WorkshopContainer extends LitElement {
           </hero-parallax-panel>
           <shrink-painting-panel
             slot="shrink-layers-parallax"
+            style="--frame-width: 70vh;"
             stageImage="${config.imgUrl}interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
             .layers=${[{ src: `${config.imgUrl}dunes-2-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
