@@ -22,13 +22,14 @@ interface Layer {
 export class HeroParallaxPanel extends LitElement {
   static override styles = css`
     :host {
+      --panel-background-position: center 0;
       display: block;
       position: relative;
       width: 100%;
       height: var(--panel-height, 400vh); /* Default to 400vh if not set */
       /* min-height: 800px; */
       overflow: hidden;
-      background: var(--panel-background-image) no-repeat center 0;
+      background: var(--panel-background-image) no-repeat var(--panel-background-position);
       background-size: cover;
       view-timeline-name: --image-section;
       view-timeline-axis: block;

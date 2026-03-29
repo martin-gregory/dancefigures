@@ -38,7 +38,7 @@ export class WorkshopContainer extends LitElement {
         <project-1 slot="project-1">
           <hero-parallax-panel
             slot="hero-1"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 150 : 500}vh;"
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 150 : 500}vh; --panel-background-position: center 0;"
             .layers=${[
         {
           // front
@@ -67,7 +67,8 @@ export class WorkshopContainer extends LitElement {
           src: `${config.imgUrl}held-wind-layer-2a.avif`,
           speed: 0.18,
           topPct: 17,
-          leftPct: 2,
+          edgeAnchor: { edge: 'left', offset: 0 },
+          scale: 1.1,
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -77,30 +78,30 @@ export class WorkshopContainer extends LitElement {
           src: `${config.imgUrl}held-wind-layer-2b.avif`,
           speed: 0.1,
           topPct: 17,
-          leftPct: 14,
-          scale: 0.8,
+          edgeAnchor: { edge: 'left', offset: 0 },
+          scale: 1.1,
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
         },
         {
           // last
-          src: `${config.imgUrl}held-wind-layer-1b.avif`,
+          src: `${config.imgUrl}held-wind-layer-1bb.avif`,
           speed: 0.14,
-          topPct: 52,
-          leftPct: 11,
-          scale: 0.8,
+          topPct: 48,
+          leftPct: 13,
+          scale: 0.9,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
         },
         {
           // last
-          src: `${config.imgUrl}held-wind-layer-1a.avif`,
-          speed: 0.16,
-          topPct: 50,
+          src: `${config.imgUrl}held-wind-layer-1aaa.avif`,
+          speed: 0.17,
+          topPct: 46,
           leftPct: 13,
-          scale: 0.8,
+          scale: 0.9,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
@@ -122,7 +123,7 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-2">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}moved-by-tide-bg.avif'); --panel-height: ${config.panelHeight}vh;"
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .layers=${[
         {
@@ -251,6 +252,7 @@ export class WorkshopContainer extends LitElement {
           </hero-parallax-panel>
           <shrink-painting-panel
             slot="shrink-layers-parallax"
+              style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
             stageImage="${config.imgUrl}interior-dunes-1.avif"
             stageImageEndTranslateYPos="15"
             .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
