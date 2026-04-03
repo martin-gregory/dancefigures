@@ -130,6 +130,9 @@ export class HeroParallaxPanel extends LitElement {
 
   @property({ type: Array }) layers: Layer[] = [];
 
+  @property({ type: String }) caption: string = '';
+
+
   // Helper: Clamp val between min,max
   private clamp(val: number, min = 0, max = 1): number {
     return Math.max(min, Math.min(val, max));
@@ -212,18 +215,21 @@ export class HeroParallaxPanel extends LitElement {
       <div class="text-parallax-container">
         <h2>${this.words.map((word, index) => html`<span style="--i: ${index * 5 - 10}">${word}</span>`)}</h2>
       </div>
-      ${this.layers.map(
+      <figure>
+        ${this.layers.map(
       (layer) => html`
-          <div class="layer-container ${layer.edgeAnchor ? 'edge-anchored' : ''}" style="${this.getLayerPositionStyle(layer)}">
-            <img
-              src="${layer.src}"
-              style="height: ${layer.heightVh ?? 50}vh;"
-              alt="${layer.alt || ''}"
-              fetchpriority="${layer.fetchPriority ?? 'auto'}"
-            />
-          </div>
-        `,
+            <div class="layer-container ${layer.edgeAnchor ? 'edge-anchored' : ''}" style="${this.getLayerPositionStyle(layer)}">
+              <img
+                src="${layer.src}"
+                style="height: ${layer.heightVh ?? 50}vh;"
+                alt="${layer.alt || ''}"
+                fetchpriority="${layer.fetchPriority ?? 'auto'}"
+              />
+            </div>
+          `,
     )}
+    ${this.caption ? html`<figcaption>${this.caption}</figcaption>` : ''}
+      </figure>
       <div class="content-overlay"></div>
     `;
   }
