@@ -35,6 +35,10 @@ export class HeroParallaxPanel extends LitElement {
       view-timeline-axis: block;
     }
 
+    figure figcaption {
+      visibility: hidden;
+    }
+
     .layer-container {
       position: absolute;
       width: 100%;
@@ -46,7 +50,7 @@ export class HeroParallaxPanel extends LitElement {
 
       display: flex;
       justify-content: center;
-
+  
       /* This centers the image horizontally inside the container */
     }
 
@@ -131,7 +135,6 @@ export class HeroParallaxPanel extends LitElement {
   @property({ type: Array }) layers: Layer[] = [];
 
   @property({ type: String }) caption: string = '';
-
 
   // Helper: Clamp val between min,max
   private clamp(val: number, min = 0, max = 1): number {
@@ -228,7 +231,7 @@ export class HeroParallaxPanel extends LitElement {
             </div>
           `,
     )}
-    ${this.caption ? html`<figcaption>${this.caption}</figcaption>` : ''}
+        ${this.caption ? html`<figcaption>${this.caption}</figcaption>` : ''}
       </figure>
       <div class="content-overlay"></div>
     `;

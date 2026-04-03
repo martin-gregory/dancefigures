@@ -41,7 +41,7 @@ export class WorkshopContainer extends LitElement {
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile
         ? 150
         : 500}vh; --panel-background-position: center 0;"
-            .caption="Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+            .caption=${"Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
             .layers=${[
         {
           // front
@@ -116,6 +116,7 @@ export class WorkshopContainer extends LitElement {
 
           <shrink-painting-panel
             slot="shrink-layers-parallax"
+            plaqueText="Held by the Wind"
             stageImage="${config.imgUrl}interior-held-wind.avif"
             .layers=${[{ src: `${config.imgUrl}held-wind-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
@@ -128,7 +129,7 @@ export class WorkshopContainer extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 120 : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
-            .caption="Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+            .caption=${"Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
             .layers=${[
         {
           speed: 0.12,
@@ -183,6 +184,7 @@ export class WorkshopContainer extends LitElement {
           </hero-parallax-panel>
           <shrink-painting-panel
             slot="shrink-layers-parallax"
+            plaqueText="Moved by the Tide"
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(166 154 137) 0%, rgb(193 208 215) 59%, rgb(207 214 217) 65%, rgb(255 255 255) 100%)"
             stageImage="${config.imgUrl}interior-moved-by-tide.avif"
             .layers=${[
@@ -196,7 +198,7 @@ export class WorkshopContainer extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
-            .caption="Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+            .caption=${"Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
             .layers=${[
         {
           speed: 0.14,
@@ -258,6 +260,7 @@ export class WorkshopContainer extends LitElement {
           </hero-parallax-panel>
           <shrink-painting-panel
             slot="shrink-layers-parallax"
+            plaqueText="The Song of the Swaying Dunes I"
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
             stageImage="${config.imgUrl}interior-dunes-1.avif"
             stageImageEndTranslateYPos="15"
@@ -270,7 +273,7 @@ export class WorkshopContainer extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
-            .caption="Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+            .caption=${"Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
             .layers=${[
         {
           speed: 0.2,
@@ -353,6 +356,7 @@ export class WorkshopContainer extends LitElement {
           </hero-parallax-panel>
           <shrink-painting-panel
             slot="shrink-layers-parallax"
+            plaqueText="The Song of the Swaying Dunes II"
             style="--frame-width: 70vh;"
             stageImage="${config.imgUrl}interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"

@@ -96,10 +96,9 @@ export class ShrinkPaintingPanel extends LitElement {
       width: 100%;
       height: 100vh;
       min-height: 900px;
-
+      pointer-events: none;
       position: absolute;
       object-fit: cover;
-      // start off screen
     }
     /* mobile */
     @media (max-width: 768px) {
@@ -111,8 +110,48 @@ export class ShrinkPaintingPanel extends LitElement {
       }
       .layer img {
         /* transform-origin: 40% 150px; */
-        transform-origin:calc(50% - 115px) 150px;
-        
+        transform-origin: calc(50% - 115px) 150px;
+      }
+    }
+    
+    .plaque {
+      position: absolute;
+      left: 65%;
+      border: 1px solid transparent;
+      top: 30vh;
+      opacity: 0;
+      z-index: 2;
+
+      background: rgba(255, 255, 255, 0.14);
+      padding: 10px;
+      border-radius: 2px;
+      text-align: center;
+
+      a {
+        display: block;
+        /* color: #2c3d58; */
+        color: #7e455d;
+        text-decoration: none;
+        margin-top: 5px;
+        text-align: center;
+        span {
+          display: block;
+        }
+      }
+    }
+
+    @media (max-width: 768px) {
+      .plaque {
+        display: none;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 53vh;
+        padding: 0px;
+        a {
+          span {
+            display: none;
+          }
+        }
       }
     }
   `;
@@ -125,11 +164,13 @@ export class ShrinkPaintingPanel extends LitElement {
   @property({ type: Number }) finalScale = 0.33;
   @property({ type: String }) stageImage = '/img/interior-held-wind.avif';
   @property({ type: String }) stageImageAlt = 'Stage Image';
+  @property({ type: String }) plaqueText = '';
   @property({ type: Number }) stageImageEndTranslateYPos = 0;
 
   // Use state to hold refs for DOM elements
   @state() private layerElements: HTMLElement[] = [];
   @state() private layerImgElements: HTMLElement[] = [];
+  @state() private plaqueEl?: HTMLElement;
   @state() private stageImgEl?: HTMLElement;
 
   private rafId = 0;
@@ -144,6 +185,7 @@ export class ShrinkPaintingPanel extends LitElement {
   private cacheElements() {
     this.layerElements = Array.from(this.renderRoot.querySelectorAll('.layer')) as HTMLElement[];
     this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer img')) as HTMLElement[];
+    this.plaqueEl = this.renderRoot.querySelector('.plaque') as HTMLElement | undefined;
     this.stageImgEl = this.renderRoot.querySelector('.sticky-container > .stage-image') as HTMLElement | undefined;
   }
 
@@ -189,7 +231,7 @@ export class ShrinkPaintingPanel extends LitElement {
     // Calculate phase progress
     const convergenceProgress = this.clamp((scrollProgress - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart));
 
-    const isBeforeConvergence = scrollProgress < this.convergenceStart;
+    // const isBeforeConvergence = scrollProgress < this.convergenceStart;
 
     // Animate layers
     this.layers.forEach((layer, idx) => {
@@ -227,8 +269,15 @@ export class ShrinkPaintingPanel extends LitElement {
       const finalTranslate = (1 - stageImgProgress) * 100;
       this.stageImgEl.style.transform = `translateY(${finalTranslate < this.stageImageEndTranslateYPos ? this.stageImageEndTranslateYPos : finalTranslate
         }%)`;
-      // Optionally, add easing:
-      // const eased = 1 - Math.pow(1 - stageImgProgress, 2); // easeOut
+
+      // fade in plaque starting at 100% convergence
+      if (this.plaqueEl) {
+        if (convergenceProgress >= 1) {
+          this.plaqueEl.style.opacity = `${(scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd)}`;
+        } else {
+          this.plaqueEl.style.opacity = '0';
+        }
+      }
     }
   };
 
@@ -247,6 +296,17 @@ export class ShrinkPaintingPanel extends LitElement {
       return html`
               <div class="layer" style="${containerStyle}">
                 <img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}" />
+                <div class="plaque">
+                  <a
+                    href="https://diakova-art.com/category/inner-landscapes/"
+                    target="_blank"
+                    title="'${this.plaqueText}' - See more paintings at diakova-art.com"
+                    rel="noopener noreferrer"
+                  >
+                    <span>"${this.plaqueText}"</span>
+                    <span>100 x 60</span>
+                    diakova-art.com</a>
+                </div>
               </div>
             `;
     })}

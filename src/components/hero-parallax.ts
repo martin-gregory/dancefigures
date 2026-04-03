@@ -97,6 +97,7 @@ export class HeroParallax extends LitElement {
       right: 80px;
       bottom: 10%;
       right: 10%;
+  
       span {
         animation: text-parallax both;
         animation-timeline: --image-section;
