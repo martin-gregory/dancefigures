@@ -38,8 +38,10 @@ export class WorkshopContainer extends LitElement {
         <project-1 slot="project-1">
           <hero-parallax-panel
             slot="hero-1"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 150 : 500}vh; --panel-background-position: center 0;"
-            .caption = "Held by the Wind, 2025."
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile
+        ? 150
+        : 500}vh; --panel-background-position: center 0;"
+            .caption="Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
             .layers=${[
         {
           // front
@@ -126,6 +128,7 @@ export class WorkshopContainer extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 120 : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
+            .caption="Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
             .layers=${[
         {
           speed: 0.12,
@@ -193,6 +196,7 @@ export class WorkshopContainer extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
+            .caption="Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
             .layers=${[
         {
           speed: 0.14,
@@ -249,13 +253,12 @@ export class WorkshopContainer extends LitElement {
           scale: 1.15,
           cssName: 'layer-1',
         },
-
       ]}
           >
           </hero-parallax-panel>
           <shrink-painting-panel
             slot="shrink-layers-parallax"
-              style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
+            style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
             stageImage="${config.imgUrl}interior-dunes-1.avif"
             stageImageEndTranslateYPos="15"
             .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
@@ -267,6 +270,7 @@ export class WorkshopContainer extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
+            .caption="Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
             .layers=${[
         {
           speed: 0.2,
@@ -276,7 +280,7 @@ export class WorkshopContainer extends LitElement {
           scale: 0.9,
           // rightPct: 6,
           cssName: 'layer-4',
-          edgeAnchor: { edge: 'left', offset: 5 }
+          edgeAnchor: { edge: 'left', offset: 5 },
         },
         {
           speed: 0.14,
@@ -344,7 +348,6 @@ export class WorkshopContainer extends LitElement {
           scale: 1,
           cssName: 'layer-1',
         },
-
       ]}
           >
           </hero-parallax-panel>
