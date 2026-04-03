@@ -43,6 +43,9 @@ export class HeroScroll extends LitElement {
       font-weight: normal;
       margin-bottom: 0;
       line-height: 1.1;
+      span {
+        font-size: 2rem;
+      }
     }
     .hero-scroll-content h2 {
       font-size: 2rem;
@@ -60,8 +63,9 @@ export class HeroScroll extends LitElement {
     return html`
       <section class="hero-scroll">
         <div class="hero-scroll-content">
-          <h1>Dance Figures</h1>
-          <h2>Conceptual Figurative Painting</h2>
+          <h1>Dance Figures <br>
+          <span>Conceptual Figurative Paintings</span></h1>
+          <h2>"Inner Landscapes"</h2>
           <h3>by Tiana Diakova</h3>
         </div>
         <p class="scroll-instruction">Scroll down to see collection</p>

@@ -39,6 +39,7 @@ export class WorkshopContainer extends LitElement {
           <hero-parallax-panel
             slot="hero-1"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 150 : 500}vh; --panel-background-position: center 0;"
+            .caption = "Held by the Wind, 2025."
             .layers=${[
         {
           // front
@@ -90,7 +91,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.14,
           topPct: 48,
           leftPct: 13,
-          scale: 0.9,
+          scale: 0.8,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
@@ -101,7 +102,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.17,
           topPct: 46,
           leftPct: 13,
-          scale: 0.9,
+          scale: 0.8,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
@@ -147,7 +148,7 @@ export class WorkshopContainer extends LitElement {
         {
           src: `${config.imgUrl}moved-by-tide-layer-2b.avif`,
           speed: 0.14,
-          topPct: 11,
+          topPct: 18,
           heightVh: config.heightVh,
           leftPct: 0,
           cssName: 'layer-2',
@@ -155,7 +156,7 @@ export class WorkshopContainer extends LitElement {
         {
           src: `${config.imgUrl}moved-by-tide-layer-2a.avif`,
           speed: 0.18,
-          topPct: 10,
+          topPct: 17,
           heightVh: config.heightVh,
           leftPct: 0,
           cssName: 'layer-2',
@@ -163,14 +164,14 @@ export class WorkshopContainer extends LitElement {
         {
           speed: 0.1,
           src: `${config.imgUrl}moved-by-tide-layer-1b.avif`,
-          topPct: 30.5,
+          topPct: 28.5,
           heightVh: config.heightVh,
           cssName: 'layer-1',
         },
         {
           speed: 0.14,
           src: `${config.imgUrl}moved-by-tide-layer-1a.avif`,
-          topPct: 30,
+          topPct: 28,
           heightVh: config.heightVh,
           cssName: 'layer-1',
         },
@@ -196,17 +197,19 @@ export class WorkshopContainer extends LitElement {
         {
           speed: 0.14,
           src: `${config.imgUrl}dunes-1-layer-3b.avif`,
-          topPct: 17,
+          topPct: 15,
+          leftPct: -2,
           heightVh: config.heightVh,
-          scale: 1,
+          scale: 0.9,
           cssName: 'layer-3',
         },
         {
           speed: 0.18,
           src: `${config.imgUrl}dunes-1-layer-3a.avif`,
-          topPct: 15,
+          topPct: 13,
+          leftPct: -2,
           heightVh: config.heightVh,
-          scale: 1,
+          scale: 0.9,
           cssName: 'layer-3',
         },
         {
@@ -214,8 +217,8 @@ export class WorkshopContainer extends LitElement {
           speed: 0.16,
           topPct: 1,
           heightVh: config.heightVh,
-          scale: 1,
-          leftPct: 18,
+          scale: 1.05,
+          leftPct: 15,
           cssName: 'layer-2',
         },
         {
@@ -223,27 +226,27 @@ export class WorkshopContainer extends LitElement {
           speed: 0.2,
           topPct: 0,
           heightVh: config.heightVh,
-          scale: 1,
-          leftPct: 18,
+          scale: 1.05,
+          leftPct: 15,
           cssName: 'layer-2',
         },
 
         {
           speed: 0.1,
           src: `${config.imgUrl}dunes-1-layer-1b.avif`,
-          topPct: 40,
-          leftPct: 10,
+          topPct: 30,
+          leftPct: 6,
           heightVh: config.heightVh,
-          scale: 1,
+          scale: 1.1,
           cssName: 'layer-1',
         },
         {
           speed: 0.14,
           src: `${config.imgUrl}dunes-1-layer-1a.avif`,
-          topPct: 40,
-          leftPct: 10,
+          topPct: 30,
+          leftPct: 6,
           heightVh: config.heightVh,
-          scale: 1,
+          scale: 1.1,
           cssName: 'layer-1',
         },
 

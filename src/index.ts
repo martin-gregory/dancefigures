@@ -24,5 +24,4 @@ const isProd = import.meta.env ? import.meta.env.PROD : process.env.NODE_ENV ===
 if (isProd) {
   const projectId = 'w5flc55tv4';
   Clarity.init(projectId);
-  console.log('Clarity initialized for Production');
 }
