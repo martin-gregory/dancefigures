@@ -124,14 +124,14 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-2">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${config.panelHeight}vh;"
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 120 : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .layers=${[
         {
           speed: 0.12,
           src: `${config.imgUrl}moved-by-tide-layer-3b.avif`,
           leftPct: 20,
-          topPct: 2,
+          topPct: -1.5,
           heightVh: config.heightVh,
           scale: 0.8,
           cssName: 'layer-3',
@@ -140,7 +140,7 @@ export class WorkshopContainer extends LitElement {
           speed: 0.15,
           src: `${config.imgUrl}moved-by-tide-layer-3a.avif`,
           leftPct: 20,
-          topPct: 0,
+          topPct: -2,
           heightVh: config.heightVh,
           scale: 0.8,
           cssName: 'layer-3',
@@ -164,14 +164,14 @@ export class WorkshopContainer extends LitElement {
         {
           speed: 0.1,
           src: `${config.imgUrl}moved-by-tide-layer-1b.avif`,
-          topPct: 28.5,
+          topPct: 24.5,
           heightVh: config.heightVh,
           cssName: 'layer-1',
         },
         {
           speed: 0.14,
           src: `${config.imgUrl}moved-by-tide-layer-1a.avif`,
-          topPct: 28,
+          topPct: 24,
           heightVh: config.heightVh,
           cssName: 'layer-1',
         },
@@ -191,13 +191,13 @@ export class WorkshopContainer extends LitElement {
         <project-2 slot="project-3">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
+            style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
             .layers=${[
         {
           speed: 0.14,
           src: `${config.imgUrl}dunes-1-layer-3b.avif`,
-          topPct: 15,
+          topPct: 12,
           leftPct: -2,
           heightVh: config.heightVh,
           scale: 0.9,
@@ -206,7 +206,7 @@ export class WorkshopContainer extends LitElement {
         {
           speed: 0.18,
           src: `${config.imgUrl}dunes-1-layer-3a.avif`,
-          topPct: 13,
+          topPct: 10,
           leftPct: -2,
           heightVh: config.heightVh,
           scale: 0.9,
@@ -234,19 +234,19 @@ export class WorkshopContainer extends LitElement {
         {
           speed: 0.1,
           src: `${config.imgUrl}dunes-1-layer-1b.avif`,
-          topPct: 30,
-          leftPct: 6,
+          topPct: 25,
+          edgeAnchor: { edge: 'left', offset: 0 },
           heightVh: config.heightVh,
-          scale: 1.1,
+          scale: 1.15,
           cssName: 'layer-1',
         },
         {
           speed: 0.14,
           src: `${config.imgUrl}dunes-1-layer-1a.avif`,
-          topPct: 30,
-          leftPct: 6,
+          topPct: 25,
+          edgeAnchor: { edge: 'left', offset: 0 },
           heightVh: config.heightVh,
-          scale: 1.1,
+          scale: 1.15,
           cssName: 'layer-1',
         },
 

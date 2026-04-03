@@ -104,8 +104,10 @@ export class ShrinkPaintingPanel extends LitElement {
     /* mobile */
     @media (max-width: 768px) {
       .stage-image {
-        object-fit: contain;
+        object-fit: cover;
         object-position: bottom;
+        height: 80vh;
+        bottom: 0;
       }
       .layer img {
         transform-origin: 40% 150px;
