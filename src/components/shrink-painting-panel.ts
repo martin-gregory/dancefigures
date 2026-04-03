@@ -110,7 +110,9 @@ export class ShrinkPaintingPanel extends LitElement {
         bottom: 0;
       }
       .layer img {
-        transform-origin: 40% 150px;
+        /* transform-origin: 40% 150px; */
+        transform-origin:calc(50% - 115px) 150px;
+        
       }
     }
   `;

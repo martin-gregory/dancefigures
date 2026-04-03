@@ -52,19 +52,43 @@ export class HeroScroll extends LitElement {
       font-weight: normal;
     }
 
+    .hero-scroll-content {
+      @media (max-width: 768px) {
+        h1 {
+          font-size: 2.5rem;
+          span {
+            font-size: 1.2rem;
+          }
+        }
+        h2 {
+          font-size: 1.2rem;
+        }
+        h3 {
+          font-size: 1rem;
+        }
+      }
+    }
+
     .scroll-instruction {
       position: absolute;
       bottom: 0ex;
       font-size: 1.2rem;
       color: white;
     }
+    @media (max-width: 768px) {
+      .scroll-instruction {
+        font-size: 1rem;
+      }
+    }
   `;
   override render() {
     return html`
       <section class="hero-scroll">
         <div class="hero-scroll-content">
-          <h1>Dance Figures <br>
-          <span>Conceptual Figurative Paintings</span></h1>
+          <h1>
+            Dance Figures <br />
+            <span>Conceptual Figurative Paintings</span>
+          </h1>
           <h2>"Inner Landscapes"</h2>
           <h3>by Tiana Diakova</h3>
         </div>
