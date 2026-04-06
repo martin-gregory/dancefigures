@@ -3,7 +3,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-layout')
-export class WorkshopSite extends LitElement {
+export class DanceFiguresLayout extends LitElement {
   @property({ type: Boolean })
   private isMenuOpen = false;
 
@@ -187,19 +187,21 @@ export class WorkshopSite extends LitElement {
         <slot name="site-header"></slot>
 
         <section id="held-wind" aria-labelledby="title-1">
-          <slot name="project-1"></slot>
+          <h1 id="project-1-title">Held by the Wind</h1>
+          <p class="sr-only">Detailed description of the painting for crawlers and screen readers.</p>
+          <slot name="artwork-held-by-the-wind"></slot>
         </section>
 
         <section id="moved-tides" aria-labelledby="title-2">
-          <slot name="project-2"></slot>
+          <slot name="artwork-moved-by-the-tide"></slot>
         </section>
 
         <section id="dunes-part-1" aria-labelledby="title-3">
-          <slot name="project-3"></slot>
+          <slot name="artwork-dunes-part-1"></slot>
         </section>
   
         <section id="dunes-part-2" aria-labelledby="title-4">
-          <slot name="project-4"></slot>
+          <slot name="artwork-dunes-part-2"></slot>
         </section>
       </main>
 

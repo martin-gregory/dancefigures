@@ -2,14 +2,16 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
 
-@customElement('project-1')
-export class Project1 extends LitElement {
-
+@customElement('panel-layout-2')
+export class PanelLayout2 extends LitElement {
   static override styles = [
     commonStyles,
     css`
       :host {
         display: block;
+        --accent-colour: #6e90c0;
+        --held-by-the-sea-bg: #485c71;
+        background-color: var(--held-by-the-sea-bg);
       }
 
       /* Hero */
@@ -59,15 +61,12 @@ export class Project1 extends LitElement {
         margin-bottom: 32px;
         max-width: 800px;
       }
-
     `,
   ];
 
   override render() {
     return html`
-
-      <slot name="hero-1"></slot>
-
+      <slot name="hero-2"></slot>
       <slot name="shrink-layers-parallax"></slot>
     `;
   }

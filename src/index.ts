@@ -1,6 +1,5 @@
-import './components/site-navigation';
 import './components/dance-figures-site';
-import './components/dance-figures-layout';
+import './components/site-navigation';
 import './components/hero-parallax';
 import './components/hero-parallax-panel';
 import './components/instagram-gallery';
@@ -11,8 +10,10 @@ import './components/pattern-parallax-container';
 import './components/progress-parallax-container';
 import './components/shrink-painting-panel';
 import './components/shrink-layers-parallax';
-import './components/project-1';
-import './components/project-2';
+
+import './layouts/dance-figures-layout';
+import './layouts/panel-layout-1';
+import './layouts/panel-layout-2';
 
 // Can add app bootstrapping logic here if needed
 import Clarity from '@microsoft/clarity';

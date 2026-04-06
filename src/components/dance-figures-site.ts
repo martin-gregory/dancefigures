@@ -4,6 +4,18 @@ import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-site')
 export class DanceFiguresSite extends LitElement {
+
+  override updated(changedProperties: Map<string, any>) {
+    // // Update the tab title
+    // document.title = "Dance Figures | Tiana Diakova";
+
+    // // Update the Meta Description
+    // const metaDesc = document.querySelector('meta[name="description"]');
+    // if (metaDesc) {
+    //   metaDesc.setAttribute("content", "Explore 'Held by the Wind' and other oil paintings by Tiana Diakova.");
+    // }
+  }
+
   static override styles = [
     commonStyles,
     css`
@@ -35,7 +47,7 @@ export class DanceFiguresSite extends LitElement {
 
         <!-- negative startPos is up -->
         <!-- negative pos x is left -->
-        <project-1 slot="project-1">
+        <panel-layout-1 slot="artwork-held-by-the-wind">
           <hero-parallax-panel
             slot="hero-1"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile
@@ -121,10 +133,10 @@ export class DanceFiguresSite extends LitElement {
             .layers=${[{ src: `${config.imgUrl}held-wind-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
           </shrink-painting-panel>
-        </project-1>
+        </panel-layout-1>
 
         <hr />
-        <project-2 slot="project-2">
+        <panel-layout-2 slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 120 : 352}vh;"
@@ -192,8 +204,8 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </shrink-painting-panel>
-        </project-2>
-        <project-2 slot="project-3">
+        </panel-layout-2>
+        <panel-layout-2 slot="artwork-dunes-part-1">
           <hero-parallax-panel
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${isMobile ? 123 : 360}vh;"
@@ -267,8 +279,8 @@ export class DanceFiguresSite extends LitElement {
             .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
           </shrink-painting-panel>
-        </project-2>
-        <project-2 slot="project-4">
+        </panel-layout-2>
+        <panel-layout-2 slot="artwork-dunes-part-2">
           <hero-parallax-panel
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
@@ -363,7 +375,7 @@ export class DanceFiguresSite extends LitElement {
             .layers=${[{ src: `${config.imgUrl}dunes-2-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
           </shrink-painting-panel>
-        </project-2>
+        </panel-layout-2>
 
         <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container>
       </dance-figures-layout>
