@@ -1,8 +1,8 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-@customElement('hero-scroll')
-export class HeroScroll extends LitElement {
+@customElement('site-header-panel')
+export class SiteHeaderPanel extends LitElement {
   static override styles = css`
     :host {
       display: block;
@@ -17,7 +17,7 @@ export class HeroScroll extends LitElement {
     h3 {
       letter-spacing: 0.05em;
     }
-    .hero-scroll {
+    .site-header-panel {
       position: relative;
       background-color: transparent;
 
@@ -30,7 +30,7 @@ export class HeroScroll extends LitElement {
       align-items: center;
     }
 
-    .hero-scroll-content {
+    .site-header-panel-content {
       position: relative;
       z-index: 1;
       text-align: center;
@@ -38,7 +38,7 @@ export class HeroScroll extends LitElement {
       color: white;
     }
 
-    .hero-scroll-content h1 {
+    .site-header-panel-content h1 {
       font-size: 4rem;
       font-weight: normal;
       margin-bottom: 0;
@@ -47,12 +47,12 @@ export class HeroScroll extends LitElement {
         font-size: 2rem;
       }
     }
-    .hero-scroll-content h2 {
+    .site-header-panel-content h2 {
       font-size: 2rem;
       font-weight: normal;
     }
 
-    .hero-scroll-content {
+    .site-header-panel-content {
       @media (max-width: 768px) {
         h1 {
           font-size: 2.5rem;
@@ -83,8 +83,8 @@ export class HeroScroll extends LitElement {
   `;
   override render() {
     return html`
-      <section class="hero-scroll">
-        <div class="hero-scroll-content">
+      <section class="site-header-panel">
+        <div class="site-header-panel-content">
           <h1>
             Dance Figures <br />
             <span>Conceptual Figurative Paintings</span>

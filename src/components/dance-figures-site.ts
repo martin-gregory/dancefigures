@@ -2,8 +2,8 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
 
-@customElement('workshop-container')
-export class WorkshopContainer extends LitElement {
+@customElement('dance-figures-site')
+export class DanceFiguresSite extends LitElement {
   static override styles = [
     commonStyles,
     css`
@@ -29,9 +29,9 @@ export class WorkshopContainer extends LitElement {
       imgUrl: isMobile ? '/img/mobile/' : '/img/',
     };
     return html`
-      <workshop-site>
+      <dance-figures-layout>
         <site-navigation slot="navigation"></site-navigation>
-        <hero-scroll slot="site-header"></hero-scroll>
+        <site-header-panel slot="site-header"></site-header-panel>
 
         <!-- negative startPos is up -->
         <!-- negative pos x is left -->
@@ -366,7 +366,7 @@ export class WorkshopContainer extends LitElement {
         </project-2>
 
         <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container>
-      </workshop-site>
+      </dance-figures-layout>
     `;
   }
 }

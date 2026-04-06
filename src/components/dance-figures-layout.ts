@@ -2,7 +2,7 @@ import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
 
-@customElement('workshop-site')
+@customElement('dance-figures-layout')
 export class WorkshopSite extends LitElement {
   @property({ type: Boolean })
   private isMenuOpen = false;
@@ -84,7 +84,7 @@ export class WorkshopSite extends LitElement {
 
       /* Section */
       section {
-        padding: 80px 20px;
+        padding: 0;
       }
 
       .section-title {
@@ -168,10 +168,6 @@ export class WorkshopSite extends LitElement {
     window.removeEventListener('scroll-to', this.handleScrollTo.bind(this));
   }
 
-  private handleSubmit() {
-    alert("Message sent! We'll get back to you soon.");
-  }
-
   private handleScrollTo(e: CustomEvent) {
     if (e.detail.id) {
       const el = this?.shadowRoot?.getElementById(e.detail.id);
@@ -182,19 +178,30 @@ export class WorkshopSite extends LitElement {
   override render() {
     return html`
       <!-- Navigation -->
-      <slot name="navigation"></slot>
+      <header>
+        <slot name="navigation"></slot>
+      </header>
 
-      <div id="top"></div>
-      <slot name="site-header"></slot>
-      <div id="held-wind"></div>
+      <main>
+        <div id="top"></div>
+        <slot name="site-header"></slot>
 
-      <slot name="project-1"></slot>
-      <div id="moved-tides"></div>
-      <slot name="project-2"></slot>
-      <div id="dunes-part-1"></div>
-      <slot name="project-3"></slot>
-      <div id="dunes-part-2"></div>
-      <slot name="project-4"></slot>
+        <section id="held-wind" aria-labelledby="title-1">
+          <slot name="project-1"></slot>
+        </section>
+
+        <section id="moved-tides" aria-labelledby="title-2">
+          <slot name="project-2"></slot>
+        </section>
+
+        <section id="dunes-part-1" aria-labelledby="title-3">
+          <slot name="project-3"></slot>
+        </section>
+  
+        <section id="dunes-part-2" aria-labelledby="title-4">
+          <slot name="project-4"></slot>
+        </section>
+      </main>
 
       <!-- Footer -->
       <footer class="site-footer">
