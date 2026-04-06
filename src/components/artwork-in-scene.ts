@@ -15,7 +15,7 @@ interface Layer {
 }
 
 //NOTE: host height controls the amount of scroll phases, so can be adjusted for longer/shorter animations
-@customElement('shrink-painting-panel')
+@customElement('artwork-in-scene')
 export class ShrinkPaintingPanel extends LitElement {
   static override styles = css`
     :host {

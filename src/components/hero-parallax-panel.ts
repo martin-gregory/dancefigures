@@ -136,11 +136,6 @@ export class HeroParallaxPanel extends LitElement {
 
   @property({ type: String }) caption: string = '';
 
-  // Helper: Clamp val between min,max
-  private clamp(val: number, min = 0, max = 1): number {
-    return Math.max(min, Math.min(val, max));
-  }
-
   @state() private layerImgElements: HTMLElement[] = [];
   private rafId: number = 0;
   private ticking = false;
@@ -215,9 +210,9 @@ export class HeroParallaxPanel extends LitElement {
 
   override render() {
     return html`
-      <div class="text-parallax-container">
+      <header class="text-parallax-container">
         <h2>${this.words.map((word, index) => html`<span style="--i: ${index * 5 - 10}">${word}</span>`)}</h2>
-      </div>
+      </header>
       <figure>
         ${this.layers.map(
       (layer) => html`
@@ -233,7 +228,6 @@ export class HeroParallaxPanel extends LitElement {
     )}
         ${this.caption ? html`<figcaption>${this.caption}</figcaption>` : ''}
       </figure>
-      <div class="content-overlay"></div>
     `;
   }
 }

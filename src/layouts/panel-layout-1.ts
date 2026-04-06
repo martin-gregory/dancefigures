@@ -65,10 +65,8 @@ export class PanelLayout1 extends LitElement {
 
   override render() {
     return html`
-
       <slot name="hero-1"></slot>
-
-      <slot name="shrink-layers-parallax"></slot>
+      <slot name="artwork-in-scene"></slot>
     `;
   }
 }

@@ -1,7 +1,7 @@
 import { LitElement, css, html } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 
-@customElement('shrink-layers-parallax')
+@customElement('artwork-in-scene')
 export class ShrinkLayersParallax extends LitElement {
   static override styles = css`
     :host {

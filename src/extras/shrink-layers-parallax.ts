@@ -15,8 +15,8 @@ interface Layer {
 }
 
 //NOTE: host height controls the amount of scroll phases, so can be adjusted for longer/shorter animations
-@customElement('shrink-layers-parallax')
-export class ShrinkLayersParallax extends LitElement {
+@customElement('artwork-in-scene')
+export class ArtworkInScene extends LitElement {
   static override styles = css`
     :host {
       display: block;
@@ -225,7 +225,6 @@ export class ShrinkLayersParallax extends LitElement {
     return Math.max(min, Math.min(val, max));
   }
 
-  // Render logic
   override render() {
     return html`
       <div class="sticky-container">

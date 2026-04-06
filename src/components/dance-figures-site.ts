@@ -4,28 +4,65 @@ import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-site')
 export class DanceFiguresSite extends LitElement {
+  firstUpdated() {
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
 
-  override updated(changedProperties: Map<string, any>) {
-    // // Update the tab title
-    // document.title = "Dance Figures | Tiana Diakova";
-
-    // // Update the Meta Description
-    // const metaDesc = document.querySelector('meta[name="description"]');
-    // if (metaDesc) {
-    //   metaDesc.setAttribute("content", "Explore 'Held by the Wind' and other oil paintings by Tiana Diakova.");
-    // }
+    const schema = {
+      "@context": "https://schema.org/",
+      "@type": "ItemList",
+      "numberOfItems": 5,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@type": "VisualArtwork",
+            "name": "Held by the Wind",
+            "image": "https://www.dancefigures.com/img/held-wind-painting.avif",
+            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@type": "VisualArtwork",
+            "name": "Moved by the Tide",
+            "image": "https://www.dancefigures.com/img/moved-by-tide-painting.avif",
+            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "item": {
+            "@type": "VisualArtwork",
+            "name": "The Song of the Swaying Dunes I",
+            "image": "https://www.dancefigures.com/img/dunes-1-painting.avif",
+            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+          }
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "item": {
+            "@type": "VisualArtwork",
+            "name": "The Song of the Swaying Dunes II",
+            "image": "https://www.dancefigures.com/img/dunes-2-painting.avif",
+            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
+          }
+        }
+      ]
+    }
+    script.textContent = JSON.stringify(schema);
+    document.head.appendChild(script);
   }
-
   static override styles = [
     commonStyles,
     css`
       :host {
         display: block;
-        /* display: flex; */
-        /* flex-direction: column;
-        max-width: 1500px;
-        margin: auto !important;
-        overflow: hidden; */
         --accent-colour: #6e90c0;
         --held-by-the-sea-bg: #485c71;
         --held-by-the-sea-bg: #b88393;
@@ -123,19 +160,17 @@ export class DanceFiguresSite extends LitElement {
         },
       ]}
           >
-            <h1>Held by the Wind</h1>
           </hero-parallax-panel>
 
-          <shrink-painting-panel
-            slot="shrink-layers-parallax"
+          <artwork-in-scene
+            slot="artwork-in-scene"
             plaqueText="Held by the Wind"
             stageImage="${config.imgUrl}interior-held-wind.avif"
             .layers=${[{ src: `${config.imgUrl}held-wind-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
-          </shrink-painting-panel>
+          </artwork-in-scene>
         </panel-layout-1>
 
-        <hr />
         <panel-layout-2 slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
             slot="hero-2"
@@ -194,8 +229,8 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </hero-parallax-panel>
-          <shrink-painting-panel
-            slot="shrink-layers-parallax"
+          <artwork-in-scene
+            slot="artwork-in-scene"
             plaqueText="Moved by the Tide"
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(166 154 137) 0%, rgb(193 208 215) 59%, rgb(207 214 217) 65%, rgb(255 255 255) 100%)"
             stageImage="${config.imgUrl}interior-moved-by-tide.avif"
@@ -203,7 +238,7 @@ export class DanceFiguresSite extends LitElement {
         { src: `${config.imgUrl}moved-by-tide-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
       ]}
           >
-          </shrink-painting-panel>
+          </artwork-in-scene>
         </panel-layout-2>
         <panel-layout-2 slot="artwork-dunes-part-1">
           <hero-parallax-panel
@@ -270,16 +305,17 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </hero-parallax-panel>
-          <shrink-painting-panel
-            slot="shrink-layers-parallax"
+          <artwork-in-scene
+            slot="artwork-in-scene"
             plaqueText="The Song of the Swaying Dunes I"
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
             stageImage="${config.imgUrl}interior-dunes-1.avif"
             stageImageEndTranslateYPos="15"
             .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
-          </shrink-painting-panel>
+          </artwork-in-scene>
         </panel-layout-2>
+
         <panel-layout-2 slot="artwork-dunes-part-2">
           <hero-parallax-panel
             slot="hero-2"
@@ -366,18 +402,17 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </hero-parallax-panel>
-          <shrink-painting-panel
-            slot="shrink-layers-parallax"
+          <artwork-in-scene
+            slot="artwork-in-scene"
             plaqueText="The Song of the Swaying Dunes II"
             style="--frame-width: 70vh;"
             stageImage="${config.imgUrl}interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
             .layers=${[{ src: `${config.imgUrl}dunes-2-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
           >
-          </shrink-painting-panel>
+          </artwork-in-scene>
         </panel-layout-2>
 
-        <progress-parallax-container slot="progress-parallax-2"></progress-parallax-container>
       </dance-figures-layout>
     `;
   }

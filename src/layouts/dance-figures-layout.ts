@@ -1,12 +1,9 @@
 import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-layout')
 export class DanceFiguresLayout extends LitElement {
-  @property({ type: Boolean })
-  private isMenuOpen = false;
-
   static override styles = [
     commonStyles,
     css`
@@ -187,20 +184,22 @@ export class DanceFiguresLayout extends LitElement {
         <slot name="site-header"></slot>
 
         <section id="held-wind" aria-labelledby="title-1">
-          <h1 id="project-1-title">Held by the Wind</h1>
-          <p class="sr-only">Detailed description of the painting for crawlers and screen readers.</p>
+          <h1 class="sr-only" id="project-1-title">Held by the Wind</h1>
           <slot name="artwork-held-by-the-wind"></slot>
         </section>
 
         <section id="moved-tides" aria-labelledby="title-2">
+          <h1 class="sr-only" id="project-2-title">Moved by the Tide</h1>
           <slot name="artwork-moved-by-the-tide"></slot>
         </section>
 
         <section id="dunes-part-1" aria-labelledby="title-3">
+          <h1 class="sr-only" id="project-3-title">The Song of the Swaying Dunes I</h1>
           <slot name="artwork-dunes-part-1"></slot>
         </section>
   
         <section id="dunes-part-2" aria-labelledby="title-4">
+          <h1 class="sr-only" id="project-4-title">The Song of the Swaying Dunes II</h1>
           <slot name="artwork-dunes-part-2"></slot>
         </section>
       </main>
