@@ -232,7 +232,7 @@ export class DanceFiguresSite extends LitElement {
           <artwork-in-scene
             slot="artwork-in-scene"
             plaqueText="Moved by the Tide"
-            style="--panel-bg-gradient: linear-gradient(305deg, rgb(166 154 137) 0%, rgb(193 208 215) 59%, rgb(207 214 217) 65%, rgb(255 255 255) 100%)"
+            style="--panel-bg-gradient: linear-gradient(305deg,rgba(173, 176, 169, 1) 0%, rgba(194, 182, 194, 1) 51%, rgba(227, 227, 227, 1) 100%)"
             stageImage="${config.imgUrl}interior-moved-by-tide.avif"
             .layers=${[
         { src: `${config.imgUrl}moved-by-tide-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: Moved by the Tide' },
