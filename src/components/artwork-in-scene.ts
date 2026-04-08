@@ -113,7 +113,7 @@ export class ShrinkPaintingPanel extends LitElement {
         transform-origin: calc(50% - 115px) 150px;
       }
     }
-    
+
     .plaque {
       position: absolute;
       left: 65%;
@@ -122,20 +122,40 @@ export class ShrinkPaintingPanel extends LitElement {
       opacity: 0;
       z-index: 2;
 
-      background: rgba(255, 255, 255, 0.14);
       padding: 10px;
       border-radius: 2px;
       text-align: center;
 
       a {
         display: block;
-        /* color: #2c3d58; */
-        color: #7e455d;
+        color: #6a4756;
         text-decoration: none;
         margin-top: 5px;
         text-align: center;
+        font-size: 18px;
+
         span {
           display: block;
+        }
+
+        .external-link-svg {
+          width: 18px;
+          height: 18px;
+          vertical-align: middle;
+          margin-left: 0px;
+          path {
+            fill: #6a4756;
+          }
+        }
+        &:hover {
+          a {
+            color: #2c3d58;
+          }
+          .external-link-svg {
+            path {
+              fill: #2c3d58;
+            }
+          }
         }
       }
     }
@@ -295,7 +315,9 @@ export class ShrinkPaintingPanel extends LitElement {
       const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
       return html`
               <div class="layer" style="${containerStyle}">
-                <img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}" />
+                <img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}"
+                title="${layer.alt ?? ''}"
+                 />
                 <div class="plaque">
                   <a
                     href="https://diakova-art.com/category/inner-landscapes/"
@@ -304,8 +326,14 @@ export class ShrinkPaintingPanel extends LitElement {
                     rel="noopener noreferrer"
                   >
                     <span>"${this.plaqueText}"</span>
-                    <span>100 x 60</span>
-                    diakova-art.com</a>
+                    <span>100 cm x 70 cm</span>
+                    diakova-art.com
+                    <svg class="external-link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                      <path
+                        d="M480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96zM368 360C368 373.3 378.7 384 392 384C405.3 384 416 373.3 416 360L416 248C416 234.7 405.3 224 392 224L280 224C266.7 224 256 234.7 256 248C256 261.3 266.7 272 280 272L334.1 272L231.1 375C221.7 384.4 221.7 399.6 231.1 408.9C240.5 418.2 255.7 418.3 265 408.9L368 305.9L368 360z"
+                      />
+                    </svg>
+                  </a>
                 </div>
               </div>
             `;

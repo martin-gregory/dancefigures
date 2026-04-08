@@ -119,7 +119,7 @@ export class DanceFiguresSite extends LitElement {
           src: `${config.imgUrl}held-wind-layer-2a.avif`,
           speed: 0.18,
           topPct: 17,
-          edgeAnchor: { edge: 'left', offset: 0 },
+          edgeAnchor: { edge: 'left', offset: -10 },
           scale: 1.1,
           heightVh: config.heightVh,
           cssName: 'layer-2',
@@ -128,10 +128,10 @@ export class DanceFiguresSite extends LitElement {
         {
           // middle
           src: `${config.imgUrl}held-wind-layer-2b.avif`,
-          speed: 0.1,
-          topPct: 17,
-          edgeAnchor: { edge: 'left', offset: 0 },
-          scale: 1.1,
+          speed: 0.12,
+          topPct: 19,
+          edgeAnchor: { edge: 'left', offset: -10 },
+          scale: 1,
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -166,7 +166,7 @@ export class DanceFiguresSite extends LitElement {
             slot="artwork-in-scene"
             plaqueText="Held by the Wind"
             stageImage="${config.imgUrl}interior-held-wind.avif"
-            .layers=${[{ src: `${config.imgUrl}held-wind-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
+            .layers=${[{ src: `${config.imgUrl}held-wind-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: Held by the Wind' }]}
           >
           </artwork-in-scene>
         </panel-layout-1>
@@ -235,7 +235,7 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(166 154 137) 0%, rgb(193 208 215) 59%, rgb(207 214 217) 65%, rgb(255 255 255) 100%)"
             stageImage="${config.imgUrl}interior-moved-by-tide.avif"
             .layers=${[
-        { src: `${config.imgUrl}moved-by-tide-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' },
+        { src: `${config.imgUrl}moved-by-tide-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: Moved by the Tide' },
       ]}
           >
           </artwork-in-scene>
@@ -311,7 +311,7 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
             stageImage="${config.imgUrl}interior-dunes-1.avif"
             stageImageEndTranslateYPos="15"
-            .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
+            .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: The Song of the Swaying Dunes I' }]}
           >
           </artwork-in-scene>
         </panel-layout-2>
@@ -408,7 +408,7 @@ export class DanceFiguresSite extends LitElement {
             style="--frame-width: 70vh;"
             stageImage="${config.imgUrl}interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
-            .layers=${[{ src: `${config.imgUrl}dunes-2-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background' }]}
+            .layers=${[{ src: `${config.imgUrl}dunes-2-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: The Song of the Swaying Dunes II' }]}
           >
           </artwork-in-scene>
         </panel-layout-2>
