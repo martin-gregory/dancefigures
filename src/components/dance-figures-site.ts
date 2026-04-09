@@ -71,12 +71,14 @@ export class DanceFiguresSite extends LitElement {
     `,
   ];
   override render() {
-    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const isMobile = window.matchMedia('(max-width: 480px)').matches;
+    const isMedium = window.matchMedia('(max-width: 1024px)').matches;
     const config = {
       heightVh: isMobile ? 80 : 220,
       panelHeight: isMobile ? 150 : 400,
-      imgUrl: isMobile ? '/img/mobile/' : '/img/',
+      imgUrl: isMobile && !isMedium ? '/img/mobile/' : isMedium ? '/img/medium/' : '/img/',
     };
+
     return html`
       <dance-figures-layout>
         <site-navigation slot="navigation"></site-navigation>

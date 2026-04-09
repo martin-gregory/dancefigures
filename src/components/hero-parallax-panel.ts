@@ -186,10 +186,28 @@ export class HeroParallaxPanel extends LitElement {
       });
     }
   };
+
   override connectedCallback() {
     super.connectedCallback();
     this.rafId = requestAnimationFrame(this.onScrollRaf);
     window.addEventListener('scroll', this.onScroll, { passive: true }); // for smarter layouts if needed
+
+    let lastTime = performance.now();
+    let frames = 0;
+
+    function checkFPS(now) {
+      frames++;
+      if (now > lastTime + 1000) {
+        console.log("Current FPS:", frames);
+        if (frames < 50) {
+          document.body.classList.add('low-perf'); // Disable heavy parallax
+        }
+        frames = 0;
+        lastTime = now;
+      }
+      requestAnimationFrame(checkFPS);
+    }
+    requestAnimationFrame(checkFPS);
   }
 
   override disconnectedCallback() {
