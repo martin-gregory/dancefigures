@@ -4,60 +4,88 @@ import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-site')
 export class DanceFiguresSite extends LitElement {
+  @property({ type: Boolean })
+  private isMobile = window.matchMedia('(max-width: 480px)').matches;
+
+  @property({ type: Boolean })
+  private isMedium = window.matchMedia('(max-width: 1024px)').matches;
+
+  private mobileQuery = window.matchMedia('(max-width: 480px)');
+  private mediumQuery = window.matchMedia('(max-width: 1024px)');
+
+  override connectedCallback() {
+    super.connectedCallback();
+    // Listen for the specific moment the query crosses the threshold
+    this.mobileQuery.addEventListener('change', this.handleQueryChange);
+    this.mediumQuery.addEventListener('change', this.handleQueryChange);
+  }
+
+  private handleQueryChange = () => {
+    this.isMobile = this.mobileQuery.matches;
+    this.isMedium = this.mediumQuery.matches;
+  };
+
+  override disconnectedCallback() {
+    this.mobileQuery.removeEventListener('change', this.handleQueryChange);
+    this.mediumQuery.removeEventListener('change', this.handleQueryChange);
+    super.disconnectedCallback();
+  }
+
   firstUpdated() {
     const script = document.createElement('script');
     script.type = 'application/ld+json';
 
     const schema = {
-      "@context": "https://schema.org/",
-      "@type": "ItemList",
-      "numberOfItems": 5,
-      "itemListElement": [
+      '@context': 'https://schema.org/',
+      '@type': 'ItemList',
+      numberOfItems: 5,
+      itemListElement: [
         {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "VisualArtwork",
-            "name": "Held by the Wind",
-            "image": "https://www.dancefigures.com/img/held-wind-painting.avif",
-            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
-          }
+          '@type': 'ListItem',
+          position: 1,
+          item: {
+            '@type': 'VisualArtwork',
+            name: 'Held by the Wind',
+            image: 'https://www.dancefigures.com/img/held-wind-painting.avif',
+            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
+          },
         },
         {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "VisualArtwork",
-            "name": "Moved by the Tide",
-            "image": "https://www.dancefigures.com/img/moved-by-tide-painting.avif",
-            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
-          }
+          '@type': 'ListItem',
+          position: 2,
+          item: {
+            '@type': 'VisualArtwork',
+            name: 'Moved by the Tide',
+            image: 'https://www.dancefigures.com/img/moved-by-tide-painting.avif',
+            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
+          },
         },
         {
-          "@type": "ListItem",
-          "position": 3,
-          "item": {
-            "@type": "VisualArtwork",
-            "name": "The Song of the Swaying Dunes I",
-            "image": "https://www.dancefigures.com/img/dunes-1-painting.avif",
-            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
-          }
+          '@type': 'ListItem',
+          position: 3,
+          item: {
+            '@type': 'VisualArtwork',
+            name: 'The Song of the Swaying Dunes I',
+            image: 'https://www.dancefigures.com/img/dunes-1-painting.avif',
+            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
+          },
         },
         {
-          "@type": "ListItem",
-          "position": 4,
-          "item": {
-            "@type": "VisualArtwork",
-            "name": "The Song of the Swaying Dunes II",
-            "image": "https://www.dancefigures.com/img/dunes-2-painting.avif",
-            "description": "100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"
-          }
-        }
-      ]
-    }
+          '@type': 'ListItem',
+          position: 4,
+          item: {
+            '@type': 'VisualArtwork',
+            name: 'The Song of the Swaying Dunes II',
+            image: 'https://www.dancefigures.com/img/dunes-2-painting.avif',
+            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
+          },
+        },
+      ],
+    };
     script.textContent = JSON.stringify(schema);
     document.head.appendChild(script);
   }
+
   static override styles = [
     commonStyles,
     css`
@@ -71,13 +99,16 @@ export class DanceFiguresSite extends LitElement {
     `,
   ];
   override render() {
-    const isMobile = window.matchMedia('(max-width: 480px)').matches;
-    const isMedium = window.matchMedia('(max-width: 1024px)').matches;
     const config = {
-      heightVh: isMobile ? 80 : 220,
-      panelHeight: isMobile ? 150 : 400,
-      imgUrl: isMobile && !isMedium ? '/img/mobile/' : isMedium ? '/img/medium/' : '/img/',
+      heightVh: this.isMobile ? 80 : 220,
+      panelHeight: this.isMobile ? 150 : 400,
+      imgUrl: this.isMobile ? '/img/mobile/' : this.isMedium ? '/img/medium/' : '/img/',
+      // imgUrl: this.isMobile ? '/img/mobile/' : this.isMedium ? '/img/medium/' : '/img/',
     };
+    console.log({
+      isMobile: this.isMobile,
+      isMedium: this.isMedium
+    });
 
     return html`
       <dance-figures-layout>
@@ -89,10 +120,10 @@ export class DanceFiguresSite extends LitElement {
         <panel-layout-1 slot="artwork-held-by-the-wind">
           <hero-parallax-panel
             slot="hero-1"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile
         ? 150
         : 500}vh; --panel-background-position: center 0;"
-            .caption=${"Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
+            .caption=${'Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
         {
           // front
@@ -168,7 +199,16 @@ export class DanceFiguresSite extends LitElement {
             slot="artwork-in-scene"
             plaqueText="Held by the Wind"
             stageImage="${config.imgUrl}interior-held-wind.avif"
-            .layers=${[{ src: `${config.imgUrl}held-wind-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: Held by the Wind' }]}
+            .layers=${[
+        {
+          src: `${config.imgUrl}held-wind-painting.avif`,
+          speed: 0,
+          objectFit: 'contain',
+          startPos: '-320',
+          cssName: 'background',
+          alt: 'Painting: Held by the Wind',
+        },
+      ]}
           >
           </artwork-in-scene>
         </panel-layout-1>
@@ -176,9 +216,9 @@ export class DanceFiguresSite extends LitElement {
         <panel-layout-2 slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${isMobile ? 120 : 352}vh;"
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile ? 120 : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
-            .caption=${"Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
+            .caption=${'Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
         {
           speed: 0.12,
@@ -237,7 +277,14 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-bg-gradient: linear-gradient(305deg,rgba(173, 176, 169, 1) 0%, rgba(194, 182, 194, 1) 51%, rgba(227, 227, 227, 1) 100%)"
             stageImage="${config.imgUrl}interior-moved-by-tide.avif"
             .layers=${[
-        { src: `${config.imgUrl}moved-by-tide-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: Moved by the Tide' },
+        {
+          src: `${config.imgUrl}moved-by-tide-painting.avif`,
+          speed: 0,
+          objectFit: 'contain',
+          startPos: '-320',
+          cssName: 'background',
+          alt: 'Painting: Moved by the Tide',
+        },
       ]}
           >
           </artwork-in-scene>
@@ -245,9 +292,9 @@ export class DanceFiguresSite extends LitElement {
         <panel-layout-2 slot="artwork-dunes-part-1">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${isMobile ? 123 : 360}vh;"
+            style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${this.isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
-            .caption=${"Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
+            .caption=${'Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
         {
           speed: 0.14,
@@ -313,7 +360,16 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-bg-gradient: linear-gradient(305deg, rgb(142 134 178) 0%, rgb(199 177 164) 59% 65%, rgb(236 203 204) 100%)"
             stageImage="${config.imgUrl}interior-dunes-1.avif"
             stageImageEndTranslateYPos="15"
-            .layers=${[{ src: `${config.imgUrl}dunes-1-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: The Song of the Swaying Dunes I' }]}
+            .layers=${[
+        {
+          src: `${config.imgUrl}dunes-1-painting.avif`,
+          speed: 0,
+          objectFit: 'contain',
+          startPos: '-320',
+          cssName: 'background',
+          alt: 'Painting: The Song of the Swaying Dunes I',
+        },
+      ]}
           >
           </artwork-in-scene>
         </panel-layout-2>
@@ -323,7 +379,7 @@ export class DanceFiguresSite extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
-            .caption=${"Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets"}
+            .caption=${'Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
         {
           speed: 0.2,
@@ -410,11 +466,19 @@ export class DanceFiguresSite extends LitElement {
             style="--frame-width: 70vh;"
             stageImage="${config.imgUrl}interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
-            .layers=${[{ src: `${config.imgUrl}dunes-2-painting.avif`, speed: 0, objectFit: 'contain', startPos: '-320', cssName: 'background', alt: 'Painting: The Song of the Swaying Dunes II' }]}
+            .layers=${[
+        {
+          src: `${config.imgUrl}dunes-2-painting.avif`,
+          speed: 0,
+          objectFit: 'contain',
+          startPos: '-320',
+          cssName: 'background',
+          alt: 'Painting: The Song of the Swaying Dunes II',
+        },
+      ]}
           >
           </artwork-in-scene>
         </panel-layout-2>
-
       </dance-figures-layout>
     `;
   }

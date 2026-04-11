@@ -50,7 +50,7 @@ export class HeroParallaxPanel extends LitElement {
 
       display: flex;
       justify-content: center;
-  
+
       /* This centers the image horizontally inside the container */
     }
 
@@ -198,7 +198,7 @@ export class HeroParallaxPanel extends LitElement {
     function checkFPS(now) {
       frames++;
       if (now > lastTime + 1000) {
-        console.log("Current FPS:", frames);
+        console.log('Current FPS:', frames);
         if (frames < 50) {
           document.body.classList.add('low-perf'); // Disable heavy parallax
         }
@@ -208,6 +208,11 @@ export class HeroParallaxPanel extends LitElement {
       requestAnimationFrame(checkFPS);
     }
     requestAnimationFrame(checkFPS);
+
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl');
+    const maxTextureSize = gl?.getParameter(gl.MAX_TEXTURE_SIZE);
+    console.log('Max Texture Size:', maxTextureSize);
   }
 
   override disconnectedCallback() {
