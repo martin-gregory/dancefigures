@@ -42,7 +42,7 @@ export class ImageParallaxContainer extends LitElement {
       font-size: 4rem;
       font-weight: normal;
       color: #edebed;
-      font-family: cursive;
+      font-family: "Gabriola", cursive;
 
       span {
         animation: text-parallax both;

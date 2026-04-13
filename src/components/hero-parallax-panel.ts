@@ -85,7 +85,7 @@ export class HeroParallaxPanel extends LitElement {
       font-size: 4rem;
       font-weight: normal;
       color: #edebed;
-      font-family: cursive;
+      font-family: "Gabriola", cursive;
       z-index: 10;
       position: fixed;
       bottom: 20px;
@@ -192,27 +192,27 @@ export class HeroParallaxPanel extends LitElement {
     this.rafId = requestAnimationFrame(this.onScrollRaf);
     window.addEventListener('scroll', this.onScroll, { passive: true }); // for smarter layouts if needed
 
-    let lastTime = performance.now();
-    let frames = 0;
+    // let lastTime = performance.now();
+    // let frames = 0;
 
-    function checkFPS(now) {
-      frames++;
-      if (now > lastTime + 1000) {
-        console.log('Current FPS:', frames);
-        if (frames < 50) {
-          document.body.classList.add('low-perf'); // Disable heavy parallax
-        }
-        frames = 0;
-        lastTime = now;
-      }
-      requestAnimationFrame(checkFPS);
-    }
-    requestAnimationFrame(checkFPS);
+    // function checkFPS(now) {
+    //   frames++;
+    //   if (now > lastTime + 1000) {
+    //     console.log('Current FPS:', frames);
+    //     if (frames < 50) {
+    //       document.body.classList.add('low-perf'); // Disable heavy parallax
+    //     }
+    //     frames = 0;
+    //     lastTime = now;
+    //   }
+    //   requestAnimationFrame(checkFPS);
+    // }
+    // requestAnimationFrame(checkFPS);
 
-    const canvas = document.createElement('canvas');
-    const gl = canvas.getContext('webgl');
-    const maxTextureSize = gl?.getParameter(gl.MAX_TEXTURE_SIZE);
-    console.log('Max Texture Size:', maxTextureSize);
+    // const canvas = document.createElement('canvas');
+    // const gl = canvas.getContext('webgl');
+    // const maxTextureSize = gl?.getParameter(gl.MAX_TEXTURE_SIZE);
+    // console.log('Max Texture Size:', maxTextureSize);
   }
 
   override disconnectedCallback() {

@@ -107,7 +107,7 @@ export class DanceFiguresSite extends LitElement {
     };
     console.log({
       isMobile: this.isMobile,
-      isMedium: this.isMedium
+      isMedium: this.isMedium,
     });
 
     return html`
@@ -131,8 +131,17 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.1,
           topPct: 1,
           heightVh: config.heightVh,
-          scale: 0.8,
-          leftPct: 9,
+          // scale: this.isMedium ? 0.6 : 0.8,
+          ...(this.isMedium
+            ? {
+              scale: 0.6,
+              leftPct: 22,
+            }
+            : {
+              scale: 0.8,
+              leftPct: 9,
+            }),
+          // leftPct: 9,
           cssName: 'layer-1',
           fetchPriority: 'high',
         },
@@ -142,8 +151,15 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.14,
           topPct: 0,
           heightVh: config.heightVh,
-          scale: 0.8,
-          leftPct: 9,
+          ...(this.isMedium
+            ? {
+              scale: 0.6,
+              leftPct: 22,
+            }
+            : {
+              scale: 0.8,
+              leftPct: 9,
+            }),
           cssName: 'layer-1',
           fetchpriority: 'high',
         },
@@ -152,8 +168,14 @@ export class DanceFiguresSite extends LitElement {
           src: `${config.imgUrl}held-wind-layer-2a.avif`,
           speed: 0.18,
           topPct: 17,
-          edgeAnchor: { edge: 'left', offset: -10 },
-          scale: 1.1,
+          ...(this.isMedium
+            ? {
+              scale: 0.6,
+            }
+            : {
+              scale: 1.1,
+              edgeAnchor: { edge: 'left', offset: -10 },
+            }),
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -163,8 +185,15 @@ export class DanceFiguresSite extends LitElement {
           src: `${config.imgUrl}held-wind-layer-2b.avif`,
           speed: 0.12,
           topPct: 19,
-          edgeAnchor: { edge: 'left', offset: -10 },
-          scale: 1,
+          ...(this.isMedium
+            ? {
+              scale: 0.6,
+              leftPct: -4,
+            }
+            : {
+              scale: 1,
+              edgeAnchor: { edge: 'left', offset: -10 },
+            }),
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -175,7 +204,7 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.14,
           topPct: 48,
           leftPct: 13,
-          scale: 0.8,
+          scale: this.isMedium ? 0.6 : 0.8,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
@@ -186,7 +215,7 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.17,
           topPct: 46,
           leftPct: 13,
-          scale: 0.8,
+          scale: this.isMedium ? 0.6 : 0.8,
           heightVh: config.heightVh,
           cssName: 'layer-3',
           fetchPriority: 'high',
@@ -216,7 +245,9 @@ export class DanceFiguresSite extends LitElement {
         <panel-layout-2 slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile ? 120 : 352}vh;"
+            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile
+        ? 120
+        : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .caption=${'Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
@@ -226,7 +257,7 @@ export class DanceFiguresSite extends LitElement {
           leftPct: 20,
           topPct: -1.5,
           heightVh: config.heightVh,
-          scale: 0.8,
+          scale: this.isMedium ? 0.6 : 0.8,
           cssName: 'layer-3',
         },
         {
@@ -235,7 +266,7 @@ export class DanceFiguresSite extends LitElement {
           leftPct: 20,
           topPct: -2,
           heightVh: config.heightVh,
-          scale: 0.8,
+          scale: this.isMedium ? 0.6 : 0.8,
           cssName: 'layer-3',
         },
         {
@@ -302,7 +333,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 12,
           leftPct: -2,
           heightVh: config.heightVh,
-          scale: 0.9,
+          scale: this.isMedium ? 0.6 : 0.9,
           cssName: 'layer-3',
         },
         {
@@ -311,7 +342,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 10,
           leftPct: -2,
           heightVh: config.heightVh,
-          scale: 0.9,
+          scale: this.isMedium ? 0.6 : 0.9,
           cssName: 'layer-3',
         },
         {
@@ -319,7 +350,7 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.16,
           topPct: 1,
           heightVh: config.heightVh,
-          scale: 1.05,
+          scale: this.isMedium ? 0.6 : 1.05,
           leftPct: 15,
           cssName: 'layer-2',
         },
@@ -328,7 +359,7 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.2,
           topPct: 0,
           heightVh: config.heightVh,
-          scale: 1.05,
+          scale: this.isMedium ? 0.6 : 1.05,
           leftPct: 15,
           cssName: 'layer-2',
         },
@@ -339,7 +370,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 25,
           edgeAnchor: { edge: 'left', offset: 0 },
           heightVh: config.heightVh,
-          scale: 1.15,
+          scale: this.isMedium ? 0.6 : 1.15,
           cssName: 'layer-1',
         },
         {
@@ -348,7 +379,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 25,
           edgeAnchor: { edge: 'left', offset: 0 },
           heightVh: config.heightVh,
-          scale: 1.15,
+          scale: this.isMedium ? 0.6 : 1.15,
           cssName: 'layer-1',
         },
       ]}
@@ -386,7 +417,7 @@ export class DanceFiguresSite extends LitElement {
           src: `${config.imgUrl}dunes-2-layer-4a.avif`,
           topPct: 22,
           heightVh: config.heightVh,
-          scale: 0.9,
+          scale: this.isMedium ? 0.6 : 0.9,
           // rightPct: 6,
           cssName: 'layer-4',
           edgeAnchor: { edge: 'left', offset: 5 },
@@ -396,7 +427,7 @@ export class DanceFiguresSite extends LitElement {
           src: `${config.imgUrl}dunes-2-layer-4b.avif`,
           topPct: 22,
           heightVh: config.heightVh,
-          scale: 0.9,
+          scale: this.isMedium ? 0.6 : 0.9,
           rightPct: 6,
           edgeAnchor: { edge: 'left', offset: 5 },
           cssName: 'layer-4',
@@ -408,7 +439,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 25,
           leftPct: 8,
           heightVh: config.heightVh,
-          scale: 0.9,
+          scale: this.isMedium ? 0.6 : 0.9,
           cssName: 'layer-3',
         },
         {
@@ -417,7 +448,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 25,
           leftPct: 8,
           heightVh: config.heightVh,
-          scale: 0.9,
+          scale: this.isMedium ? 0.6 : 0.9,
           cssName: 'layer-3',
         },
 
@@ -426,7 +457,7 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.17,
           topPct: 1,
           heightVh: config.heightVh,
-          scale: 0.8,
+          scale: this.isMedium ? 0.6 : 0.8,
           leftPct: 23,
           cssName: 'layer-2',
         },
@@ -435,7 +466,7 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.2,
           topPct: 0,
           heightVh: config.heightVh,
-          scale: 0.8,
+          scale: this.isMedium ? 0.6 : 0.8,
           leftPct: 15,
           cssName: 'layer-2',
         },
@@ -445,7 +476,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 45,
           // leftPct: 24,
           heightVh: config.heightVh,
-          scale: 1.1,
+          scale: this.isMedium ? 0.6 : 1.1,
           cssName: 'layer-1',
         },
         {
@@ -454,7 +485,7 @@ export class DanceFiguresSite extends LitElement {
           topPct: 50,
           leftPct: -1,
           heightVh: config.heightVh,
-          scale: 1,
+          scale: this.isMedium ? 0.6 : 1,
           cssName: 'layer-1',
         },
       ]}

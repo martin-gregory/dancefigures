@@ -47,6 +47,7 @@ export class SiteNavigation extends LitElement {
         font-size: 18px;
         color: var(--accent-colour);
         font-family: 'helvetica serif';
+        display: none; // disable for more space on mobile
       }
     }
 
@@ -97,14 +98,13 @@ export class SiteNavigation extends LitElement {
       padding: 12px 20px;
       color: #374151;
       text-decoration: none;
-            font-family: 'helvetica serif';
+      font-family: 'helvetica serif';
       color: var(--accent-colour);
     }
 
     .mobile-menu a:hover {
       background: #fef3c7;
     }
-
 
     /* Responsive */
     @media (min-width: 768px) {
@@ -136,12 +136,11 @@ export class SiteNavigation extends LitElement {
         font-size: 14px;
       }
     }
-    @media (min-width: 768px) and (max-width: 1200px) {
+    @media (min-width: 1024px) {
       .logo h2 {
-        display: none;
+        display: block;
       }
     }
-
   `;
 
   override connectedCallback() {

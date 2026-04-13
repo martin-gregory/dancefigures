@@ -90,7 +90,7 @@ export class HeroParallax extends LitElement {
       font-size: 4rem;
       font-weight: normal;
       color: #edebed;
-      font-family: cursive;
+      font-family: "Gabriola", cursive;
       z-index: 10;
       position: fixed;
       bottom: 20px;
