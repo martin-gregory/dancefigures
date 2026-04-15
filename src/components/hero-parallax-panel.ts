@@ -85,7 +85,7 @@ export class HeroParallaxPanel extends LitElement {
       font-size: 4rem;
       font-weight: normal;
       color: #edebed;
-      font-family: "Gabriola", cursive;
+      font-family: 'Gabriola', cursive;
       z-index: 10;
       position: fixed;
       bottom: 20px;
@@ -163,56 +163,16 @@ export class HeroParallaxPanel extends LitElement {
     const right = layer.rightPct !== undefined ? `right: ${layer.rightPct}%;` : '';
     return `${top} ${left} ${right} ${zIndex}`;
   }
-  // Only re-render parallax smoothly via RAF
-  private onScroll = () => {
-    const rect = this.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
 
-    if (rect.top < viewportHeight && rect.bottom > 0) {
-      const relativeScroll = -rect.top;
-      // Normalize scroll to a 0.0 - 1.0 range of the component's height
-      const scrollProgress = relativeScroll / rect.height;
-
-      this.layers.forEach((layer, idx) => {
-        const el = this.layerImgElements[idx];
-        if (!el) return;
-
-        // Now 'speed' acts as a percentage of the total container height
-        // e.g., speed: 0.2 means the layer moves 20% of the total 400vh area
-        const movement = scrollProgress * rect.height * layer.speed;
-        const scale = layer.scale ?? 1;
-
-        el.style.transform = `translate3d(0, ${movement}px, 0) scale(${scale})`;
-      });
-    }
-  };
+  private targetScroll = 0;
+  private currentScroll = 0;
+  // private rafId = 0;
 
   override connectedCallback() {
     super.connectedCallback();
-    this.rafId = requestAnimationFrame(this.onScrollRaf);
-    window.addEventListener('scroll', this.onScroll, { passive: true }); // for smarter layouts if needed
-
-    // let lastTime = performance.now();
-    // let frames = 0;
-
-    // function checkFPS(now) {
-    //   frames++;
-    //   if (now > lastTime + 1000) {
-    //     console.log('Current FPS:', frames);
-    //     if (frames < 50) {
-    //       document.body.classList.add('low-perf'); // Disable heavy parallax
-    //     }
-    //     frames = 0;
-    //     lastTime = now;
-    //   }
-    //   requestAnimationFrame(checkFPS);
-    // }
-    // requestAnimationFrame(checkFPS);
-
-    // const canvas = document.createElement('canvas');
-    // const gl = canvas.getContext('webgl');
-    // const maxTextureSize = gl?.getParameter(gl.MAX_TEXTURE_SIZE);
-    // console.log('Max Texture Size:', maxTextureSize);
+    // Start the animation loop immediately
+    this.rafId = requestAnimationFrame(this.smoothUpdate);
+    window.addEventListener('scroll', this.onScroll, { passive: true });
   }
 
   override disconnectedCallback() {
@@ -221,14 +181,41 @@ export class HeroParallaxPanel extends LitElement {
     super.disconnectedCallback();
   }
 
-  private onScrollRaf = () => {
-    if (!this.ticking) {
-      this.rafId = requestAnimationFrame(() => {
-        this.onScroll();
-        this.ticking = false;
+  // 1. The Scroll listener ONLY updates the target destination
+  private onScroll = () => {
+    const rect = this.getBoundingClientRect();
+    // We store the 'raw' position from the scroll event
+    this.targetScroll = -rect.top;
+  };
+
+  // 2. The RAF loop constantly "eases" the current position toward the target
+  private smoothUpdate = () => {
+    const rect = this.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+
+    // Check if component is in view to save GPU cycles
+    if (rect.top < viewportHeight && rect.bottom > 0) {
+      // LERP MATH: Current + (Target - Current) * EaseFactor
+      // 0.1 is smooth, 0.05 is "heavy/dreamy", 0.2 is snappy.
+      this.currentScroll += (this.targetScroll - this.currentScroll) * 0.1;
+
+      // Use the smoothed 'currentScroll' for the math instead of raw rect.top
+      const scrollProgress = this.currentScroll / rect.height;
+
+      this.layers.forEach((layer, idx) => {
+        const el = this.layerImgElements[idx];
+        if (!el) return;
+
+        const movement = scrollProgress * rect.height * layer.speed;
+        const scale = layer.scale ?? 1;
+
+        // translate3d is essential for hardware acceleration on PC/Chrome
+        el.style.transform = `translate3d(0, ${movement}px, 0) scale(${scale})`;
       });
-      this.ticking = true;
     }
+
+    // Keep the loop running
+    this.rafId = requestAnimationFrame(this.smoothUpdate);
   };
 
   override render() {
