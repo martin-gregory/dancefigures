@@ -140,13 +140,29 @@ export class HeroParallaxPanel extends LitElement {
   private rafId: number = 0;
   private ticking = false;
 
+  private observer: IntersectionObserver | null = null;
+  private isVisible = false;
+
   // Cache DOM elements after first render
   protected override firstUpdated(_changed: PropertyValues) {
     // Update the selector to match your new render() class name
     this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer-container')) as HTMLElement[];
 
     this.onScroll();
+
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        this.isVisible = entries[0].isIntersecting;
+        if (this.isVisible) {
+          // Kick off the loop again when it scrolls into view
+          this.rafId = requestAnimationFrame(this.smoothUpdate);
+        }
+      },
+      { threshold: 0.01 }, // Trigger as soon as 1 pixel is visible
+    );
+    this.observer.observe(this);
   }
+
   private getLayerPositionStyle(layer: Layer): string {
     const top = `top: ${layer.topPct}%;`;
     const zIndex = `z-index: ${layer.zIndex ?? 1};`;
@@ -193,6 +209,12 @@ export class HeroParallaxPanel extends LitElement {
     const rect = this.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
 
+    // If not visible, stop the loop and don't request a new frame
+    if (!this.isVisible) {
+      cancelAnimationFrame(this.rafId);
+      return;
+    }
+
     // Check if component is in view to save GPU cycles
     if (rect.top < viewportHeight && rect.bottom > 0) {
       // LERP MATH: Current + (Target - Current) * EaseFactor
@@ -206,7 +228,7 @@ export class HeroParallaxPanel extends LitElement {
         const el = this.layerImgElements[idx];
         if (!el) return;
 
-        const movement = scrollProgress * rect.height * layer.speed;
+        const movement = Math.round(scrollProgress * rect.height * layer.speed);
         const scale = layer.scale ?? 1;
 
         // translate3d is essential for hardware acceleration on PC/Chrome
