@@ -4,14 +4,15 @@ import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-site')
 export class DanceFiguresSite extends LitElement {
-  @property({ type: Boolean })
-  private isMobile = window.matchMedia('(max-width: 480px)').matches;
-
-  @property({ type: Boolean })
-  private isMedium = window.matchMedia('(max-width: 1024px)').matches;
 
   private mobileQuery = window.matchMedia('(max-width: 480px)');
   private mediumQuery = window.matchMedia('(max-width: 1024px)');
+
+  @property({ type: Boolean })
+  private isMobile = this.mobileQuery.matches;
+
+  @property({ type: Boolean })
+  private isMedium = this.mediumQuery.matches && !this.mobileQuery.matches;
 
   override connectedCallback() {
     super.connectedCallback();
@@ -22,7 +23,7 @@ export class DanceFiguresSite extends LitElement {
 
   private handleQueryChange = () => {
     this.isMobile = this.mobileQuery.matches;
-    this.isMedium = this.mediumQuery.matches;
+    this.isMedium = this.mediumQuery.matches && !this.mobileQuery.matches;
   };
 
   override disconnectedCallback() {
