@@ -103,7 +103,6 @@ export class DanceFiguresSite extends LitElement {
       heightVh: this.isMobile ? 80 : 220,
       panelHeight: this.isMobile ? 150 : 400,
       imgUrl: this.isMobile ? '/img/mobile/' : this.isMedium ? '/img/medium/' : '/img/',
-      // imgUrl: this.isMobile ? '/img/mobile/' : this.isMedium ? '/img/medium/' : '/img/',
     };
     console.log({
       isMobile: this.isMobile,
@@ -171,6 +170,12 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.23,
           topPct: 25,
           scale: 1.1,
+          ...(!this.isMobile &&
+            !this.isMedium && {
+            leftPct: -22,
+
+            // edgeAnchor: { edge: 'left', offset: '1px' },
+          }),
           ...(this.isMobile && {
             topPct: 27,
             scale: 1,
@@ -178,7 +183,9 @@ export class DanceFiguresSite extends LitElement {
           }),
           ...(this.isMedium && {
             scale: 0.8,
-            edgeAnchor: { edge: 'left', offset: '-500px' },
+            leftPct: -22,
+
+            // edgeAnchor: { edge: 'left', offset: '-500px' },
           }),
           heightVh: config.heightVh,
           cssName: 'layer-2',
@@ -190,7 +197,11 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.17,
           topPct: 28,
           scale: 1,
-          // edgeAnchor: { edge: 'left', offset: '-300px' },
+          ...(!this.isMobile &&
+            !this.isMedium && {
+            leftPct: -12,
+            // edgeAnchor: { edge: 'left', offset: '-600px' },
+          }),
           ...(this.isMobile && {
             topPct: 27,
             scale: 0.8,
@@ -199,7 +210,8 @@ export class DanceFiguresSite extends LitElement {
           }),
           ...(this.isMedium && {
             scale: 0.9,
-            edgeAnchor: { edge: 'left', offset: '-300px' },
+            // edgeAnchor: { edge: 'left', offset: '-300px' },
+            leftPct: -4,
           }),
           heightVh: config.heightVh,
           cssName: 'layer-2',
@@ -427,7 +439,7 @@ export class DanceFiguresSite extends LitElement {
           scale: this.isMedium ? 0.6 : 0.9,
           // rightPct: 6,
           cssName: 'layer-4',
-          edgeAnchor: { edge: 'left', offset: 5 },
+          edgeAnchor: { edge: 'left', offset: '5px' },
         },
         {
           speed: 0.14,
@@ -436,7 +448,7 @@ export class DanceFiguresSite extends LitElement {
           heightVh: config.heightVh,
           scale: this.isMedium ? 0.6 : 0.9,
           rightPct: 6,
-          edgeAnchor: { edge: 'left', offset: 5 },
+          edgeAnchor: { edge: 'left', offset: '5px' },
           cssName: 'layer-4',
         },
 
