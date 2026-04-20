@@ -4,7 +4,6 @@ import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-site')
 export class DanceFiguresSite extends LitElement {
-
   private mobileQuery = window.matchMedia('(max-width: 480px)');
   private mediumQuery = window.matchMedia('(max-width: 1024px)');
 
@@ -122,26 +121,26 @@ export class DanceFiguresSite extends LitElement {
           <hero-parallax-panel
             slot="hero-1"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile
-        ? 150
-        : 500}vh; --panel-background-position: center 0;"
+        ? 130
+        : 420}vh; --panel-background-position: center 0;"
             .caption=${'Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
         {
           // front
           src: `${config.imgUrl}held-wind-layer-3b.avif`,
           speed: 0.1,
-          topPct: 1,
+          topPct: 0.5,
           heightVh: config.heightVh,
           // scale: this.isMedium ? 0.6 : 0.8,
-          ...(this.isMedium
-            ? {
-              scale: 0.6,
-              leftPct: 22,
-            }
-            : {
-              scale: 0.8,
-              leftPct: 9,
-            }),
+          ...(this.isMedium && {
+            scale: 0.6,
+            leftPct: 22,
+          }),
+          ...(this.isMobile && {
+            scale: 0.8,
+            leftPct: 9,
+          }),
+
           // leftPct: 9,
           cssName: 'layer-1',
           fetchPriority: 'high',
@@ -149,7 +148,7 @@ export class DanceFiguresSite extends LitElement {
         {
           // front
           src: `${config.imgUrl}held-wind-layer-3a.avif`,
-          speed: 0.14,
+          speed: 0.12,
           topPct: 0,
           heightVh: config.heightVh,
           ...(this.isMedium
@@ -162,21 +161,24 @@ export class DanceFiguresSite extends LitElement {
               leftPct: 9,
             }),
           cssName: 'layer-1',
-          fetchpriority: 'high',
+          fetchPriority: 'high',
         },
         {
           // middle
           src: `${config.imgUrl}held-wind-layer-2a.avif`,
-          speed: 0.18,
-          topPct: 17,
-          ...(this.isMedium
-            ? {
-              scale: 0.6,
-            }
-            : {
-              scale: 1.1,
-              edgeAnchor: { edge: 'left', offset: -10 },
-            }),
+          speed: 0.23,
+          topPct: 25,
+          scale: 1.1,
+          edgeAnchor: { edge: 'left', offset: '-500px' },
+          ...(this.isMobile && {
+            topPct: 27,
+            scale: 1,
+            edgeAnchor: { edge: 'left', offset: '-190px' },
+          }),
+          ...(this.isMedium && {
+            scale: 0.8,
+            edgeAnchor: { edge: 'left', offset: '-500px' },
+          }),
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -184,17 +186,19 @@ export class DanceFiguresSite extends LitElement {
         {
           // middle
           src: `${config.imgUrl}held-wind-layer-2b.avif`,
-          speed: 0.12,
-          topPct: 19,
-          ...(this.isMedium
-            ? {
-              scale: 0.6,
-              leftPct: -4,
-            }
-            : {
-              scale: 1,
-              edgeAnchor: { edge: 'left', offset: -10 },
-            }),
+          speed: 0.17,
+          topPct: 28,
+          scale: 1,
+          edgeAnchor: { edge: 'left', offset: '-300px' },
+          ...(this.isMobile && {
+            topPct: 27,
+            scale: 0.8,
+            edgeAnchor: { edge: 'left', offset: '-190px' },
+          }),
+          ...(this.isMedium && {
+            scale: 0.9,
+            edgeAnchor: { edge: 'left', offset: '-300px' },
+          }),
           heightVh: config.heightVh,
           cssName: 'layer-2',
           fetchPriority: 'high',
@@ -202,8 +206,8 @@ export class DanceFiguresSite extends LitElement {
         {
           // last
           src: `${config.imgUrl}held-wind-layer-1bb.avif`,
-          speed: 0.14,
-          topPct: 48,
+          speed: 0.13,
+          topPct: 22,
           leftPct: 13,
           scale: this.isMedium ? 0.6 : 0.8,
           heightVh: config.heightVh,
@@ -214,7 +218,7 @@ export class DanceFiguresSite extends LitElement {
           // last
           src: `${config.imgUrl}held-wind-layer-1aaa.avif`,
           speed: 0.17,
-          topPct: 46,
+          topPct: 21,
           leftPct: 13,
           scale: this.isMedium ? 0.6 : 0.8,
           heightVh: config.heightVh,
@@ -473,17 +477,18 @@ export class DanceFiguresSite extends LitElement {
         },
         {
           speed: 0.07,
-          src: `${config.imgUrl}dunes-2-layer-1a.avif`,
-          topPct: 45,
+          src: `${config.imgUrl}dunes-2-layer-1aa.avif`,
+          topPct: 40,
+          leftPct: -4,
           // leftPct: 24,
           heightVh: config.heightVh,
-          scale: this.isMedium ? 0.6 : 1.1,
+          scale: this.isMedium ? 0.6 : 1,
           cssName: 'layer-1',
         },
         {
           speed: 0.02,
           src: `${config.imgUrl}dunes-2-layer-1b.avif`,
-          topPct: 50,
+          topPct: 47,
           leftPct: -1,
           heightVh: config.heightVh,
           scale: this.isMedium ? 0.6 : 1,

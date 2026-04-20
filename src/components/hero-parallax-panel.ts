@@ -35,6 +35,13 @@ export class HeroParallaxPanel extends LitElement {
       view-timeline-axis: block;
     }
 
+    figure {
+      margin: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
     figure figcaption {
       visibility: hidden;
     }
@@ -170,7 +177,7 @@ export class HeroParallaxPanel extends LitElement {
     if (layer.edgeAnchor) {
       // Pin to viewport edge using fixed px offset — unaffected by container width
       const offset = layer.edgeAnchor.offset ?? 0;
-      const edgeProp = layer.edgeAnchor.edge === 'left' ? `left: ${offset}px;` : `right: ${offset}px;`;
+      const edgeProp = layer.edgeAnchor.edge === 'left' ? `left: ${offset};` : `right: ${offset};`;
       return `${top} ${edgeProp} ${zIndex}`;
     }
 
