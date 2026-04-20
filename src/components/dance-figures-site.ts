@@ -171,11 +171,10 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.23,
           topPct: 25,
           scale: 1.1,
-          edgeAnchor: { edge: 'left', offset: '-500px' },
           ...(this.isMobile && {
             topPct: 27,
             scale: 1,
-            edgeAnchor: { edge: 'left', offset: '-40%' },
+            leftPct: -15,
           }),
           ...(this.isMedium && {
             scale: 0.8,
@@ -191,11 +190,12 @@ export class DanceFiguresSite extends LitElement {
           speed: 0.17,
           topPct: 28,
           scale: 1,
-          edgeAnchor: { edge: 'left', offset: '-300px' },
+          // edgeAnchor: { edge: 'left', offset: '-300px' },
           ...(this.isMobile && {
             topPct: 27,
             scale: 0.8,
-            edgeAnchor: { edge: 'left', offset: '-38%' },
+            leftPct: -1,
+            // edgeAnchor: { edge: 'left', offset: '-38%' },
           }),
           ...(this.isMedium && {
             scale: 0.9,
