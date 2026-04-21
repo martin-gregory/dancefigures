@@ -107,6 +107,7 @@ export class ShrinkPaintingPanel extends LitElement {
         object-position: bottom;
         height: 80vh;
         bottom: 0;
+        min-height: 825px;
       }
       .layer img {
         /* transform-origin: 40% 150px; */
@@ -130,12 +131,12 @@ export class ShrinkPaintingPanel extends LitElement {
         display: block;
         color: #6a4756;
         text-decoration: none;
-        margin-top: 5px;
+        margin-top: 0px;
         text-align: center;
         font-size: 18px;
 
         span {
-          display: block;
+          text-decoration: underline;
         }
 
         .external-link-svg {
@@ -162,15 +163,17 @@ export class ShrinkPaintingPanel extends LitElement {
 
     @media (max-width: 768px) {
       .plaque {
-        display: none;
+        /* display: none; */
         left: 50%;
         transform: translateX(-50%);
         top: 53vh;
+        top: 8vh;
         padding: 0px;
-        a {
-          span {
-            display: none;
-          }
+        div {
+          display: none;
+        }
+        a.order-print-link {
+          display: none;
         }
       }
     }
@@ -315,9 +318,14 @@ export class ShrinkPaintingPanel extends LitElement {
       const containerStyle = layer.container?.maxWidth ? `max-width: ${layer.container.maxWidth}; margin: 0 auto;` : '';
       return html`
               <div class="layer" style="${containerStyle}">
-                <img src="${layer.src}" alt="${layer.alt ?? 'Hero Layer'}" draggable="false" id="${layer.id ?? ''}" class="${layer.cssName ?? ''}"
-                title="${layer.alt ?? ''}"
-                 />
+                <img
+                  src="${layer.src}"
+                  alt="${layer.alt ?? 'Hero Layer'}"
+                  draggable="false"
+                  id="${layer.id ?? ''}"
+                  class="${layer.cssName ?? ''}"
+                  title="${layer.alt ?? ''}"
+                />
                 <div class="plaque">
                   <a
                     href="https://diakova-art.com/category/inner-landscapes/"
@@ -325,9 +333,23 @@ export class ShrinkPaintingPanel extends LitElement {
                     title="'${this.plaqueText}' - See more paintings at diakova-art.com"
                     rel="noopener noreferrer"
                   >
-                    <span>"${this.plaqueText}"</span>
-                    <span>100 cm x 70 cm</span>
+                    <div>"${this.plaqueText}"</div>
+                    <div>100 cm x 70 cm</div>
                     diakova-art.com
+                    <svg class="external-link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                      <path
+                        d="M480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96zM368 360C368 373.3 378.7 384 392 384C405.3 384 416 373.3 416 360L416 248C416 234.7 405.3 224 392 224L280 224C266.7 224 256 234.7 256 248C256 261.3 266.7 272 280 272L334.1 272L231.1 375C221.7 384.4 221.7 399.6 231.1 408.9C240.5 418.2 255.7 418.3 265 408.9L368 305.9L368 360z"
+                      />
+                    </svg>
+                  </a>
+                  <a
+                    href="https://diakova-art.com/order-prints/"
+                    target="_blank"
+                    title="Order Print of '${this.plaqueText}'"
+                    class="order-print-link"
+                    rel="noopener noreferrer"
+                  >
+                    <span>Order a Print</span>
                     <svg class="external-link-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
                       <path
                         d="M480 96C515.3 96 544 124.7 544 160L544 480C544 515.3 515.3 544 480 544L160 544C124.7 544 96 515.3 96 480L96 160C96 124.7 124.7 96 160 96L480 96zM368 360C368 373.3 378.7 384 392 384C405.3 384 416 373.3 416 360L416 248C416 234.7 405.3 224 392 224L280 224C266.7 224 256 234.7 256 248C256 261.3 266.7 272 280 272L334.1 272L231.1 375C221.7 384.4 221.7 399.6 231.1 408.9C240.5 418.2 255.7 418.3 265 408.9L368 305.9L368 360z"
