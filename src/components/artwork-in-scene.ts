@@ -166,13 +166,15 @@ export class ShrinkPaintingPanel extends LitElement {
         /* display: none; */
         left: 50%;
         transform: translateX(-50%);
-        top: 53vh;
-        top: 8vh;
+        top: 70px;
         padding: 0px;
+        a {
+          font-size: 16px;
+        }
         div {
           display: none;
         }
-        a.order-print-link {
+        a.artwork-link {
           display: none;
         }
       }
@@ -329,6 +331,7 @@ export class ShrinkPaintingPanel extends LitElement {
                 <div class="plaque">
                   <a
                     href="https://diakova-art.com/category/inner-landscapes/"
+                    class="artwork-link"
                     target="_blank"
                     title="'${this.plaqueText}' - See more paintings at diakova-art.com"
                     rel="noopener noreferrer"

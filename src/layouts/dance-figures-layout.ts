@@ -155,7 +155,22 @@ export class DanceFiguresLayout extends LitElement {
       }
     `,
   ];
+  override firstUpdated() {
+    const path = window.location.pathname.replace(/\//g, ''); // Removes slashes to get just the string
 
+    const pages = ['held-by-the-wind', 'moved-by-the-tide', 'song-of-the-swaying-dunes-i', 'song-of-the-swaying-dunes-ii'];
+
+    // If the current URL path matches one of your painting IDs
+    if (pages.includes(path)) {
+      console.log(path);
+
+      this.handleScrollTo(
+        new CustomEvent('scroll-to', {
+          detail: { id: path },
+        }) as CustomEvent,
+      );
+    }
+  }
   override connectedCallback() {
     super.connectedCallback();
     window.addEventListener('scroll-to', this.handleScrollTo.bind(this));
@@ -168,7 +183,14 @@ export class DanceFiguresLayout extends LitElement {
   private handleScrollTo(e: CustomEvent) {
     if (e.detail.id) {
       const el = this?.shadowRoot?.getElementById(e.detail.id);
-      el?.scrollIntoView({ behavior: 'instant' });
+      if (el) {
+        // Wait for the next paint cycle
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            el.scrollIntoView({ behavior: 'instant', block: 'start' });
+          });
+        });
+      }
     }
   }
 
@@ -183,22 +205,22 @@ export class DanceFiguresLayout extends LitElement {
         <div id="top"></div>
         <slot name="site-header"></slot>
 
-        <section id="held-wind" aria-labelledby="title-1">
+        <section id="held-by-the-wind" aria-labelledby="title-1">
           <h1 class="sr-only" id="project-1-title">Held by the Wind</h1>
           <slot name="artwork-held-by-the-wind"></slot>
         </section>
 
-        <section id="moved-tides" aria-labelledby="title-2">
+        <section id="moved-by-the-tide" aria-labelledby="title-2">
           <h1 class="sr-only" id="project-2-title">Moved by the Tide</h1>
           <slot name="artwork-moved-by-the-tide"></slot>
         </section>
 
-        <section id="dunes-part-1" aria-labelledby="title-3">
+        <section id="song-of-the-swaying-dunes-i" aria-labelledby="title-3">
           <h1 class="sr-only" id="project-3-title">The Song of the Swaying Dunes I</h1>
           <slot name="artwork-dunes-part-1"></slot>
         </section>
-  
-        <section id="dunes-part-2" aria-labelledby="title-4">
+
+        <section id="song-of-the-swaying-dunes-ii" aria-labelledby="title-4">
           <h1 class="sr-only" id="project-4-title">The Song of the Swaying Dunes II</h1>
           <slot name="artwork-dunes-part-2"></slot>
         </section>

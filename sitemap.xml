@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://dancefigures.art/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://dancefigures.art/held-by-the-wind</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dancefigures.art/moved-by-the-tide</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dancefigures.art/song-of-the-swaying-dunes-i</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://dancefigures.art/song-of-the-swaying-dunes-ii</loc>
+    <priority>0.8</priority>
+  </url>
+</urlset>

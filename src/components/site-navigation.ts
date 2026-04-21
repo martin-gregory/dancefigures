@@ -151,12 +151,21 @@ export class SiteNavigation extends LitElement {
     this.isMenuOpen = !this.isMenuOpen;
   }
 
-  scrollToTarget(id: string) {
+  scrollToTarget(id: string, event?: Event) {
+    // 1. Prevent the browser from reloading the page
+    if (event) {
+      event.preventDefault();
+    }
+
+    // 2. Update the URL in the address bar quietly
+    window.history.pushState({}, '', `/${id}`);
+
+    // 3. Trigger your existing scroll logic
     this.dispatchEvent(
       new CustomEvent('scroll-to', {
         detail: { id },
         bubbles: true,
-        composed: true, // ← critical: pierces shadow DOM boundaries
+        composed: true,
       }),
     );
   }
@@ -171,11 +180,11 @@ export class SiteNavigation extends LitElement {
             <h2>Conceptual Figurative Painting</h2>
           </div>
           <div class="nav-links">
-            <a href="#" @click=${(e: Event) => this.scrollToTarget('top')}>Home</a>
-            <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
-            <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tide</a>
-            <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes I</a>
-            <a href="#dunes-part-2" @click=${() => this.scrollToTarget('dunes-part-2')}>Dunes II</a>
+            <a href="/" @click=${(e: Event) => this.scrollToTarget('top', e)}>Home</a>
+            <a href="/held-by-the-wind" @click=${(e: Event) => this.scrollToTarget('held-by-the-wind', e)}> Held by the Wind </a>
+            <a href="/moved-by-the-tide" @click=${(e: Event) => this.scrollToTarget('moved-by-the-tide', e)}>Moved by the Tide</a>
+            <a href="/song-of-the-swaying-dunes-i" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-i', e)}>Dunes I</a>
+            <a href="/song-of-the-swaying-dunes-ii" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-ii', e)}>Dunes II</a>
           </div>
           <button class="menu-btn" @click=${this.toggleMenu}>
             <span></span>
@@ -184,11 +193,11 @@ export class SiteNavigation extends LitElement {
           </button>
         </div>
         <div class="mobile-menu ${this.isMenuOpen ? 'open' : ''}">
-          <a href="#home" @click=${() => this.scrollToTarget('top')}>Home</a>
-          <a href="#held-wind" @click=${() => this.scrollToTarget('held-wind')}>Held by the Wind</a>
-          <a href="#moved-tides" @click=${() => this.scrollToTarget('moved-tides')}>Moved by the Tide</a>
-          <a href="#dunes-part-1" @click=${() => this.scrollToTarget('dunes-part-1')}>Dunes I</a>
-          <a href="#dunes-part-2" @click=${() => this.scrollToTarget('dunes-part-2')}>Dunes II</a>
+          <a href="/" @click=${(e: Event) => this.scrollToTarget('top', e)}>Home</a>
+          <a href="/held-by-the-wind" @click=${(e: Event) => this.scrollToTarget('held-by-the-wind', e)}>Held by the Wind</a>
+          <a href="/moved-by-the-tide" @click=${(e: Event) => this.scrollToTarget('moved-by-the-tide', e)}>Moved by the Tide</a>
+          <a href="/song-of-the-swaying-dunes-i" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-i', e)}>Dunes I</a>
+          <a href="/song-of-the-swaying-dunes-ii" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-ii', e)}>Dunes II</a>
         </div>
       </nav>
     `;
