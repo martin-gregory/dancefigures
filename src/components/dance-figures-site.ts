@@ -123,6 +123,7 @@ export class DanceFiguresSite extends LitElement {
         ? 130
         : 420}vh; --panel-background-position: center 0;"
             .caption=${'Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .sectionID=${'held-by-the-wind'}
             .layers=${[
         {
           // front
@@ -268,6 +269,7 @@ export class DanceFiguresSite extends LitElement {
         ? 120
         : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
+            .sectionID=${'moved-by-the-tide'}
             .caption=${'Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
             .layers=${[
         {
@@ -345,6 +347,7 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${this.isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
             .caption=${'Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .sectionID=${'song-of-the-swaying-dunes-i'}
             .layers=${[
         {
           speed: 0.14,
@@ -430,6 +433,7 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
             .caption=${'Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .sectionID=${'song-of-the-swaying-dunes-ii'}
             .layers=${[
         {
           speed: 0.2,
@@ -513,7 +517,7 @@ export class DanceFiguresSite extends LitElement {
           </hero-parallax-panel>
           <artwork-in-scene
             slot="artwork-in-scene"
-            plaqueText="The Song of the Swaying Dunes II"
+            plaqueText="Song of the Swaying Dunes II"
             style="--frame-width: 70vh;"
             stageImage="${config.imgUrl}interior-dunes-2.avif"
             stageImageEndTranslateYPos="15"
@@ -524,7 +528,7 @@ export class DanceFiguresSite extends LitElement {
           objectFit: 'contain',
           startPos: '-320',
           cssName: 'background',
-          alt: 'Painting: The Song of the Swaying Dunes II',
+          alt: 'Painting: Song of the Swaying Dunes II',
         },
       ]}
           >

@@ -155,14 +155,14 @@ export class DanceFiguresLayout extends LitElement {
       }
     `,
   ];
+
+  static readonly pages = ['held-by-the-wind', 'moved-by-the-tide', 'song-of-the-swaying-dunes-i', 'song-of-the-swaying-dunes-ii'];
+
   override firstUpdated() {
     const path = window.location.pathname.replace(/\//g, ''); // Removes slashes to get just the string
 
-    const pages = ['held-by-the-wind', 'moved-by-the-tide', 'song-of-the-swaying-dunes-i', 'song-of-the-swaying-dunes-ii'];
-
     // If the current URL path matches one of your painting IDs
-    if (pages.includes(path)) {
-      console.log(path);
+    if (DanceFiguresLayout.pages.includes(path)) {
 
       this.handleScrollTo(
         new CustomEvent('scroll-to', {
@@ -171,9 +171,51 @@ export class DanceFiguresLayout extends LitElement {
       );
     }
   }
+
+  private updateMetadata(id: string) {
+    const titles: Record<string, { t: string, d: string }> = {
+      'held-by-the-wind': {
+        t: 'Held by the Wind | Dance Figures',
+        d: "Explore 'Held by the Wind', a conceptual painting by Tiana Diakova. Part of the Dance Figures collection exploring dance and movement."
+      },
+      'moved-by-the-tide': {
+        t: 'Moved by the Tide | Dance Figures',
+        d: "Experience 'Moved by the Tide', an abstract exploration of flow and the human form by Tiana Diakova."
+      },
+      'song-of-the-swaying-dunes-i': {
+        t: 'The Song of the Swaying Dunes I | Dance Figures',
+        d: "Part I of the 'Song of the Swaying Dunes' series by Tiana Diakova. A movement-inspired conceptual painting."
+      },
+      'song-of-the-swaying-dunes-ii': {
+        t: 'The Song of the Swaying Dunes II | Dance Figures',
+        d: "Part II of the 'Song of the Swaying Dunes' series by Tiana Diakova. An immersive exploration of movement and form."
+      }
+    };
+
+    const data = titles[id];
+
+    if (data) {
+      // 1. Update Title
+      document.title = data.t;
+
+      // 2. Update Meta Description
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) {
+        metaDesc.setAttribute('content', data.d);
+      }
+
+      // 3. Update URL (Quietly)
+      window.history.replaceState({}, '', `/${id}`);
+    }
+  }
+
   override connectedCallback() {
     super.connectedCallback();
     window.addEventListener('scroll-to', this.handleScrollTo.bind(this));
+    this.addEventListener('update-route', (e: any) => {
+      const id = e.detail.id;
+      this.updateMetadata(id); // Use the mapping function we wrote earlier
+    });
   }
   override disconnectedCallback() {
     super.disconnectedCallback();

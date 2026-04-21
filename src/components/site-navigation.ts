@@ -180,7 +180,7 @@ export class SiteNavigation extends LitElement {
             <h2>Conceptual Figurative Painting</h2>
           </div>
           <div class="nav-links">
-            <a href="/" @click=${(e: Event) => this.scrollToTarget('top', e)}>Home</a>
+            <a href="/">Home</a>
             <a href="/held-by-the-wind" @click=${(e: Event) => this.scrollToTarget('held-by-the-wind', e)}> Held by the Wind </a>
             <a href="/moved-by-the-tide" @click=${(e: Event) => this.scrollToTarget('moved-by-the-tide', e)}>Moved by the Tide</a>
             <a href="/song-of-the-swaying-dunes-i" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-i', e)}>Dunes I</a>
@@ -193,7 +193,7 @@ export class SiteNavigation extends LitElement {
           </button>
         </div>
         <div class="mobile-menu ${this.isMenuOpen ? 'open' : ''}">
-          <a href="/" @click=${(e: Event) => this.scrollToTarget('top', e)}>Home</a>
+          <a href="/">Home</a>
           <a href="/held-by-the-wind" @click=${(e: Event) => this.scrollToTarget('held-by-the-wind', e)}>Held by the Wind</a>
           <a href="/moved-by-the-tide" @click=${(e: Event) => this.scrollToTarget('moved-by-the-tide', e)}>Moved by the Tide</a>
           <a href="/song-of-the-swaying-dunes-i" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-i', e)}>Dunes I</a>

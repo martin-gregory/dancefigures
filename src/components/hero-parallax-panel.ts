@@ -143,12 +143,22 @@ export class HeroParallaxPanel extends LitElement {
 
   @property({ type: String }) caption: string = '';
 
+  @property({ type: String }) sectionID: string = '';
+
   @state() private layerImgElements: HTMLElement[] = [];
   private rafId: number = 0;
   private ticking = false;
 
   private observer: IntersectionObserver | null = null;
   private isVisible = false;
+
+  private sendRouteUpdate(id: string) {
+    this.dispatchEvent(new CustomEvent('update-route', {
+      detail: { id },
+      bubbles: true,
+      composed: true // Allows the event to leave the shadow DOM
+    }));
+  }
 
   // Cache DOM elements after first render
   protected override firstUpdated(_changed: PropertyValues) {
@@ -161,6 +171,8 @@ export class HeroParallaxPanel extends LitElement {
       (entries) => {
         this.isVisible = entries[0].isIntersecting;
         if (this.isVisible) {
+          this.sendRouteUpdate(this.sectionID);
+
           // Kick off the loop again when it scrolls into view
           this.rafId = requestAnimationFrame(this.smoothUpdate);
         }
