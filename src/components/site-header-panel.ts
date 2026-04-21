@@ -86,7 +86,7 @@ export class SiteHeaderPanel extends LitElement {
       <section class="site-header-panel">
         <div class="site-header-panel-content">
           <h1>
-            Dance Figures <br />
+            Dance Figures Art<br />
             <span>Conceptual Figurative Paintings</span>
           </h1>
           <h2>"Inner Landscapes"</h2>

@@ -46,7 +46,7 @@ export class DanceFiguresSite extends LitElement {
           item: {
             '@type': 'VisualArtwork',
             name: 'Held by the Wind',
-            image: 'https://www.dancefigures.com/img/held-wind-painting.avif',
+            image: 'https://www.dancefigures.art/img/held-by-the-wind-painting.avif',
             description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
           },
         },
@@ -56,7 +56,7 @@ export class DanceFiguresSite extends LitElement {
           item: {
             '@type': 'VisualArtwork',
             name: 'Moved by the Tide',
-            image: 'https://www.dancefigures.com/img/moved-by-tide-painting.avif',
+            image: 'https://www.dancefigures.art/img/moved-by-tide-painting.avif',
             description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
           },
         },
@@ -66,7 +66,7 @@ export class DanceFiguresSite extends LitElement {
           item: {
             '@type': 'VisualArtwork',
             name: 'Song of the Swaying Dunes I',
-            image: 'https://www.dancefigures.com/img/dunes-1-painting.avif',
+            image: 'https://www.dancefigures.art/img/dunes-1-painting.avif',
             description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
           },
         },
@@ -76,7 +76,7 @@ export class DanceFiguresSite extends LitElement {
           item: {
             '@type': 'VisualArtwork',
             name: 'Song of the Swaying Dunes II',
-            image: 'https://www.dancefigures.com/img/dunes-2-painting.avif',
+            image: 'https://www.dancefigures.art/img/dunes-2-painting.avif',
             description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
           },
         },
@@ -250,7 +250,7 @@ export class DanceFiguresSite extends LitElement {
             stageImage="${config.imgUrl}interior-held-wind.avif"
             .layers=${[
         {
-          src: `${config.imgUrl}held-wind-painting.avif`,
+          src: `${config.imgUrl}hel-by-the-wind-painting.avif`,
           speed: 0,
           objectFit: 'contain',
           startPos: '-320',

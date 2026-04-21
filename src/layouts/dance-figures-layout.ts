@@ -163,7 +163,6 @@ export class DanceFiguresLayout extends LitElement {
 
     // If the current URL path matches one of your painting IDs
     if (DanceFiguresLayout.pages.includes(path)) {
-
       this.handleScrollTo(
         new CustomEvent('scroll-to', {
           detail: { id: path },
@@ -173,23 +172,27 @@ export class DanceFiguresLayout extends LitElement {
   }
 
   private updateMetadata(id: string) {
-    const titles: Record<string, { t: string, d: string }> = {
+    const titles: Record<string, { t: string; d: string; shareImg: string }> = {
       'held-by-the-wind': {
-        t: 'Held by the Wind | Dance Figures',
-        d: "Explore 'Held by the Wind', a conceptual painting by Tiana Diakova. Part of the Dance Figures collection exploring dance and movement."
+        t: 'Held by the Wind | Dance Figures Art',
+        d: "Explore 'Held by the Wind', a conceptual painting by Tiana Diakova. Part of the Dance Figures Art collection exploring dance and movement.",
+        // shareImg: 'https://www.dancefigures.art/img/held-by-the-wind-painting.png',
       },
       'moved-by-the-tide': {
-        t: 'Moved by the Tide | Dance Figures',
-        d: "Experience 'Moved by the Tide', an abstract exploration of flow and the human form by Tiana Diakova."
+        t: 'Moved by the Tide | Dance Figures Art',
+        d: "Experience 'Moved by the Tide', an abstract exploration of flow and the human form by Tiana Diakova. Part of the Dance Figures Art collection.",
+        // shareImg: 'https://www.dancefigures.art/img/moved-by-the-tide-painting.png',
       },
       'song-of-the-swaying-dunes-i': {
-        t: 'The Song of the Swaying Dunes I | Dance Figures',
-        d: "Part I of the 'Song of the Swaying Dunes' series by Tiana Diakova. A movement-inspired conceptual painting."
+        t: 'The Song of the Swaying Dunes I | Dance Figures Art',
+        d: "Part I of the 'Song of the Swaying Dunes' series by Tiana Diakova. A movement-inspired conceptual painting. Part of the Dance Figures Art collection.",
+        // shareImg: 'https://www.dancefigures.art/img/song-of-the-swaying-dunes-i-painting.png',
       },
       'song-of-the-swaying-dunes-ii': {
-        t: 'The Song of the Swaying Dunes II | Dance Figures',
-        d: "Part II of the 'Song of the Swaying Dunes' series by Tiana Diakova. An immersive exploration of movement and form."
-      }
+        t: 'The Song of the Swaying Dunes II | Dance Figures Art',
+        d: "Part II of the 'Song of the Swaying Dunes' series by Tiana Diakova. An immersive exploration of movement and form. Part of the Dance Figures Art collection.",
+        // shareImg: 'https://www.dancefigures.art/img/song-of-the-swaying-dunes-ii-painting.png',
+      },
     };
 
     const data = titles[id];
@@ -203,6 +206,11 @@ export class DanceFiguresLayout extends LitElement {
       if (metaDesc) {
         metaDesc.setAttribute('content', data.d);
       }
+      // Open Graph (Social Media)
+      document.querySelector('meta[property="og:title"]')?.setAttribute('content', data.t);
+      document.querySelector('meta[property="og:description"]')?.setAttribute('content', data.d);
+      // document.querySelector('meta[property="og:image"]')?.setAttribute('content', data.shareImg);
+      document.querySelector('meta[property="og:url"]')?.setAttribute('content', window.location.href);
 
       // 3. Update URL (Quietly)
       window.history.replaceState({}, '', `/${id}`);

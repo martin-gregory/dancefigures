@@ -1,2 +1,5 @@
-user-agent: *
-disallow: /downloads/
+User-agent: *
+Disallow: /downloads/
+
+# Point Google and Bing to your sitemap
+Sitemap: https://dancefigures.art/sitemap.xml

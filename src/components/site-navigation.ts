@@ -176,7 +176,7 @@ export class SiteNavigation extends LitElement {
       <nav>
         <div class="nav-container">
           <div class="logo">
-            <h1>Dance Figures</h1>
+            <h1>Dance Figures Art</h1>
             <h2>Conceptual Figurative Painting</h2>
           </div>
           <div class="nav-links">
