@@ -65,7 +65,7 @@ export class DanceFiguresSite extends LitElement {
           position: 3,
           item: {
             '@type': 'VisualArtwork',
-            name: 'The Song of the Swaying Dunes I',
+            name: 'Song of the Swaying Dunes I',
             image: 'https://www.dancefigures.com/img/dunes-1-painting.avif',
             description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
           },
@@ -75,7 +75,7 @@ export class DanceFiguresSite extends LitElement {
           position: 4,
           item: {
             '@type': 'VisualArtwork',
-            name: 'The Song of the Swaying Dunes II',
+            name: 'Song of the Swaying Dunes II',
             image: 'https://www.dancefigures.com/img/dunes-2-painting.avif',
             description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
           },
