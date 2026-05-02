@@ -250,7 +250,7 @@ export class DanceFiguresSite extends LitElement {
             stageImage="${config.imgUrl}interior-held-wind.avif"
             .layers=${[
         {
-          src: `${config.imgUrl}hel-by-the-wind-painting.avif`,
+          src: `${config.imgUrl}held-by-the-wind-painting.avif`,
           speed: 0,
           objectFit: 'contain',
           startPos: '-320',
@@ -265,7 +265,7 @@ export class DanceFiguresSite extends LitElement {
         <panel-layout-2 slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile
+            style="--panel-background-image: url('${config.imgUrl}moved-by-tide-bg1.avif'); --panel-height: ${this.isMobile
         ? 120
         : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
