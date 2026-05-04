@@ -31,61 +31,6 @@ export class DanceFiguresSite extends LitElement {
     super.disconnectedCallback();
   }
 
-  firstUpdated() {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-
-    const schema = {
-      '@context': 'https://schema.org/',
-      '@type': 'ItemList',
-      numberOfItems: 4,
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          item: {
-            '@type': 'VisualArtwork',
-            name: 'Held by the Wind',
-            image: 'https://dancefigures.art/img/held-by-the-wind-painting.avif',
-            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          item: {
-            '@type': 'VisualArtwork',
-            name: 'Moved by the Tide',
-            image: 'https://dancefigures.art/img/moved-by-tide-painting.avif',
-            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          item: {
-            '@type': 'VisualArtwork',
-            name: 'Song of the Swaying Dunes I',
-            image: 'https://dancefigures.art/img/dunes-1-painting.avif',
-            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
-          },
-        },
-        {
-          '@type': 'ListItem',
-          position: 4,
-          item: {
-            '@type': 'VisualArtwork',
-            name: 'Song of the Swaying Dunes II',
-            image: 'https://dancefigures.art/img/dunes-2-painting.avif',
-            description: '100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets',
-          },
-        },
-      ],
-    };
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-  }
-
   static override styles = [
     commonStyles,
     css`
