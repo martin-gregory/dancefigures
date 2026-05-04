@@ -4,6 +4,38 @@ import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-layout')
 export class DanceFiguresLayout extends LitElement {
+  private static readonly siteUrl = 'https://dancefigures.art';
+
+  private static readonly defaultShareImage = `${DanceFiguresLayout.siteUrl}/img/held-by-the-wind-painting-share.png`;
+
+  private static readonly routeMetadata: Record<string, { t: string; d: string; shareImg: string }> = {
+    home: {
+      t: 'Dance Figures Art - Conceptual Paintings by Tiana Diakova',
+      d: "Dance inspired art by Tiana Diakova, 'Dance Figures' showcases conceptual paintings influenced by dance, movement, and the human form. This browser-based experience features parallax effects and interactive elements, offering an immersive exploration of Tiana's collection.",
+      shareImg: DanceFiguresLayout.defaultShareImage,
+    },
+    'held-by-the-wind': {
+      t: 'Held by the Wind | Dance Figures Art',
+      d: "Explore 'Held by the Wind', a conceptual painting by Tiana Diakova. Part of the Dance Figures Art collection exploring dance and movement.",
+      shareImg: DanceFiguresLayout.defaultShareImage,
+    },
+    'moved-by-the-tide': {
+      t: 'Moved by the Tide | Dance Figures Art',
+      d: "Experience 'Moved by the Tide', an abstract exploration of flow and the human form by Tiana Diakova. Part of the Dance Figures Art collection.",
+      shareImg: DanceFiguresLayout.defaultShareImage,
+    },
+    'song-of-the-swaying-dunes-i': {
+      t: 'The Song of the Swaying Dunes I | Dance Figures Art',
+      d: "Part I of the 'Song of the Swaying Dunes' series by Tiana Diakova. A movement-inspired conceptual painting. Part of the Dance Figures Art collection.",
+      shareImg: DanceFiguresLayout.defaultShareImage,
+    },
+    'song-of-the-swaying-dunes-ii': {
+      t: 'The Song of the Swaying Dunes II | Dance Figures Art',
+      d: "Part II of the 'Song of the Swaying Dunes' series by Tiana Diakova. An immersive exploration of movement and form. Part of the Dance Figures Art collection.",
+      shareImg: DanceFiguresLayout.defaultShareImage,
+    },
+  };
+
   static override styles = [
     commonStyles,
     css`
@@ -78,7 +110,11 @@ export class DanceFiguresLayout extends LitElement {
         background: #b45309;
         transform: scale(1.05);
       }
-
+      .scroll-button {
+        position: fixed;
+        top: 90px;
+        z-index: 10;
+      }
       /* Section */
       section {
         padding: 0;
@@ -158,11 +194,33 @@ export class DanceFiguresLayout extends LitElement {
 
   static readonly pages = ['held-by-the-wind', 'moved-by-the-tide', 'song-of-the-swaying-dunes-i', 'song-of-the-swaying-dunes-ii'];
 
+  private readonly boundScrollTo = (event: Event) => this.handleScrollTo(event as CustomEvent);
+
+  private readonly boundUpdateRoute = (event: Event) => {
+    const routeEvent = event as CustomEvent<{ id?: string }>;
+    if (routeEvent.detail?.id) {
+      this.applyRouteMetadata(routeEvent.detail.id);
+    }
+  };
+
+  private readonly boundPopState = () => {
+    const routeId = this.getRouteIdFromPath();
+    this.applyRouteMetadata(routeId);
+
+    if (routeId) {
+      this.handleScrollTo(
+        new CustomEvent('scroll-to', {
+          detail: { id: routeId },
+        }) as CustomEvent,
+      );
+    }
+  };
+
   override firstUpdated() {
-    const path = window.location.pathname.replace(/\//g, ''); // Removes slashes to get just the string
+    const path = this.getRouteIdFromPath();
 
     // If the current URL path matches one of your painting IDs
-    if (DanceFiguresLayout.pages.includes(path)) {
+    if (path) {
       this.handleScrollTo(
         new CustomEvent('scroll-to', {
           detail: { id: path },
@@ -171,63 +229,46 @@ export class DanceFiguresLayout extends LitElement {
     }
   }
 
-  private updateMetadata(id: string) {
-    const titles: Record<string, { t: string; d: string; shareImg: string }> = {
-      'held-by-the-wind': {
-        t: 'Held by the Wind | Dance Figures Art',
-        d: "Explore 'Held by the Wind', a conceptual painting by Tiana Diakova. Part of the Dance Figures Art collection exploring dance and movement.",
-        // shareImg: 'https://www.dancefigures.art/img/held-by-the-wind-painting.png',
-      },
-      'moved-by-the-tide': {
-        t: 'Moved by the Tide | Dance Figures Art',
-        d: "Experience 'Moved by the Tide', an abstract exploration of flow and the human form by Tiana Diakova. Part of the Dance Figures Art collection.",
-        // shareImg: 'https://www.dancefigures.art/img/moved-by-the-tide-painting.png',
-      },
-      'song-of-the-swaying-dunes-i': {
-        t: 'The Song of the Swaying Dunes I | Dance Figures Art',
-        d: "Part I of the 'Song of the Swaying Dunes' series by Tiana Diakova. A movement-inspired conceptual painting. Part of the Dance Figures Art collection.",
-        // shareImg: 'https://www.dancefigures.art/img/song-of-the-swaying-dunes-i-painting.png',
-      },
-      'song-of-the-swaying-dunes-ii': {
-        t: 'The Song of the Swaying Dunes II | Dance Figures Art',
-        d: "Part II of the 'Song of the Swaying Dunes' series by Tiana Diakova. An immersive exploration of movement and form. Part of the Dance Figures Art collection.",
-        // shareImg: 'https://www.dancefigures.art/img/song-of-the-swaying-dunes-ii-painting.png',
-      },
-    };
+  private getRouteIdFromPath() {
+    const path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+    return DanceFiguresLayout.pages.includes(path) ? path : '';
+  }
 
-    const data = titles[id];
+  private applyRouteMetadata(id: string) {
+    const routeKey = id || 'home';
+    const data = DanceFiguresLayout.routeMetadata[routeKey] ?? DanceFiguresLayout.routeMetadata.home;
+    const canonicalPath = routeKey === 'home' ? '/' : `/${routeKey}`;
+    const canonicalUrl = `${DanceFiguresLayout.siteUrl}${canonicalPath}`;
 
-    if (data) {
-      // 1. Update Title
-      document.title = data.t;
+    document.title = data.t;
+    document.querySelector('meta[name="description"]')?.setAttribute('content', data.d);
+    document.querySelector('meta[property="og:title"]')?.setAttribute('content', data.t);
+    document.querySelector('meta[property="og:description"]')?.setAttribute('content', data.d);
+    document.querySelector('meta[property="og:url"]')?.setAttribute('content', canonicalUrl);
+    document.querySelector('meta[property="og:image"]')?.setAttribute('content', data.shareImg);
+    document.querySelector('meta[name="twitter:title"]')?.setAttribute('content', data.t);
+    document.querySelector('meta[name="twitter:description"]')?.setAttribute('content', data.d);
+    document.querySelector('meta[name="twitter:image"]')?.setAttribute('content', data.shareImg);
+    document.querySelector('link[rel="canonical"]')?.setAttribute('href', canonicalUrl);
 
-      // 2. Update Meta Description
-      const metaDesc = document.querySelector('meta[name="description"]');
-      if (metaDesc) {
-        metaDesc.setAttribute('content', data.d);
-      }
-      // Open Graph (Social Media)
-      document.querySelector('meta[property="og:title"]')?.setAttribute('content', data.t);
-      document.querySelector('meta[property="og:description"]')?.setAttribute('content', data.d);
-      // document.querySelector('meta[property="og:image"]')?.setAttribute('content', data.shareImg);
-      document.querySelector('meta[property="og:url"]')?.setAttribute('content', window.location.href);
-
-      // 3. Update URL (Quietly)
-      window.history.replaceState({}, '', `/${id}`);
+    const nextPath = window.location.pathname === canonicalPath ? window.location.pathname : canonicalPath;
+    if (window.location.pathname !== nextPath) {
+      window.history.replaceState({}, '', nextPath);
     }
   }
 
   override connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('scroll-to', this.handleScrollTo.bind(this));
-    this.addEventListener('update-route', (e: any) => {
-      const id = e.detail.id;
-      this.updateMetadata(id); // Use the mapping function we wrote earlier
-    });
+    this.applyRouteMetadata(this.getRouteIdFromPath());
+    window.addEventListener('scroll-to', this.boundScrollTo);
+    window.addEventListener('popstate', this.boundPopState);
+    this.addEventListener('update-route', this.boundUpdateRoute);
   }
   override disconnectedCallback() {
+    window.removeEventListener('scroll-to', this.boundScrollTo);
+    window.removeEventListener('popstate', this.boundPopState);
+    this.removeEventListener('update-route', this.boundUpdateRoute);
     super.disconnectedCallback();
-    window.removeEventListener('scroll-to', this.handleScrollTo.bind(this));
   }
 
   private handleScrollTo(e: CustomEvent) {
@@ -244,11 +285,63 @@ export class DanceFiguresLayout extends LitElement {
     }
   }
 
+  private animateScrollBy(offset: number, duration: number): Promise<void> {
+    return new Promise<void>((resolve) => {
+      const startY = window.scrollY;
+      const targetY = startY + offset;
+      const startTime = performance.now();
+
+      function tick(now: number) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        window.scrollTo(0, startY + (targetY - startY) * progress);
+        progress < 1 ? requestAnimationFrame(tick) : resolve();
+      }
+
+      requestAnimationFrame(tick);
+    });
+  }
+
+  private wait(ms: number): Promise<void> {
+    return new Promise<void>((resolve) => setTimeout(resolve, ms));
+  }
+
+  private async run() {
+    await this.animateScrollBy(4000, 2800);
+    // await this.wait(2000);
+    // await this.scrollBy(-1900, 3000);
+    // await this.wait(1000);
+    // await this.scrollBy(3000, 3400);
+  }
+
+  private smoothScrollTo() {
+    const targetYAmount = 2500; // scroll DOWN by this many px each press
+    const duration = 1000;
+    const startY = window.scrollY;
+    const distance = targetYAmount; // relative offset, not absolute position
+    let startTime: number | null = null;
+
+    function step(timestamp: number) {
+      if (!startTime) startTime = timestamp;
+      const timeElapsed = timestamp - startTime;
+      const progress = Math.min(timeElapsed / duration, 1);
+      const easeProgress = 0.5 * (1 - Math.cos(Math.PI * progress));
+
+      window.scrollTo(0, startY + distance * easeProgress);
+
+      if (timeElapsed < duration) {
+        requestAnimationFrame(step);
+      }
+    }
+
+    requestAnimationFrame(step);
+  }
+
   override render() {
     return html`
       <!-- Navigation -->
       <header>
         <slot name="navigation"></slot>
+        <!-- <button class="scroll-button" @click=${() => this.smoothScrollTo()}>ind</button> -->
       </header>
 
       <main>

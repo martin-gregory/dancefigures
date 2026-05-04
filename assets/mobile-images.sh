@@ -28,6 +28,6 @@ for img in ./img/*.avif; do
      else
         # Default process for everything else at 30%
         magick "$img" -resize 30% -quality 80 "$output_path_mobile"
-        magick "$img" -resize 80% -quality 80 "$output_path_medium"
+        magick "$img" -resize 30% -quality 80 "$output_path_medium"
     fi
 done
