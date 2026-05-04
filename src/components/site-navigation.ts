@@ -129,15 +129,15 @@ export class SiteNavigation extends LitElement {
         max-width: 100%;
         padding: 0 10px;
       }
-      .logo h1 {
+      .logo .site-title {
         font-size: 20px;
       }
-      .logo h2 {
+      .logo .site-subtitle {
         font-size: 14px;
       }
     }
     @media (min-width: 1024px) {
-      .logo h2 {
+      .logo .site-subtitle {
         display: block;
       }
     }
@@ -176,8 +176,8 @@ export class SiteNavigation extends LitElement {
       <nav>
         <div class="nav-container">
           <div class="logo">
-            <h1 class="site-title">Dance Figures Art</h1>
-            <h2 class="site-subtitle">Conceptual Figurative Painting</h2>
+            <span class="site-title">Dance Figures Art</span>
+            <span class="site-subtitle">Conceptual Figurative Painting</span>
           </div>
           <div class="nav-links">
             <a href="/">Home</a>
