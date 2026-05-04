@@ -23,7 +23,7 @@
     content="Dance Figures Art by Tiana Diakova, prints available on request rendered with beautiful museum-grade quality paper." />
   <meta property="og:image" content="https://dancefigures.art/img/held-by-the-wind-painting-share.png" />
 
-  <meta name="twitter:card" content="summary_large_image" />
+  <!-- <meta name="twitter:card" content="summary_large_image" /> -->
   <meta name="twitter:title" content="Dance Figures Art | Tiana Diakova" />
   <meta name="twitter:description" content="Immersive conceptual paintings inspired by dance and movement." />
   <meta name="twitter:image" content="https://dancefigures.art/img/held-by-the-wind-painting-share.png" />
@@ -47,6 +47,77 @@
       background-color: var(--background-colour);
     }
 
+    body.app-booting .site-overview {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* dance-figures-site {
+      display: block;
+      min-height: 100vh;
+    } */
+
+    .site-overview {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 20px 80px;
+      color: #243142;
+      background: linear-gradient(180deg, rgba(229, 233, 234, 0.92) 0%, rgba(229, 233, 234, 1) 100%);
+      transition: opacity 0.18s ease;
+    }
+
+    .site-overview h1,
+    .site-overview h2 {
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.15;
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .site-overview h1 {
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      max-width: 21ch;
+    }
+
+    .site-overview h2 {
+      font-size: clamp(1.4rem, 2.8vw, 2rem);
+      margin-top: 40px;
+    }
+
+    .site-overview p {
+      max-width: 70ch;
+      margin-bottom: 16px;
+      font-size: 1.05rem;
+    }
+
+    .site-overview ul {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0;
+      display: grid;
+      gap: 18px;
+    }
+
+    .site-overview li {
+      padding: 20px 22px;
+      border: 1px solid rgba(36, 49, 66, 0.12);
+      background: rgba(255, 255, 255, 0.55);
+      backdrop-filter: blur(8px);
+    }
+
+    .site-overview a {
+      color: #7a3f54;
+      text-decoration-thickness: 0.08em;
+      text-underline-offset: 0.16em;
+    }
+
+    .site-overview strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 1.05rem;
+      font-weight: 600;
+    }
+
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -55,8 +126,57 @@
   </style>
 </head>
 
-<body>
-  <dance-figures-site />
+<body class="app-booting">
+  <dance-figures-site></dance-figures-site>
+  <hr />
+  <section class="site-overview" aria-labelledby="collection-overview-title">
+    <div class="container">
+      <h1 id="collection-overview-title">Dance Figures Art collection by Tiana Diakova</h1>
+      <p>
+        Dance Figures Art is a browser-based experience of Tiana Diakova's conceptual figurative painting
+        collection, where movement, choreography and the human form are translated into layered visual compositions.
+      </p>
+      <p>
+        The site combines large-scale artwork with a custom parallax scroll, to create an immersive experience of each
+        piece. It is a source for galleries looking for dance-inspired paintings and
+        contemporary figurative art.
+      </p>
+
+      <h2>Collection Highlights</h2>
+      <ul>
+        <li>
+          <strong><a href="/held-by-the-wind">Held by the Wind</a></strong>
+          A conceptual painting by Tiana Diakova exploring suspended movement, gesture and shifting balance. Oil and
+          acrylic on layered plastic sheets, 100 x 70 cm, 2026.
+        </li>
+        <li>
+          <strong><a href="/moved-by-the-tide">Moved by the Tide</a></strong>
+          A movement-led figurative painting focused on flow, rhythm and motion, presented as part of the
+          Dance Figures Art collection. Oil and acrylic on layered plastic sheets, 100 x 70 cm, 2026.
+        </li>
+        <li>
+          <strong><a href="/song-of-the-swaying-dunes-i">The Song of the Swaying Dunes I</a></strong>
+          The first work in a diptych series, a movement-inspired conceptual painting. Oil and acrylic on layered
+          plastic sheets, 100 x 70 cm, 2026.
+        </li>
+        <li>
+          <strong><a href="/song-of-the-swaying-dunes-ii">The Song of the Swaying Dunes II</a></strong>
+          The second work in the dunes series, a movement-inspired conceptual painting. Oil and acrylic on layered
+          plastic sheets, 100 x 70 cm, 2026.
+        </li>
+      </ul>
+    </div>
+  </section>
+  <script>
+    customElements.whenDefined('dance-figures-site').then(() => {
+      // prevent flash of unstyled content by waiting for the custom element to be defined before removing the booting class
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          document.body.classList.remove('app-booting');
+        });
+      });
+    });
+  </script>
   <script type="module" src="./src/index.js"></script>
 </body>
 

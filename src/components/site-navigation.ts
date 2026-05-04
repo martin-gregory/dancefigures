@@ -38,12 +38,12 @@ export class SiteNavigation extends LitElement {
       flex-direction: row;
       align-items: baseline;
       gap: 12px;
-      h1 {
+      .site-title {
         font-size: 28px;
         color: var(--accent-colour);
         font-family: 'helvetica serif';
       }
-      h2 {
+      .site-subtitle {
         font-size: 18px;
         color: var(--accent-colour);
         font-family: 'helvetica serif';
@@ -176,8 +176,8 @@ export class SiteNavigation extends LitElement {
       <nav>
         <div class="nav-container">
           <div class="logo">
-            <h1>Dance Figures Art</h1>
-            <h2>Conceptual Figurative Painting</h2>
+            <h1 class="site-title">Dance Figures Art</h1>
+            <h2 class="site-subtitle">Conceptual Figurative Painting</h2>
           </div>
           <div class="nav-links">
             <a href="/">Home</a>
