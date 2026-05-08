@@ -179,6 +179,23 @@ export class ShrinkPaintingPanel extends LitElement {
         }
       }
     }
+
+    .scroll-instruction {
+      position: absolute;
+      bottom: 40px;
+      font-size: 1rem;
+      color: white;
+      z-index: 2;
+      margin: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @media (max-width: 768px) {
+      .scroll-instruction {
+        font-size: 1rem;
+      }
+    }
   `;
 
   @property({ type: Array }) layers: Layer[] = [];
@@ -196,6 +213,7 @@ export class ShrinkPaintingPanel extends LitElement {
   @state() private layerElements: HTMLElement[] = [];
   @state() private layerImgElements: HTMLElement[] = [];
   @state() private plaqueEl?: HTMLElement;
+  @state() private instructionEl?: HTMLElement;
   @state() private stageImgEl?: HTMLElement;
 
   private rafId = 0;
@@ -211,6 +229,7 @@ export class ShrinkPaintingPanel extends LitElement {
     this.layerElements = Array.from(this.renderRoot.querySelectorAll('.layer')) as HTMLElement[];
     this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer img')) as HTMLElement[];
     this.plaqueEl = this.renderRoot.querySelector('.plaque') as HTMLElement | undefined;
+    this.instructionEl = this.renderRoot.querySelector('.scroll-instruction') as HTMLElement | undefined;
     this.stageImgEl = this.renderRoot.querySelector('.sticky-container > .stage-image') as HTMLElement | undefined;
   }
 
@@ -299,8 +318,14 @@ export class ShrinkPaintingPanel extends LitElement {
       if (this.plaqueEl) {
         if (convergenceProgress >= 1) {
           this.plaqueEl.style.opacity = `${(scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd)}`;
+          if (this.instructionEl) {
+            this.instructionEl.style.opacity = `${(scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd)}`;
+          }
         } else {
           this.plaqueEl.style.opacity = '0';
+          if (this.instructionEl) {
+            this.instructionEl.style.opacity = '0';
+          }
         }
       }
     }
@@ -365,6 +390,7 @@ export class ShrinkPaintingPanel extends LitElement {
     })}
         </div>
         <img class="stage-image" src="${this.stageImage}" alt="${this.stageImageAlt}" draggable="false" />
+        <p class="scroll-instruction">Scroll down to see more</p>
       </div>
     `;
   }
