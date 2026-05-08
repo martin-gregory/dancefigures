@@ -49,10 +49,39 @@ export class DanceFiguresSite extends LitElement {
       panelHeight: this.isMobile ? 150 : 400,
       imgUrl: this.isMobile ? '/img/mobile/' : this.isMedium ? '/img/medium/' : '/img/',
     };
-    console.log({
-      isMobile: this.isMobile,
-      isMedium: this.isMedium,
-    });
+    // console.log({
+    //   isMobile: this.isMobile,
+    //   isMedium: this.isMedium,
+    // });
+
+    const layersContent = {
+      heldByTheWind: {
+        altPrefix: 'Dance figures art collection — ',
+        backgroundAltSuffix: 'Background layer evoking abstract wind movement shapes',
+        figCaption:
+          'Dance figures painting: Held by the Wind, three female figures in elegant poses with flowing air marks, evoking a sense of movement and freedom.',
+        paintingName: 'Held by the Wind',
+      },
+      movedByTheTide: {
+        altPrefix: 'Dance figures art collection — ',
+        backgroundAltSuffix: 'Abstract layer with brushwork evoking the powerful movement of sea currents',
+        figCaption:
+          'Dance figures in motion: Moved by the Tide, three male figures in powerful poses with brush marks representing the tide as they move through the scene.',
+        paintingName: 'Moved by the Tide',
+      },
+      songOfTheSwayingDunesI: {
+        altPrefix: 'Dance figurative art collection — ',
+        backgroundAltSuffix: 'Abstract layer of sand-hued tones supporting the swaying figures',
+        figCaption: "Painting: The Song of the Swaying Dunes I. The female figures, arms open, caught in a moment of weightless suspension, part one of a diptych",
+        paintingName: 'Song of the Swaying Dunes I',
+      },
+      songOfTheSwayingDunesII: {
+        altPrefix: 'Dance figurative art collection — ',
+        backgroundAltSuffix: 'Gestural abstract marks evoking drifting sand and open space',
+        figCaption: "Painting: The Song of the Swaying Dunes II. The female figures continue their movement, a celebration of the grace of the body. part two of a diptych.",
+        paintingName: 'Song of the Swaying Dunes II',
+      },
+    };
 
     return html`
       <dance-figures-layout>
@@ -67,11 +96,12 @@ export class DanceFiguresSite extends LitElement {
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile
         ? 130
         : 420}vh; --panel-background-position: center 0;"
-            .caption=${'Painting: Held by the Wind, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .caption=${layersContent.heldByTheWind.figCaption}
             .sectionID=${'held-by-the-wind'}
             .layers=${[
         {
           // front
+          alt: `${layersContent.heldByTheWind.altPrefix}${layersContent.heldByTheWind.paintingName}. ${layersContent.heldByTheWind.backgroundAltSuffix}`,
           src: `${config.imgUrl}held-wind-layer-3b.avif`,
           speed: 0.1,
           topPct: 0.5,
@@ -92,6 +122,7 @@ export class DanceFiguresSite extends LitElement {
         },
         {
           // front
+          alt: `${layersContent.heldByTheWind.paintingName}. Foreground layer showing a figure with arched back, emerging, dynamic movement, dance figures art.`,
           src: `${config.imgUrl}held-wind-layer-3a.avif`,
           speed: 0.12,
           topPct: 0,
@@ -112,6 +143,7 @@ export class DanceFiguresSite extends LitElement {
         },
         {
           // middle
+          alt: `${layersContent.heldByTheWind.paintingName}. Foreground layer showing a figure in acrobatic movement, dance figures art series.`,
           src: `${config.imgUrl}held-wind-layer-2a.avif`,
           speed: 0.23,
           topPct: 25,
@@ -139,6 +171,7 @@ export class DanceFiguresSite extends LitElement {
         },
         {
           // middle
+          alt: `${layersContent.heldByTheWind.altPrefix}${layersContent.heldByTheWind.paintingName}. ${layersContent.heldByTheWind.backgroundAltSuffix}`,
           src: `${config.imgUrl}held-wind-layer-2b.avif`,
           speed: 0.17,
           topPct: 28,
@@ -165,6 +198,7 @@ export class DanceFiguresSite extends LitElement {
         },
         {
           // last
+          alt: `${layersContent.heldByTheWind.altPrefix}${layersContent.heldByTheWind.paintingName}. ${layersContent.heldByTheWind.backgroundAltSuffix}`,
           src: `${config.imgUrl}held-wind-layer-1bb.avif`,
           speed: 0.13,
           topPct: 22,
@@ -176,6 +210,7 @@ export class DanceFiguresSite extends LitElement {
         },
         {
           // last
+          alt: `Foreground layer showing the main female figure in serene joyful pose with face visible as she is experiencing being ${layersContent.heldByTheWind.paintingName}.`,
           src: `${config.imgUrl}held-wind-layer-1aaa.avif`,
           speed: 0.17,
           topPct: 21,
@@ -210,14 +245,13 @@ export class DanceFiguresSite extends LitElement {
         <panel-layout-2 slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
             slot="hero-2"
-            style="--panel-background-image: url('${config.imgUrl}moved-by-tide-bg1.avif'); --panel-height: ${this.isMobile
-        ? 120
-        : 352}vh;"
+            style="--panel-background-image: url('${config.imgUrl}moved-by-tide-bg1.avif'); --panel-height: ${this.isMobile ? 120 : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .sectionID=${'moved-by-the-tide'}
-            .caption=${'Painting: Moved by the Tide, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .caption=${layersContent.movedByTheTide.figCaption}
             .layers=${[
         {
+          alt: `${layersContent.movedByTheTide.altPrefix}${layersContent.movedByTheTide.paintingName}. ${layersContent.movedByTheTide.backgroundAltSuffix}`,
           speed: 0.12,
           src: `${config.imgUrl}moved-by-tide-layer-3b.avif`,
           leftPct: 20,
@@ -227,6 +261,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-3',
         },
         {
+          alt: `Male figure reaching upward in a powerful gesture, from the ${layersContent.movedByTheTide.paintingName} series.`,
           speed: 0.15,
           src: `${config.imgUrl}moved-by-tide-layer-3a.avif`,
           leftPct: 20,
@@ -236,6 +271,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-3',
         },
         {
+          alt: `Translucent swirls of paint suggesting tidal forces — ${layersContent.movedByTheTide.paintingName}.`,
           src: `${config.imgUrl}moved-by-tide-layer-2b.avif`,
           speed: 0.14,
           topPct: 18,
@@ -244,6 +280,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-2',
         },
         {
+          alt: `Central male figure twisting his torso as he strides through the waves with face visible as he is ${layersContent.movedByTheTide.paintingName}.`,
           src: `${config.imgUrl}moved-by-tide-layer-2a.avif`,
           speed: 0.18,
           topPct: 17,
@@ -252,6 +289,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-2',
         },
         {
+          alt: `Abstract brush strokes conveying the weight of a retreating tide — ${layersContent.movedByTheTide.paintingName}.`,
           speed: 0.1,
           src: `${config.imgUrl}moved-by-tide-layer-1b.avif`,
           topPct: 24.5,
@@ -259,6 +297,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-1',
         },
         {
+          alt: `Grounded male figure crouching in a resolute stance, with face visible - ${layersContent.movedByTheTide.paintingName}.`,
           speed: 0.14,
           src: `${config.imgUrl}moved-by-tide-layer-1a.avif`,
           topPct: 24,
@@ -291,10 +330,11 @@ export class DanceFiguresSite extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${this.isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
-            .caption=${'Painting: The Song of the Swaying Dunes I, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .caption=${layersContent.songOfTheSwayingDunesI.figCaption}
             .sectionID=${'song-of-the-swaying-dunes-i'}
             .layers=${[
         {
+          alt: `${layersContent.songOfTheSwayingDunesI.altPrefix}${layersContent.songOfTheSwayingDunesI.backgroundAltSuffix}`,
           speed: 0.14,
           src: `${config.imgUrl}dunes-1-layer-3b.avif`,
           topPct: 12,
@@ -304,6 +344,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-3',
         },
         {
+          alt: `A female figure facing left with arms outstretched behind, caught in a moment of weightless suspension — ${layersContent.songOfTheSwayingDunesI.paintingName}.`,
           speed: 0.18,
           src: `${config.imgUrl}dunes-1-layer-3a.avif`,
           topPct: 10,
@@ -313,6 +354,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-3',
         },
         {
+          alt: `${layersContent.songOfTheSwayingDunesI.altPrefix}${layersContent.songOfTheSwayingDunesI.backgroundAltSuffix}`,
           src: `${config.imgUrl}dunes-1-layer-2b.avif`,
           speed: 0.16,
           topPct: 1,
@@ -322,6 +364,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-2',
         },
         {
+          alt: `Central female form beautifully rendered portrait visible as she smiles serenely, from the ${layersContent.songOfTheSwayingDunesI.paintingName} diptych.`,
           src: `${config.imgUrl}dunes-1-layer-2a.avif`,
           speed: 0.2,
           topPct: 0,
@@ -332,6 +375,7 @@ export class DanceFiguresSite extends LitElement {
         },
 
         {
+          alt: `Abstract textures with layered paint`,
           speed: 0.1,
           src: `${config.imgUrl}dunes-1-layer-1b.avif`,
           topPct: 25,
@@ -341,6 +385,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-1',
         },
         {
+          alt: `Caught mid movement, a female figure hugging her legs, from the ${layersContent.songOfTheSwayingDunesI.paintingName} diptych.`,
           speed: 0.14,
           src: `${config.imgUrl}dunes-1-layer-1a.avif`,
           topPct: 25,
@@ -377,10 +422,11 @@ export class DanceFiguresSite extends LitElement {
             slot="hero-2"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
-            .caption=${'Painting: The Song of the Swaying Dunes II, 100 x 70 cm, 2025 Oil and acrylic on 4 plastic sheets'}
+            .caption=${layersContent.songOfTheSwayingDunesII.figCaption}
             .sectionID=${'song-of-the-swaying-dunes-ii'}
             .layers=${[
         {
+          alt: `Upper figure in an extended pose, immersed in the ${layersContent.songOfTheSwayingDunesII.paintingName} composition.`,
           speed: 0.2,
           src: `${config.imgUrl}dunes-2-layer-4a.avif`,
           topPct: 22,
@@ -391,6 +437,7 @@ export class DanceFiguresSite extends LitElement {
           edgeAnchor: { edge: 'left', offset: '5px' },
         },
         {
+          alt: `${layersContent.songOfTheSwayingDunesII.altPrefix}${layersContent.songOfTheSwayingDunesII.backgroundAltSuffix}`,
           speed: 0.14,
           src: `${config.imgUrl}dunes-2-layer-4b.avif`,
           topPct: 22,
@@ -402,6 +449,7 @@ export class DanceFiguresSite extends LitElement {
         },
 
         {
+          alt: `Background of colourful brush strokes.`,
           speed: 0.15,
           src: `${config.imgUrl}dunes-2-layer-3b.avif`,
           topPct: 25,
@@ -411,6 +459,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-3',
         },
         {
+          alt: `Background female figure with arched back suspended in the mid of the dance, arms tracing the air.`,
           speed: 0.2,
           src: `${config.imgUrl}dunes-2-layer-3a.avif`,
           topPct: 25,
@@ -421,6 +470,7 @@ export class DanceFiguresSite extends LitElement {
         },
 
         {
+          alt: `${layersContent.songOfTheSwayingDunesII.altPrefix}${layersContent.songOfTheSwayingDunesII.backgroundAltSuffix}`,
           src: `${config.imgUrl}dunes-2-layer-2b.avif`,
           speed: 0.17,
           topPct: 1,
@@ -430,6 +480,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-2',
         },
         {
+          alt: `Large powerful female figure in a dynamic jump action, from the ${layersContent.songOfTheSwayingDunesII.paintingName} diptych.`,
           src: `${config.imgUrl}dunes-2-layer-2a.avif`,
           speed: 0.2,
           topPct: 0,
@@ -439,6 +490,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-2',
         },
         {
+          alt: `Frontmost figure in close detail, expressive face and gesture as she leans in towards the viewer — ${layersContent.songOfTheSwayingDunesII.paintingName}.`,
           speed: 0.07,
           src: `${config.imgUrl}dunes-2-layer-1aa.avif`,
           topPct: 40,
@@ -449,6 +501,7 @@ export class DanceFiguresSite extends LitElement {
           cssName: 'layer-1',
         },
         {
+          alt: `Abstract textures and brush marks to support the figures`,
           speed: 0.02,
           src: `${config.imgUrl}dunes-2-layer-1b.avif`,
           topPct: 47,

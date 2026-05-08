@@ -205,7 +205,7 @@ export class ShrinkPaintingPanel extends LitElement {
   @property({ type: Number }) scrollOutStart = 3000;
   @property({ type: Number }) finalScale = 0.33;
   @property({ type: String }) stageImage = '/img/interior-held-wind.avif';
-  @property({ type: String }) stageImageAlt = 'Stage Image';
+  @property({ type: String }) stageImageAlt = 'Beautiful interior stylish apartment, painted by Tiana Diakova';
   @property({ type: String }) plaqueText = '';
   @property({ type: Number }) stageImageEndTranslateYPos = 0;
 
@@ -231,6 +231,7 @@ export class ShrinkPaintingPanel extends LitElement {
     this.plaqueEl = this.renderRoot.querySelector('.plaque') as HTMLElement | undefined;
     this.instructionEl = this.renderRoot.querySelector('.scroll-instruction') as HTMLElement | undefined;
     this.stageImgEl = this.renderRoot.querySelector('.sticky-container > .stage-image') as HTMLElement | undefined;
+    this.stageImageAlt = `Beautiful interior stylish apartment, showing "${this.plaqueText}" dance figures art painted by Tiana Diakova`;
   }
 
   // Use RAF for smooth animation
