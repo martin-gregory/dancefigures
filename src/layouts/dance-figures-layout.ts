@@ -285,86 +285,34 @@ export class DanceFiguresLayout extends LitElement {
     }
   }
 
-  private animateScrollBy(offset: number, duration: number): Promise<void> {
-    return new Promise<void>((resolve) => {
-      const startY = window.scrollY;
-      const targetY = startY + offset;
-      const startTime = performance.now();
-
-      function tick(now: number) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        window.scrollTo(0, startY + (targetY - startY) * progress);
-        progress < 1 ? requestAnimationFrame(tick) : resolve();
-      }
-
-      requestAnimationFrame(tick);
-    });
-  }
-
-  private wait(ms: number): Promise<void> {
-    return new Promise<void>((resolve) => setTimeout(resolve, ms));
-  }
-
-  private async run() {
-    await this.animateScrollBy(4000, 2800);
-    // await this.wait(2000);
-    // await this.scrollBy(-1900, 3000);
-    // await this.wait(1000);
-    // await this.scrollBy(3000, 3400);
-  }
-
-  private smoothScrollTo() {
-    const targetYAmount = 2500; // scroll DOWN by this many px each press
-    const duration = 1000;
-    const startY = window.scrollY;
-    const distance = targetYAmount; // relative offset, not absolute position
-    let startTime: number | null = null;
-
-    function step(timestamp: number) {
-      if (!startTime) startTime = timestamp;
-      const timeElapsed = timestamp - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-      const easeProgress = 0.5 * (1 - Math.cos(Math.PI * progress));
-
-      window.scrollTo(0, startY + distance * easeProgress);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(step);
-      }
-    }
-
-    requestAnimationFrame(step);
-  }
-
   override render() {
     return html`
       <!-- Navigation -->
       <header>
         <slot name="navigation"></slot>
-        <!-- <button class="scroll-button" @click=${() => this.smoothScrollTo()}>ind</button> -->
       </header>
 
       <main>
         <div id="top"></div>
         <slot name="site-header"></slot>
 
-        <section id="held-by-the-wind" aria-labelledby="title-1">
-          <h1 class="sr-only" id="project-1-title">Held by the Wind</h1>
+        <section id="held-by-the-wind" aria-labelledby="project-1-title">
+          <h2 class="sr-only" id="project-1-title">Held by the Wind</h2>
           <slot name="artwork-held-by-the-wind"></slot>
         </section>
 
-        <section id="moved-by-the-tide" aria-labelledby="title-2">
-          <h1 class="sr-only" id="project-2-title">Moved by the Tide</h1>
+        <section id="moved-by-the-tide" aria-labelledby="project-2-title">
+          <h2 class="sr-only" id="project-2-title">Moved by the Tide</h2>
           <slot name="artwork-moved-by-the-tide"></slot>
         </section>
 
-        <section id="song-of-the-swaying-dunes-i" aria-labelledby="title-3">
-          <h1 class="sr-only" id="project-3-title">The Song of the Swaying Dunes I</h1>
+        <section id="song-of-the-swaying-dunes-i" aria-labelledby="project-3-title">
+          <h2 class="sr-only" id="project-3-title">The Song of the Swaying Dunes I</h2>
           <slot name="artwork-dunes-part-1"></slot>
         </section>
 
-        <section id="song-of-the-swaying-dunes-ii" aria-labelledby="title-4">
-          <h1 class="sr-only" id="project-4-title">The Song of the Swaying Dunes II</h1>
+        <section id="song-of-the-swaying-dunes-ii" aria-labelledby="project-4-title">
+          <h2 class="sr-only" id="project-4-title">The Song of the Swaying Dunes II</h2>
           <slot name="artwork-dunes-part-2"></slot>
         </section>
       </main>

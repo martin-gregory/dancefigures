@@ -15,7 +15,7 @@ interface Layer {
   fetchPriority?: 'high' | 'low' | 'auto'; // Optional fetch priority for the image
   edgeAnchor?: {
     edge: 'left' | 'right';
-    offset?: number; // px offset from the edge, defaults to 0
+    offset?: number | string; // px offset from the edge, defaults to 0
   };
 }
 @customElement('hero-parallax-panel')
@@ -43,7 +43,15 @@ export class HeroParallaxPanel extends LitElement {
     }
 
     figure figcaption {
-      visibility: hidden;
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
     }
 
     .layer-container {
@@ -147,7 +155,6 @@ export class HeroParallaxPanel extends LitElement {
 
   @state() private layerImgElements: HTMLElement[] = [];
   private rafId: number = 0;
-  private ticking = false;
 
   private observer: IntersectionObserver | null = null;
   private isVisible = false;

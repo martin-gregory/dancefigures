@@ -5,7 +5,6 @@ import { customElement, property } from 'lit/decorators.js';
 export class SiteNavigation extends LitElement {
   @property({ type: Boolean })
   private isMenuOpen = false;
-  private isMobile = window.matchMedia('(max-width: 768px)').matches;
   static override styles = css`
     :host {
       display: block;
@@ -143,10 +142,6 @@ export class SiteNavigation extends LitElement {
     }
   `;
 
-  override connectedCallback() {
-    super.connectedCallback();
-  }
-
   private toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
   }
@@ -186,7 +181,12 @@ export class SiteNavigation extends LitElement {
             <a href="/song-of-the-swaying-dunes-i" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-i', e)}>Dunes I</a>
             <a href="/song-of-the-swaying-dunes-ii" @click=${(e: Event) => this.scrollToTarget('song-of-the-swaying-dunes-ii', e)}>Dunes II</a>
           </div>
-          <button class="menu-btn" @click=${this.toggleMenu}>
+          <button
+            class="menu-btn"
+            @click=${this.toggleMenu}
+            aria-label="${this.isMenuOpen ? 'Close menu' : 'Open menu'}"
+            aria-expanded="${this.isMenuOpen}"
+          >
             <span></span>
             <span></span>
             <span></span>

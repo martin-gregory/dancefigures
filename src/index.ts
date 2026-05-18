@@ -5,8 +5,7 @@ import './components/site-header-panel';
 import './components/artwork-in-scene';
 
 import './layouts/dance-figures-layout';
-import './layouts/panel-layout-1';
-import './layouts/panel-layout-2';
+import './layouts/panel-layout';
 
 // Can add app bootstrapping logic here if needed
 import Clarity from '@microsoft/clarity';

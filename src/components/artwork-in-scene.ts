@@ -1,12 +1,9 @@
 import { css, html, LitElement, PropertyValues } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { customElement, property } from 'lit/decorators.js';
 
 interface Layer {
   src: string;
   speed: number;
-  startPos?: string;
-  direction?: string;
-  position?: { x?: string };
   objectFit?: string;
   container?: { maxWidth?: string };
   id?: string;
@@ -16,7 +13,7 @@ interface Layer {
 
 //NOTE: host height controls the amount of scroll phases, so can be adjusted for longer/shorter animations
 @customElement('artwork-in-scene')
-export class ShrinkPaintingPanel extends LitElement {
+export class ArtworkInScene extends LitElement {
   static override styles = css`
     :host {
       --frame-width: 88vh;
@@ -209,22 +206,31 @@ export class ShrinkPaintingPanel extends LitElement {
   @property({ type: String }) plaqueText = '';
   @property({ type: Number }) stageImageEndTranslateYPos = 0;
 
-  // Use state to hold refs for DOM elements
-  @state() private layerElements: HTMLElement[] = [];
-  @state() private layerImgElements: HTMLElement[] = [];
-  @state() private plaqueEl?: HTMLElement;
-  @state() private instructionEl?: HTMLElement;
-  @state() private stageImgEl?: HTMLElement;
+  private layerElements: HTMLElement[] = [];
+  private layerImgElements: HTMLElement[] = [];
+  private plaqueEl?: HTMLElement;
+  private instructionEl?: HTMLElement;
+  private stageImgEl?: HTMLElement;
 
   private rafId = 0;
+  private isVisible = false;
+  private observer: IntersectionObserver | null = null;
 
-  // Convenience: Setup/caching of DOM refs on first update
   protected override firstUpdated(_changedProperties: PropertyValues) {
     this.cacheElements();
-    this.scheduleScroll();
+
+    this.observer = new IntersectionObserver(
+      (entries) => {
+        this.isVisible = entries[0].isIntersecting;
+        if (this.isVisible) {
+          this.rafId = requestAnimationFrame(this.scheduleScroll);
+        }
+      },
+      { threshold: 0.01 },
+    );
+    this.observer.observe(this);
   }
 
-  // Convenient cache method
   private cacheElements() {
     this.layerElements = Array.from(this.renderRoot.querySelectorAll('.layer')) as HTMLElement[];
     this.layerImgElements = Array.from(this.renderRoot.querySelectorAll('.layer img')) as HTMLElement[];
@@ -234,21 +240,22 @@ export class ShrinkPaintingPanel extends LitElement {
     this.stageImageAlt = `Beautiful interior stylish apartment, showing "${this.plaqueText}" dance figures art painted by Tiana Diakova`;
   }
 
-  // Use RAF for smooth animation
   private scheduleScroll = () => {
+    if (!this.isVisible) {
+      cancelAnimationFrame(this.rafId);
+      return;
+    }
     this.onScroll();
     this.rafId = requestAnimationFrame(this.scheduleScroll);
   };
 
   override connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('scroll', this.onScroll, { passive: true });
-    this.scheduleScroll();
   }
 
   override disconnectedCallback() {
-    window.removeEventListener('scroll', this.onScroll);
     cancelAnimationFrame(this.rafId);
+    this.observer?.disconnect();
     super.disconnectedCallback();
   }
 
@@ -257,10 +264,7 @@ export class ShrinkPaintingPanel extends LitElement {
     return -hostRect.top;
   }
 
-  // *** Core Animation Frame Logic ***
   private onScroll = () => {
-    // Early exit if DOM not ready
-
     if (!this.layerElements.length) this.cacheElements();
     if (!this.layerElements.length) return;
 
@@ -273,49 +277,33 @@ export class ShrinkPaintingPanel extends LitElement {
 
     const scrollProgress = this.getScrollProgress();
 
-    // Calculate phase progress
     const convergenceProgress = this.clamp((scrollProgress - this.convergenceStart) / (this.convergenceEnd - this.convergenceStart));
 
-    // const isBeforeConvergence = scrollProgress < this.convergenceStart;
-
-    // Animate layers
     this.layers.forEach((layer, idx) => {
       const el = this.layerElements[idx];
       const imgEl = this.layerImgElements[idx];
       if (!el || !imgEl) return;
 
-      // Phase 1: Parallax
-
       imgEl.style.objectFit = layer.objectFit ?? 'cover';
 
-      // Phase 2: Convergence and scale
       if (convergenceProgress > 0 && scrollProgress < this.scrollOutStart) {
         const scale = 1 - (1 - this.finalScale) * convergenceProgress;
-        const scaleAmount = `scale(${scale})`;
-        imgEl.style.transform = `${scaleAmount}`;
+        imgEl.style.transform = `scale(${scale})`;
 
-        if (scale < 0.66) {
-        } else {
+        if (scale >= 0.66) {
           el.style.left = '0';
         }
       }
     });
 
-    // Final stage image slotting in
-    // Stage image appears together with layer scaling:
     if (this.stageImgEl) {
-      // Animate stage image starting as soon as convergence/scaling starts
       const stageImgStart = this.convergenceStart;
       const stageImgEnd = this.scrollOutStart;
 
-      // Progress 0 to 1 over this interval
       const stageImgProgress = this.clamp((scrollProgress - stageImgStart) / (stageImgEnd - stageImgStart));
-      // 100% -> 0% with smoothness
       const finalTranslate = (1 - stageImgProgress) * 100;
-      this.stageImgEl.style.transform = `translateY(${finalTranslate < this.stageImageEndTranslateYPos ? this.stageImageEndTranslateYPos : finalTranslate
-        }%)`;
+      this.stageImgEl.style.transform = `translateY(${finalTranslate < this.stageImageEndTranslateYPos ? this.stageImageEndTranslateYPos : finalTranslate}%)`;
 
-      // fade in plaque starting at 100% convergence
       if (this.plaqueEl) {
         if (convergenceProgress >= 1) {
           this.plaqueEl.style.opacity = `${(scrollProgress - this.convergenceEnd) / (this.scrollOutStart - this.convergenceEnd)}`;
@@ -332,12 +320,10 @@ export class ShrinkPaintingPanel extends LitElement {
     }
   };
 
-  // Utility clamp
   private clamp(val: number, min = 0, max = 1): number {
     return Math.max(min, Math.min(val, max));
   }
 
-  // Render logic
   override render() {
     return html`
       <div class="sticky-container">

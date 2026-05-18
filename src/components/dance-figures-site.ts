@@ -1,5 +1,5 @@
 import { LitElement, css, html } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { customElement, state } from 'lit/decorators.js';
 import { commonStyles } from '../styles/common-styles';
 
 @customElement('dance-figures-site')
@@ -7,10 +7,10 @@ export class DanceFiguresSite extends LitElement {
   private mobileQuery = window.matchMedia('(max-width: 480px)');
   private mediumQuery = window.matchMedia('(max-width: 1024px)');
 
-  @property({ type: Boolean })
+  @state()
   private isMobile = this.mobileQuery.matches;
 
-  @property({ type: Boolean })
+  @state()
   private isMedium = this.mediumQuery.matches && !this.mobileQuery.matches;
 
   override connectedCallback() {
@@ -37,7 +37,6 @@ export class DanceFiguresSite extends LitElement {
       :host {
         display: block;
         --accent-colour: #6e90c0;
-        --held-by-the-sea-bg: #485c71;
         --held-by-the-sea-bg: #b88393;
         background-color: var(--held-by-the-sea-bg);
       }
@@ -49,11 +48,6 @@ export class DanceFiguresSite extends LitElement {
       panelHeight: this.isMobile ? 150 : 400,
       imgUrl: this.isMobile ? '/img/mobile/' : this.isMedium ? '/img/medium/' : '/img/',
     };
-    // console.log({
-    //   isMobile: this.isMobile,
-    //   isMedium: this.isMedium,
-    // });
-
     const layersContent = {
       heldByTheWind: {
         altPrefix: 'Dance figures art collection — ',
@@ -90,9 +84,9 @@ export class DanceFiguresSite extends LitElement {
 
         <!-- negative startPos is up -->
         <!-- negative pos x is left -->
-        <panel-layout-1 slot="artwork-held-by-the-wind">
+        <panel-layout slot="artwork-held-by-the-wind">
           <hero-parallax-panel
-            slot="hero-1"
+            slot="hero"
             style="--panel-background-image: url('${config.imgUrl}held-background-coloured-big.avif'); --panel-height: ${this.isMobile
         ? 130
         : 420}vh; --panel-background-position: center 0;"
@@ -240,11 +234,11 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </artwork-in-scene>
-        </panel-layout-1>
+        </panel-layout>
 
-        <panel-layout-2 slot="artwork-moved-by-the-tide">
+        <panel-layout slot="artwork-moved-by-the-tide">
           <hero-parallax-panel
-            slot="hero-2"
+            slot="hero"
             style="--panel-background-image: url('${config.imgUrl}moved-by-tide-bg1.avif'); --panel-height: ${this.isMobile ? 120 : 352}vh;"
             .words=${['Moved', 'by', 'the', 'Tide']}
             .sectionID=${'moved-by-the-tide'}
@@ -324,10 +318,11 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </artwork-in-scene>
-        </panel-layout-2>
-        <panel-layout-2 slot="artwork-dunes-part-1">
+        </panel-layout>
+
+        <panel-layout slot="artwork-dunes-part-1">
           <hero-parallax-panel
-            slot="hero-2"
+            slot="hero"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${this.isMobile ? 123 : 360}vh;"
             .words=${['Dunes', 'I']}
             .caption=${layersContent.songOfTheSwayingDunesI.figCaption}
@@ -415,11 +410,11 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </artwork-in-scene>
-        </panel-layout-2>
+        </panel-layout>
 
-        <panel-layout-2 slot="artwork-dunes-part-2">
+        <panel-layout slot="artwork-dunes-part-2">
           <hero-parallax-panel
-            slot="hero-2"
+            slot="hero"
             style="--panel-background-image: url('${config.imgUrl}dunes-2-background.avif'); --panel-height: ${config.panelHeight}vh;"
             .words=${['Dunes', 'II']}
             .caption=${layersContent.songOfTheSwayingDunesII.figCaption}
@@ -531,7 +526,7 @@ export class DanceFiguresSite extends LitElement {
       ]}
           >
           </artwork-in-scene>
-        </panel-layout-2>
+        </panel-layout>
       </dance-figures-layout>
     `;
   }
